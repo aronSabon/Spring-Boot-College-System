@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body class="sb-nav-fixed">
+	<th:block th:insert="TopNavBar.html"></th:block>
+	<div id="layoutSidenav">
+		<th:block th:insert="SideNavBar.html"></th:block>
+		<div id="layoutSidenav_content">
+			<main>
+
+
+				<div class="container-fluid">
+
+					<div class="row page-titles mx-0">
+						<div class="col-sm-6 p-md-0">
+							<div class="welcome-text">
+								<h4>Add Student</h4>
+							</div>
+						</div>
+						<div
+							class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+							<ol class="breadcrumb">
+
+								<li class="breadcrumb-item"><a href="javascript:void(0);">Students</a></li>
+								<li class="breadcrumb-item active"><a
+									href="javascript:void(0);">Add Student</a></li>
+							</ol>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xl-12 col-xxl-12 col-sm-12">
+							<div class="card">
+								<div class="card-header">
+									<h5 class="card-title">Student Info</h5>
+								</div>
+								<div class="card-body">
+									<form action="/addStudent" method="post"  enctype="multipart/form-data">
+										<div class="row">
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="fullName">First Name</label>
+													<input id="fullName" name='fullName'
+														placeholder="Enter Full Name" type="text"
+														class="form-control" >
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="Enter_Last_Name">Email</label>
+													<input id="Enter_Last_Name" name='email'
+														placeholder="Enter Email" type="email"
+														class="form-control" >
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="Email">Roll No</label> 
+													<input id="Email" placeholder=" Enter Roll No" type="number"
+														class="form-control"  name="rollNo" required>
+												</div>
+											</div>
+												<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="department">Faculty</label>
+													 <select name="faculty" id="department" required class="form-control">
+														<option value="">Select</option>
+														
+														<option th:each="f:${fList}" th:value="${f.id}">[[${f.name}]]</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="grade">Grade</label>
+													 <select name="grade" id="grade" required class="form-control">
+														<option value="">Select Grade</option>
+														<option value="11">11</option>
+														<option value="12">12</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="section">Section</label>
+													 <select name="section" id="section" required class="form-control">
+														<option value="A">A</option>
+														<option value="B">B</option>
+														<option value="C">C</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<div class="form-label">Gender</div>
+													<input type="radio" value="Male" name="gender" id="male" checked >
+													<label for="male">Male</label> 
+													<input type="radio" value="Female" name="gender" id="female"> 
+													<label for="female">Female</label> 
+													<input type="radio" value="Others" name="gender" id="others">
+													<label for="others">Others</label> 
+												</div>
+											</div>
+												<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="datepicker">Date Of Birth</label>
+														<input type="Date" name="dob"
+															class=" form-control" id="datepicker" required
+															>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="phoneNumber">Mobile Number</label> <input
+														id="phoneNumber" placeholder="Enter Mobile Number" type="number"
+														class="form-control"  name="phoneNumber">
+												</div>
+											</div>
+										
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="parentName">Parent Name</label>
+													<input id="parentName" name='parentName'
+														placeholder="Enter Parent Name" type="text"
+														class="form-control" >
+												</div>
+											</div>
+											
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="parentPhoneNumber">Parent Mobile Number</label> <input
+														id="parentPhoneNumber" placeholder="Enter Parent Mobile Number" type="number"
+														class="form-control"  name="phoneNumber">
+												</div>
+											</div>
+											
+										
+												<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="city">City</label>
+													<input id="city" name='address.city'
+														placeholder="Enter City" type="text"
+														class="form-control" >
+												</div>
+											</div>
+												<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="state">State</label>
+													 <select name="address.state" id="state" required class="form-control">
+														<option value="">Select</option>
+														<option value="State-1">State-1</option>
+														<option value="State-2">State-2</option>
+														<option value="State-3">State-3</option>
+														<option value="State-4">State-4</option>
+														<option value="State-5">State-5</option>
+													</select>
+												</div>
+											</div>
+											
+									
+										
+											<div class="col-lg-4 col-md-6">
+												<div class="form-group fallback w-100">
+												<label class="form-label" for="photo">Photo</label>
+													<input id="photo" type="file" class="form-control"
+														 name="image" required>
+												</div>
+											</div>
+											<div class="col-lg-12 col-md-12 col-sm-12"><br>
+												<button type="submit" class="btn btn-primary">Submit</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+
+
+
+			</main>
+			<th:block th:insert="Footer.html"></th:block>
+		</div>
+	</div>
+</body>
+</html>
