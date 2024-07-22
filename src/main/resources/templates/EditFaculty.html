@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body class="sb-nav-fixed">
+	<th:block th:insert="TopNavBar.html"></th:block>
+	<div id="layoutSidenav">
+		<th:block th:insert="SideNavBar.html"></th:block>
+		<div id="layoutSidenav_content">
+			<main>
+
+<div class="container-fluid">
+
+					<div class="row page-titles mx-0">
+						<div class="col-sm-6 p-md-0">
+							<div class="welcome-text">
+								<h4>Edit Faculty</h4>
+							</div>
+						</div>
+						<div
+							class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+							<ol class="breadcrumb">
+
+								<li class="breadcrumb-item"><a href="javascript:void(0);">Faculty</a></li>
+								<li class="breadcrumb-item active"><a
+									href="javascript:void(0);">Edit Faculty</a></li>
+							</ol>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xl-12 col-xxl-12 col-sm-12">
+							<div class="card">
+								<div class="card-header">
+									<h5 class="card-title">Faculty Info</h5>
+								</div>
+								<div class="card-body">
+									<form action="/updateFaculty" method="post" th:object="${fModel}">
+										<div class="row">
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="fullName">Faculty Name</label>
+													<input id="fullName" th:field="*{name}"
+														placeholder="Enter Faculty Name" type="text"
+														class="form-control" required>
+												</div>
+											</div>
+							
+											<div class="col-lg-12 col-md-12 col-sm-12"><br>
+												<button type="submit" class="btn btn-primary">Submit</button>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			
+
+
+
+
+			</main>
+			<th:block th:insert="Footer.html"></th:block>
+		</div>
+	</div>
+</body>
+</html>

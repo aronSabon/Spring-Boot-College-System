@@ -12,17 +12,33 @@
 			<main>
 
 
-		 <div class="container-fluid px-4">
-                        <h1 class="mt-4">Add Student</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Add Student</li>
-                        </ol>
-                       
-                        <div class="card mb-4">
-                            
-                            <div class="card-body">
-                                <form action="/addStudent" method="post"  enctype="multipart/form-data">
+				<div class="container-fluid">
+
+					<div class="row page-titles mx-0">
+						<div class="col-sm-6 p-md-0">
+							<div class="welcome-text">
+								<h4>Add Teacher</h4>
+							</div>
+						</div>
+						<div
+							class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+							<ol class="breadcrumb">
+
+								<li class="breadcrumb-item"><a href="javascript:void(0);">Teachers</a></li>
+								<li class="breadcrumb-item active"><a
+									href="javascript:void(0);">Add Teacher</a></li>
+							</ol>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xl-12 col-xxl-12 col-sm-12">
+							<div class="card">
+								<div class="card-header">
+									<h5 class="card-title">Teacher Info</h5>
+								</div>
+								<div class="card-body">
+									<form action="/addStudent" method="post"  enctype="multipart/form-data">
 										<div class="row">
 											<div class="col-sm-6">
 												<div class="form-group">
@@ -77,14 +93,6 @@
 													</select>
 												</div>
 											</div>
-												<div class="col-sm-6">
-												<div class="form-group">
-													<label class="form-label" for="date">Admission Date</label>
-														<input type="Date" name="admissionDate"
-															class=" form-control" id="date" required
-															>
-												</div>
-											</div>
 											<div class="col-sm-6">
 												<div class="form-group">
 													<div class="form-label">Gender</div>
@@ -108,7 +116,7 @@
 												<div class="form-group">
 													<label class="form-label" for="phoneNumber">Mobile Number</label> <input
 														id="phoneNumber" placeholder="Enter Mobile Number" type="number"
-														class="form-control"  name="mobileNumber">
+														class="form-control"  name="phoneNumber">
 												</div>
 											</div>
 										
@@ -125,7 +133,7 @@
 												<div class="form-group">
 													<label class="form-label" for="parentPhoneNumber">Parent Mobile Number</label> <input
 														id="parentPhoneNumber" placeholder="Enter Parent Mobile Number" type="number"
-														class="form-control"  name="parentMobileNumber">
+														class="form-control"  name="phoneNumber">
 												</div>
 											</div>
 											
@@ -166,10 +174,12 @@
 											</div>
 										</div>
 									</form>
-                            </div>
-                        </div>
-                    </div>
-                	
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
 
 
 

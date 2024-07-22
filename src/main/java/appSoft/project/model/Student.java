@@ -2,7 +2,10 @@ package appSoft.project.model;
 
 
 
-import java.sql.Date;
+import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -27,7 +30,10 @@ public class Student {
 	private int mobileNumber;
 	private String parentName;
 	private int parentMobileNumber;
-	private Date dob;
+	@DateTimeFormat(iso =  ISO.DATE)
+	private LocalDate dob;
+	@DateTimeFormat(iso =  ISO.DATE)
+	private LocalDate admissionDate;
 	@OneToOne
 	private Faculty faculty;
 	@OneToOne(cascade = CascadeType.ALL)

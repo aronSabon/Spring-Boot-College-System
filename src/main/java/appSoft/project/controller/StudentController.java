@@ -32,4 +32,26 @@ public class StudentController {
 		ss.addStudent(student);
 		return "redirect:/addStudent";
 	}
+	@GetMapping("/studentList")
+	private String studentList(Model model) {
+		model.addAttribute("sList", ss.getAllStudent());
+		return "StudentList";
+	}
+	@GetMapping("/deleteStudent")
+	private String deleteStudent(@RequestParam int id) {
+		ss.deleteStudentById(id);
+		return "redirect:/studentList";
+	}
+	@GetMapping("/editStudent")
+	private String editStudent(@RequestParam int id,Model model) {
+		model.addAttribute("sModel",ss.getStudentById(id));
+		model.addAttribute("fList", fs.getAllFaculty());
+		return "EditStudent";
+	}
+	@PostMapping("/updateStudent")
+	private String updateStudent(@ModelAttribute Student student,@RequestParam MultipartFile image) {
+		student.setImageName(image.getOriginalFilename());
+		ss.updateStudent(student);
+		return "redirect:/studentList";
+	}
 }
