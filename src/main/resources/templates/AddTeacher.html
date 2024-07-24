@@ -12,181 +12,196 @@
 			<main>
 
 
-				<div class="container-fluid">
+				<div class="page-wrapper">
+					<div class="content container-fluid">
 
-					<div class="row page-titles mx-0">
-						<div class="col-sm-6 p-md-0">
-							<div class="welcome-text">
-								<h4>Add Teacher</h4>
+						<div class="page-header">
+							<div class="row align-items-center">
+								<div class="col">
+									<h3 class="page-title">Add Teachers</h3>
+									<ul class="breadcrumb">
+										<li class="breadcrumb-item"><a href="teachers.html">Teachers</a></li>
+										<li class="breadcrumb-item active">Add Teachers</li>
+									</ul>
+								</div>
 							</div>
 						</div>
-						<div
-							class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-							<ol class="breadcrumb">
 
-								<li class="breadcrumb-item"><a href="javascript:void(0);">Teachers</a></li>
-								<li class="breadcrumb-item active"><a
-									href="javascript:void(0);">Add Teacher</a></li>
-							</ol>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-xl-12 col-xxl-12 col-sm-12">
-							<div class="card">
-								<div class="card-header">
-									<h5 class="card-title">Teacher Info</h5>
-								</div>
-								<div class="card-body">
-									<form action="/addStudent" method="post"  enctype="multipart/form-data">
-										<div class="row">
-											<div class="col-sm-6">
-												<div class="form-group">
-													<label class="form-label" for="fullName">Full Name</label>
-													<input id="fullName" name='fullName'
-														placeholder="Enter Full Name" type="text"
-														class="form-control" >
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="card">
+									<div class="card-body">
+										<form  action="/addTeacher" method="post" enctype="multipart/form-data">
+											<div class="row">
+												<div class="col-12">
+													<h5 class="form-title">
+														<span>Basic Details</span>
+													</h5>
 												</div>
-											</div>
-											<div class="col-sm-6">
-												<div class="form-group">
-													<label class="form-label" for="Enter_Last_Name">Email</label>
-													<input id="Enter_Last_Name" name='email'
-														placeholder="Enter Email" type="email"
-														class="form-control" >
-												</div>
-											</div>
-											<div class="col-sm-6">
-												<div class="form-group">
-													<label class="form-label" for="Email">Roll No</label> 
-													<input id="Email" placeholder=" Enter Roll No" type="number"
-														class="form-control"  name="rollNo" required>
-												</div>
-											</div>
-												<div class="col-sm-6">
-												<div class="form-group">
-													<label class="form-label" for="department">Faculty</label>
-													 <select name="faculty" id="department" required class="form-control">
-														<option value="">Select</option>
-														
-														<option th:each="f:${fList}" th:value="${f.id}">[[${f.name}]]</option>
-													</select>
-												</div>
-											</div>
-											<div class="col-sm-6">
-												<div class="form-group">
-													<label class="form-label" for="grade">Grade</label>
-													 <select name="grade" id="grade" required class="form-control">
-														<option value="">Select Grade</option>
-														<option value="11">11</option>
-														<option value="12">12</option>
-													</select>
-												</div>
-											</div>
-											<div class="col-sm-6">
-												<div class="form-group">
-													<label class="form-label" for="section">Section</label>
-													 <select name="section" id="section" required class="form-control">
-														<option value="A">A</option>
-														<option value="B">B</option>
-														<option value="C">C</option>
-													</select>
-												</div>
-											</div>
-											<div class="col-sm-6">
-												<div class="form-group">
-													<div class="form-label">Gender</div>
-													<input type="radio" value="Male" name="gender" id="male" checked >
-													<label for="male">Male</label> 
-													<input type="radio" value="Female" name="gender" id="female"> 
-													<label for="female">Female</label> 
-													<input type="radio" value="Others" name="gender" id="others">
-													<label for="others">Others</label> 
-												</div>
-											</div>
-												<div class="col-sm-6">
-												<div class="form-group">
-													<label class="form-label" for="datepicker">Date Of Birth</label>
-														<input type="Date" name="dob"
-															class=" form-control" id="datepicker" required
-															>
-												</div>
-											</div>
-											<div class="col-sm-6">
-												<div class="form-group">
-													<label class="form-label" for="phoneNumber">Mobile Number</label> <input
-														id="phoneNumber" placeholder="Enter Mobile Number" type="number"
-														class="form-control"  name="phoneNumber">
-												</div>
-											</div>
-										
-											<div class="col-sm-6">
-												<div class="form-group">
-													<label class="form-label" for="parentName">Parent Name</label>
-													<input id="parentName" name='parentName'
-														placeholder="Enter Parent Name" type="text"
-														class="form-control" >
-												</div>
-											</div>
 											
-											<div class="col-sm-6">
-												<div class="form-group">
-													<label class="form-label" for="parentPhoneNumber">Parent Mobile Number</label> <input
-														id="parentPhoneNumber" placeholder="Enter Parent Mobile Number" type="number"
-														class="form-control"  name="phoneNumber">
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">Full Name <span class="login-danger">*</span></label> <input
+															type="text" class="form-control" placeholder="Enter Name" name="fullName">
+													</div>
 												</div>
-											</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														 <div>Gender</div>
+														<input type="radio" name="gender" id="male" value="Male" checked> <label  for="male" > Male</label>
+														<input type="radio" name="gender" id="female" value="Female"> <label  for="female"> Female</label>
+														<input type="radio" name="gender" id="others" value="Others"> <label  for="others"> Others</label>
+													</div>
+												</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms ">
+														<label class="editLabel">Date Of Birth <span class="login-danger">*</span></label>
+														<input class="form-control " type="date"
+															placeholder="DD-MM-YYYY" name="dob">
+													</div>
+												</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">Mobile <span class="login-danger">*</span></label>
+														<input type="text" class="form-control"
+															placeholder="Enter Phone" name="mobileNumber">
+													</div>
+												</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms ">
+														<label class="editLabel">Joining Date <span class="login-danger">*</span></label>
+														<input class="form-control datetimepicker" type="date"
+															placeholder="DD-MM-YYYY" name="joinDate">
+													</div>
+												</div>
+												<div class="col-12 col-sm-4 local-forms">
+													<div class="form-group">
+														<label class="editLabel">Qualification <span class="login-danger">*</span></label>
+														<input class="form-control" type="text"
+															placeholder="Enter Qualification" name="qualification">
+													</div>
+												</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">Experience <span class="login-danger">*</span></label>
+														<input class="form-control" type="text"
+															placeholder="Enter Experience" name="experience">
+													</div>
+												</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">Faculty <span class="login-danger">*</span></label>
+														<select class="form-control" name="faculty">
+															<option th:each="f:${fList}" th:value="${f.id}">[[${f.name}]]</option>
+														</select>												
+													</div>
+												</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">Grade <span class="login-danger">*</span></label>
+														<select class="form-control" name="grade">
+															<option value="" >Select Grade</option>
+															<option value="11">11</option>
+															<option value="12">12</option>
+														</select>												
+													</div>
+												</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">Section <span class="login-danger">*</span></label>
+														<select class="form-control" name="section">
+															<option value="A">A</option>
+															<option value="B">B</option>
+															<option value="C">C</option>
+														</select>												
+													</div>
+												</div>
+												
+												
+												
+												
 											
-										
-												<div class="col-sm-6">
-												<div class="form-group">
-													<label class="form-label" for="city">City</label>
-													<input id="city" name='address.city'
-														placeholder="Enter City" type="text"
-														class="form-control" >
+												
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">Photo <span class="login-danger">*</span></label>
+														<input class="form-control" type="file"
+															placeholder="Select Photo" name="image">
+													</div>
 												</div>
-											</div>
-												<div class="col-sm-6">
-												<div class="form-group">
-													<label class="form-label" for="state">State</label>
-													 <select name="address.state" id="state" required class="form-control">
+											
+												<div class="col-12">
+													<h5 class="form-title">
+														<span>Login Details</span>
+													</h5>
+												</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">Username <span class="login-danger">*</span></label>
+														<input type="text" class="form-control"
+															placeholder="Enter Username" name="username">
+													</div>
+												</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">Email ID <span class="login-danger">*</span></label>
+														<input type="email" class="form-control"
+															placeholder="Enter E-mail" name="email">
+													</div>
+												</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">Password <span class="login-danger">*</span></label>
+														<input type="text" class="form-control"
+															placeholder="Enter Password" name="password">
+													</div>
+												</div>
+											
+												<div class="col-12">
+													<h5 class="form-title">
+														<span>Address</span>
+													</h5>
+												</div>
+												
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">City <span class="login-danger">*</span></label> <input
+															type="text" class="form-control" placeholder="Enter City" name="address.city">
+													</div>
+												</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">State <span class="login-danger">*</span></label>
+														<select name="address.state"  class="form-control" >
 														<option value="">Select</option>
 														<option value="State-1">State-1</option>
 														<option value="State-2">State-2</option>
 														<option value="State-3">State-3</option>
 														<option value="State-4">State-4</option>
 														<option value="State-5">State-5</option>
-													</select>
+														</select>
+													</div>
 												</div>
-											</div>
 											
-									
-										
-											<div class="col-lg-4 col-md-6">
-												<div class="form-group fallback w-100">
-												<label class="form-label" for="photo">Photo</label>
-													<input id="photo" type="file" class="form-control"
-														 name="image" required>
+												<div class="col-12">
+													<div class="student-submit">
+														<button type="submit" class="btn btn-primary">Submit</button>
+													</div>
 												</div>
 											</div>
-											<div class="col-lg-12 col-md-12 col-sm-12"><br>
-												<button type="submit" class="btn btn-primary">Submit</button>
-											</div>
-										</div>
-									</form>
+										</form>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-
 				</div>
 
-
-
-
-			</main>
-			<th:block th:insert="Footer.html"></th:block>
-		</div>
+		</main>
+		<th:block th:insert="Footer.html"></th:block>
 	</div>
+	</div>
+	
 </body>
+
 </html>

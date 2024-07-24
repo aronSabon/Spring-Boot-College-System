@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import appSoft.project.model.Teacher;
 import appSoft.project.service.FacultyService;
@@ -26,7 +27,8 @@ public class TeacherController {
 		return "AddTeacher";
 	}
 	@PostMapping("/addTeacher")
-	private String addTeacher(@ModelAttribute Teacher teacher) {
+	private String addTeacher(@ModelAttribute Teacher teacher,@RequestParam MultipartFile image) {
+		teacher.setImageName(image.getOriginalFilename());
 		ts.addTeacher(teacher);
 		return "redirect:/addTeacher";
 	}
@@ -47,7 +49,9 @@ public class TeacherController {
 		return "EditTeacher";
 	}
 	@PostMapping("/updateTeacher")
-	private String updateTeacher(@ModelAttribute Teacher teacher) {
+	private String updateTeacher(@ModelAttribute Teacher teacher,@RequestParam MultipartFile image) {
+		teacher.setImageName(image.getOriginalFilename());
+
 		ts.updateTeacher(teacher);
 		return "redirect:/teacherList";
 	}

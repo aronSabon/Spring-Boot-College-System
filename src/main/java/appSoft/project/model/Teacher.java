@@ -1,8 +1,9 @@
 package appSoft.project.model;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,19 +19,23 @@ public class Teacher {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String fullName;
-	private String email;
+	private String gender;
+	private Date dob;
+	private int mobileNumber;
 	private Date  joinDate;
+	private String qualification;
+	private String experience;
+	private String email;
 	private String username;
 	private String password;
-	private int mobileNumber;
-	private String gender;
 	@OneToMany
 	List<Faculty> faculty;
-	private Date dob;
-	private String education;
-	private String experience;
-	@OneToOne
+
+	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
+	private String imageName;
+	private String grade;
+	private String section;
 
 
 
