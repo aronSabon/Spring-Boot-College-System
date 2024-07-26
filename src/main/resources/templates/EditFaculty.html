@@ -39,6 +39,7 @@
 								<div class="card-body">
 									<form action="/updateFaculty" method="post" th:object="${fModel}">
 										<div class="row">
+										
 											<div class="col-sm-6">
 												<div class="form-group">
 													<label class="form-label" for="fullName">Faculty Name</label>
@@ -47,9 +48,20 @@
 														class="form-control" required>
 												</div>
 											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="adFee">Admission Fee
+														</label> <input id="adFee" th:field="*{admissionFee}"
+														placeholder="Enter Admission Fee" type="number"
+														class="form-control" required>
+												</div>
+											</div>
 							
 											<div class="col-lg-12 col-md-12 col-sm-12"><br>
 												<button type="submit" class="btn btn-primary">Submit</button>
+											</div>
+											<div>
+												<input type="hidden" th:field="*{id}">
 											</div>
 										</div>
 									</form>

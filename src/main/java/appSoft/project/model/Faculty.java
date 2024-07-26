@@ -13,5 +13,6 @@ public class Faculty {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
+	private double admissionFee;
 
 }

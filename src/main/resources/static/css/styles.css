@@ -2472,7 +2472,7 @@ textarea.form-control-lg {
   padding-top: 1.625rem;
   padding-bottom: 0.625rem;
 }
-.form-floating > .form-select, .form-floating > .datatable-selector {
+.form-floating > .form-, .form-floating > .datatable-selector {
   padding-top: 1.625rem;
   padding-bottom: 0.625rem;
 }

@@ -43,5 +43,10 @@ public class StudentServiceImpl implements StudentService {
 			// TODO Auto-generated method stub
 			sr.save(student);
 		}
+		@Override
+		public Student getStudentByRollNo(int rollNo) {
+			// TODO Auto-generated method stub
+			return sr.findByRollNo(rollNo);
+		}
 
 }

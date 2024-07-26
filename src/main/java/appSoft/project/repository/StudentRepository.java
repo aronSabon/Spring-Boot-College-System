@@ -7,5 +7,5 @@ import appSoft.project.model.Student;
 
 public interface StudentRepository extends JpaRepository<Student, Integer> {
 
-
+Student findByRollNo(int rollNo);
 }

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body class="sb-nav-fixed">
+	<th:block th:insert="TopNavBar.html"></th:block>
+	<div id="layoutSidenav">
+		<th:block th:insert="SideNavBar.html"></th:block>
+		<div id="layoutSidenav_content">
+			<main>
+
+
+		 <div class="container-fluid px-4">
+                        <h1 class="mt-4">Add Salary</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Add Salary</li>
+                        </ol>
+                       
+                        <div class="card mb-4">
+                            
+                            <div class="card-body">
+                                <form action="/addSalary" method="post"  >
+										<div class="row">
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="fullName">Name</label>
+													<input id="fullName" name='fullName'
+														placeholder="Enter Full Name" type="text"
+														class="form-control" >
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<div class="form-label">Gender</div>
+													<input type="radio" value="Male" name="gender" id="male" checked >
+													<label for="male">Male</label> 
+													<input type="radio" value="Female" name="gender" id="female"> 
+													<label for="female">Female</label> 
+													<input type="radio" value="Others" name="gender" id="others">
+													<label for="others">Others</label> 
+												</div>
+											</div>
+											
+										
+												<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="startTime">Pay Date</label>
+														<input type="date" name="payDate"
+															class=" form-control" id="startTime" placeholder="Enter Pay Date" required
+															>
+												</div>
+											</div>
+												<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="endtime">Amount</label>
+														<input type="number" name="amount"
+															class=" form-control" id="endtime" placeholder="Enter Amount" required
+															>
+												</div>
+											</div>
+											
+											<div class="col-lg-12 col-md-12 col-sm-12"><br>
+												<button type="submit" class="btn btn-primary">Submit</button>
+											</div>
+										</div>
+									</form>
+                            </div>
+                        </div>
+                    </div>
+                	
+
+
+
+
+			</main>
+			<th:block th:insert="Footer.html"></th:block>
+		</div>
+	</div>
+</body>
+</html>

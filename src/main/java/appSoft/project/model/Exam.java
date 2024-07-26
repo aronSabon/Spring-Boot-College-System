@@ -1,6 +1,7 @@
 package appSoft.project.model;
 
-import java.util.Date;
+
+import java.sql.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,11 +18,16 @@ public class Exam {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	private String name;
+	
 	@OneToOne
 	private Faculty faculty;
+	private String grade;
 	@OneToOne
 	private Subject subject;
+	
 	private Date date;
-	private String time;
+	private String startTime;
+	private String endTime;
 
 }

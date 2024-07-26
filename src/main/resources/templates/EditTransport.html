@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body class="sb-nav-fixed">
+	<th:block th:insert="TopNavBar.html"></th:block>
+	<div id="layoutSidenav">
+		<th:block th:insert="SideNavBar.html"></th:block>
+		<div id="layoutSidenav_content">
+			<main>
+
+
+		 <div class="container-fluid px-4">
+                        <h1 class="mt-4">Add Transport</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Add Transport</li>
+                        </ol>
+                       
+                        <div class="card mb-4">
+                            
+                            <div class="card-body">
+                                <form action="/updateTransport" method="post" th:object="${tModel}" >
+										<div class="row">
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="fullName">Route Name</label>
+													<input id="fullName" th:field="*{routeName}"
+														placeholder="Enter Route Name" type="text"
+														class="form-control" >
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="vehicheno">Vehicle Number</label>
+													<input id="vehicleno"  th:field="*{vehicleNumber}"
+														placeholder="Enter Vehicle Number" type="text"
+														class="form-control" >
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="driverName">Driver Name</label>
+													<input id="driverName"  th:field="*{driverName}"
+														placeholder="Enter Driver Name" type="text"
+														class="form-control" >
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="driverLicense">Driver License</label>
+													<input id="driverLicense"  th:field="*{driverLicense}"
+														placeholder="Enter License No" type="text"
+														class="form-control" >
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="contactNumber">Contact Number</label>
+													<input id="contactNumber"  th:field="*{contactNumber}"
+														placeholder="Enter Contact Number" type="number"
+														class="form-control" >
+												</div>
+											</div>
+											
+										
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="driverAddress">City</label>
+													<input id="driverAddress"  th:field="*{driverAddress.city}"
+														placeholder="Enter Driver City" type="text"
+														class="form-control" >
+												</div>
+											</div>
+										<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="state">State</label>
+													 <select  th:field="*{driverAddress.state}" id="state" required class="form-control">
+														<option value="Koshi">Koshi</option>
+														<option value="Madhesh">Madhesh</option>
+														<option value="Bagmati">Bagmati</option>
+														<option value="Gandaki">Gandaki</option>
+														<option value="Lumbini">Lumbini</option>
+														<option value="Karnali">Karnali</option>
+														<option value="Sudurpaschim">Sudurpaschim</option>
+													</select>
+												</div>
+											</div>
+											
+											<div class="col-lg-12 col-md-12 col-sm-12"><br>
+												<button type="submit" class="btn btn-primary">Submit</button>
+											</div>
+											<div>
+												<input type="hidden" th:field="*{id}">
+											</div>
+										</div>
+									</form>
+                            </div>
+                        </div>
+                    </div>
+                	
+
+
+
+
+			</main>
+			<th:block th:insert="Footer.html"></th:block>
+		</div>
+	</div>
+</body>
+</html>

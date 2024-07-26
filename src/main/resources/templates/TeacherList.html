@@ -25,8 +25,8 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                         <th>Roll No</th>
                                             <th>Name</th>
+                                            <th>Faculty</th>
                                             <th>Grade</th>
                                             <th>Gender</th>
                                             <th>Subject</th>
@@ -36,17 +36,21 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each=s:${sList}>
-                                            <td>[[${s.rollNo}]]</td>
-                                            <td>[[${s.fullName}]]</td>
-                                            <td>[[${s.faculty.name}]]</td>
-                                            <td>[[${s.grade}]][[${s.section}]]</td>
-                                            <td>[[${s.mobileNumber}]]</td>
-                                            <td>[[${s.email}]]</td>
-                                            <td>[[${s.admissionDate}]]</td>
+                                        <tr th:each=t:${tList}>
+                                            <td>[[${t.fullName}]]</td>
                                             <td>
-                                            	<a  th:href="@{/editStudent(id=${s.id})}"><button class="btn btn-primary">Edit</button></a>
-                                            	<a th:href="@{/deleteStudent(id=${s.id})}"><button class="btn btn-danger">Delete</button></a>
+                                              <th:block th:each="fact : ${t.faculty}">
+                                                [[${fact.name}]]
+                                              </th:block>
+                                            </td>
+                                            <td>[[${t.grade}]][[${t.section}]]</td>
+                                            <td>[[${t.gender}]]</td>
+                                            <td>[[${t.subject}]]</td>
+                                            <td>[[${t.mobileNumber}]]</td>
+                                            <td>[[${t.address.state}]],[[${t.address.city}]]</td>
+                                            <td>
+                                            	<a  th:href="@{/editTeacher(id=${t.id})}"><button class="btn btn-primary">Edit</button></a>
+                                            	<a th:href="@{/deleteTeacher(id=${t.id})}"><button class="btn btn-danger">Delete</button></a>
                                             </td>
                                         </tr>
                                        

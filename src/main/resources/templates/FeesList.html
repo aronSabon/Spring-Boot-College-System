@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body class="sb-nav-fixed">
+	<th:block th:insert="TopNavBar.html"></th:block>
+	<div id="layoutSidenav">
+		<th:block th:insert="SideNavBar.html"></th:block>
+		<div id="layoutSidenav_content">
+			<main>
+
+
+		 <div class="container-fluid px-4">
+                        <h1 class="mt-4">Fees List</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Fees List</li>
+                        </ol>
+                       
+                        <div class="card mb-4">
+                            
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                            <th>Student Id</th>
+                                            <th>Student Name</th>
+                                            <th>Fees Type</th>
+                                            <th>Amount</th>
+                                            <th>Invoice Date</th>
+                                            
+                                            <th>Due Date</th>
+                                            <th>Status</th>
+                                            <th>
+                                            Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each=f:${fList}>
+                                            <td>[[${f.studentId}]]</td>
+                                            <td>[[${f.studentName}]]</td>
+                                            <td>[[${f.feesType}]]</td>
+                                            <td>[[${f.amount}]]</td>
+                                            <td>[[${f.invoiceDate}]]</td>
+                                            <td>[[${f.dueDate}]]</td>
+                                            <td>[[${f.status}]]</td>
+                                            <td>
+                                            	<a  th:href="@{/editFees(id=${f.id})}"><button class="btn btn-primary btn-sm">Edit</button></a>
+                                            	<a th:href="@{/deleteFees(id=${f.id})}"><button class="btn btn-danger btn-sm">Delete</button></a><br>
+                                            	<a  th:href="@{/addFeesFromList(id=${f.id})}"><button class="btn btn-primary btn-sm">Add Fees</button></a>
+                                            	<a th:href="@{/paymentDetails(id=${f.studentId})}"><button class="btn btn-success btn-sm">Payment Details</button></a>
+                                            </td>
+                                        </tr>
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                	
+
+
+
+
+			</main>
+			<th:block th:insert="Footer.html"></th:block>
+		</div>
+	</div>
+</body>
+</html>

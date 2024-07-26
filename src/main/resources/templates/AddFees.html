@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body class="sb-nav-fixed">
+	<th:block th:insert="TopNavBar.html"></th:block>
+	<div id="layoutSidenav">
+		<th:block th:insert="SideNavBar.html"></th:block>
+		<div id="layoutSidenav_content">
+			<main>
+
+
+		 <div class="container-fluid px-4">
+                        <h1 class="mt-4">Add Fees</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Add Fees</li>
+                        </ol>
+                       
+                        <div class="card mb-4">
+                            
+                            <div class="card-body">
+                                <form action="/addFees" method="post"  >
+										<div class="row">
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="fullName">Student Id</label>
+													<input id="fullName" name='studentId'
+														placeholder="Enter Student Id" type="text"
+														class="form-control" >
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="grade">Student Name</label>
+													 <input id="grade" name='studentName'
+														placeholder="Enter Student Name" type="text"
+														class="form-control" >
+												</div>
+											</div>
+											
+										
+												<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="startTime">Fees Type</label>
+														<input type="text" name="feesType"
+															class=" form-control" id="startTime" placeholder="Enter Fees Type" required
+															>
+												</div>
+											</div>
+												<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="endtime">Amount</label>
+														<input type="number" name="amount"
+															class=" form-control" id="endtime" placeholder="Enter Amount" required
+															>
+												</div>
+											</div>
+										
+										
+										
+										
+										
+										
+												<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="date">Invoice Date</label>
+														<input type="date" name="invoiceDate" th:value="${date}"
+															class=" form-control" id="date" required
+															>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="date">Due Date</label>
+														<input type="date" name="dueDate"
+															class=" form-control" id="date" required
+															>
+												</div>
+											</div>
+											
+											<div class="col-lg-12 col-md-12 col-sm-12"><br>
+												<button type="submit" class="btn btn-primary">Submit</button>
+											</div>
+										</div>
+									</form>
+                            </div>
+                        </div>
+                    </div>
+                	
+
+
+
+
+			</main>
+			<th:block th:insert="Footer.html"></th:block>
+		</div>
+	</div>
+</body>
+</html>

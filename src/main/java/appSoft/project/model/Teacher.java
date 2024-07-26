@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
@@ -28,7 +29,7 @@ public class Teacher {
 	private String email;
 	private String username;
 	private String password;
-	@OneToMany
+	@ManyToMany
 	List<Faculty> faculty;
 
 	@OneToOne(cascade = CascadeType.ALL)
@@ -36,6 +37,7 @@ public class Teacher {
 	private String imageName;
 	private String grade;
 	private String section;
+	private String subject;
 
 
 

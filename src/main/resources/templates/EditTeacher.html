@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body class="sb-nav-fixed">
+	<th:block th:insert="TopNavBar.html"></th:block>
+	<div id="layoutSidenav">
+		<th:block th:insert="SideNavBar.html"></th:block>
+		<div id="layoutSidenav_content">
+			<main>
+
+
+				<div class="page-wrapper">
+					<div class="content container-fluid">
+
+						<div class="page-header">
+							<div class="row align-items-center">
+								<div class="col">
+									<h3 class="page-title">Add Teachers</h3>
+									<ul class="breadcrumb">
+										<li class="breadcrumb-item"><a href="teachers.html">Teachers</a></li>
+										<li class="breadcrumb-item active">Add Teachers</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="card">
+									<div class="card-body">
+										<form  action="/updateTeacher" method="post" enctype="multipart/form-data" th:object="${tModel}">
+											<div class="row">
+												<div class="col-12">
+													<h5 class="form-title">
+														<span>Basic Details</span>
+													</h5>
+												</div>
+											
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">Full Name <span class="login-danger">*</span></label> <input
+															type="text" class="form-control" placeholder="Enter Name" th:field="*{fullName}">
+													</div>
+												</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														 <div>Gender</div>
+														<input type="radio"  th:field="*{gender}" id="male" value="Male" checked> <label  for="male" > Male</label>
+														<input type="radio"  th:field="*{gender}" id="female" value="Female"> <label  for="female"> Female</label>
+														<input type="radio"  th:field="*{gender}" id="others" value="Others"> <label  for="others"> Others</label>
+													</div>
+												</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms ">
+														<label class="editLabel">Date Of Birth <span class="login-danger">*</span></label>
+														<input class="form-control " type="date"
+															placeholder="DD-MM-YYYY"  th:field="*{dob}">
+													</div>
+												</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">Mobile <span class="login-danger">*</span></label>
+														<input type="text" class="form-control"
+															placeholder="Enter Phone"  th:field="*{mobileNumber}">
+													</div>
+												</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms ">
+														<label class="editLabel">Joining Date <span class="login-danger">*</span></label>
+														<input class="form-control datetimepicker" type="date"
+															placeholder="DD-MM-YYYY"  th:field="*{joinDate}">
+													</div>
+												</div>
+												<div class="col-12 col-sm-4 local-forms">
+													<div class="form-group">
+														<label class="editLabel">Qualification <span class="login-danger">*</span></label>
+														<input class="form-control" type="text"
+															placeholder="Enter Qualification" th:field="*{qualification}">
+													</div>
+												</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">Experience <span class="login-danger">*</span></label>
+														<input class="form-control" type="text"
+															placeholder="Enter Experience" th:field="*{experience}">
+													</div>
+												</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">Faculty <span class="login-danger">*</span></label>
+														<select class="form-control" th:field="*{faculty}">
+															<option th:each="f:${fList}" th:value="${f.id}">[[${f.name}]]</option>
+														</select>												
+													</div>
+												</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">Grade <span class="login-danger">*</span></label>
+														<select class="form-control" th:field="*{grade}" multiple>
+															<option value="11">11</option>
+															<option value="12">12</option>
+														</select>												
+													</div>
+												</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">Section <span class="login-danger">*</span></label>
+														<select class="form-control" th:field="*{section}">
+															<option value="A">A</option>
+															<option value="B">B</option>
+															<option value="C">C</option>
+														</select>												
+													</div>
+												</div>
+												
+												
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">Subject <span class="login-danger">*</span></label>
+														<select class="form-control" th:field="*{subject}" multiple>
+															<option th:each="s:${sList}" th:value="${s.name}">[[${s.name}]]</option>
+														</select>												
+													</div>
+												</div>
+												
+												
+												
+											
+												
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">Photo <span class="login-danger">*</span></label>
+														<input class="form-control" type="file"
+															placeholder="Select Photo" name="image">
+													</div>
+												</div>
+											
+												<div class="col-12">
+													<h5 class="form-title">
+														<span>Login Details</span>
+													</h5>
+												</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">Username <span class="login-danger">*</span></label>
+														<input type="text" class="form-control"
+															placeholder="Enter Username" th:field="*{username}">
+													</div>
+												</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">Email ID <span class="login-danger">*</span></label>
+														<input type="email" class="form-control"
+															placeholder="Enter E-mail" th:field="*{email}">
+													</div>
+												</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">Password <span class="login-danger">*</span></label>
+														<input type="text" class="form-control"
+															placeholder="Enter Password" th:field="*{password}">
+													</div>
+												</div>
+											
+												<div class="col-12">
+													<h5 class="form-title">
+														<span>Address</span>
+													</h5>
+												</div>
+												
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">City <span class="login-danger">*</span></label> <input
+															type="text" class="form-control" placeholder="Enter City" th:field="*{address.city}">
+													</div>
+												</div>
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">State <span class="login-danger">*</span></label>
+														<select th:field="*{address.state}"  class="form-control" >
+														<option value="">Select</option>
+														<option value="State-1">State-1</option>
+														<option value="State-2">State-2</option>
+														<option value="State-3">State-3</option>
+														<option value="State-4">State-4</option>
+														<option value="State-5">State-5</option>
+														</select>
+													</div>
+												</div>
+											
+												<div class="col-12">
+													<div class="student-submit">
+														<button type="submit" class="btn btn-primary">Submit</button>
+													</div>
+												</div>
+												<div>
+												<input type="hidden" th:field="*{id}">
+											</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+		</main>
+		<th:block th:insert="Footer.html"></th:block>
+	</div>
+	</div>
+	
+</body>
+
+</html>

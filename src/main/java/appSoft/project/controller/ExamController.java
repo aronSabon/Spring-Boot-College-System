@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import appSoft.project.model.Exam;
 import appSoft.project.service.FacultyService;
+import appSoft.project.service.SubjectService;
 import appSoft.project.service.ExamService;
 
 
@@ -19,10 +20,12 @@ public class ExamController {
 	ExamService es;
 	@Autowired
 	FacultyService fs;
-	
+	@Autowired
+	SubjectService ss;
 	@GetMapping("/addExam")
 	private String examForm(Model model) {
 		model.addAttribute("fList", fs.getAllFaculty());
+		model.addAttribute("sList", ss.getAllSubject());
 		return "AddExam";
 	}
 	@PostMapping("/addExam")
@@ -32,7 +35,7 @@ public class ExamController {
 	}
 	@GetMapping("/examList")
 	private String examList(Model model) {
-		model.addAttribute("tList", es.getAllExam());
+		model.addAttribute("eList", es.getAllExam());
 		return "ExamList";
 	}
 	@GetMapping("/deleteExam")
@@ -44,6 +47,8 @@ public class ExamController {
 	private String editExam(@RequestParam int id,Model model) {
 		model.addAttribute("eModel",es.getExamById(id));
 		model.addAttribute("fList", fs.getAllFaculty());
+		model.addAttribute("sList", ss.getAllSubject());
+
 		return "EditExam";
 	}
 	@PostMapping("/updateExam")

@@ -10,4 +10,6 @@ public interface StudentService {
 		void deleteStudentById(int id);
 		Student getStudentById(int id);
 		void updateStudent(Student student);
+		
+		Student getStudentByRollNo(int rollNo);
 }

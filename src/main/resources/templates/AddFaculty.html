@@ -24,11 +24,21 @@
                             <div class="card-body">
                                 <form action="/addFaculty" method="post">
 										<div class="row">
+										
+										
 											<div class="col-sm-6">
 												<div class="form-group">
 													<label class="form-label" for="fullName">Faculty
 														Name</label> <input id="fullName" name='name'
 														placeholder="Enter Faculty Name" type="text"
+														class="form-control" required>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="adFee">Admission Fee
+														</label> <input id="adFee" name='admissionFee'
+														placeholder="Enter Admission Fee" type="number"
 														class="form-control" required>
 												</div>
 											</div>

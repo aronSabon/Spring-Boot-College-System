@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import appSoft.project.model.Teacher;
 import appSoft.project.service.FacultyService;
+import appSoft.project.service.SubjectService;
 import appSoft.project.service.TeacherService;
 
 
@@ -20,10 +21,13 @@ public class TeacherController {
 	TeacherService ts;
 	@Autowired
 	FacultyService fs;
+	@Autowired
+	SubjectService ss;
 	
 	@GetMapping("/addTeacher")
 	private String teacherForm(Model model) {
 		model.addAttribute("fList", fs.getAllFaculty());
+		model.addAttribute("sList", ss.getAllSubject());
 		return "AddTeacher";
 	}
 	@PostMapping("/addTeacher")
@@ -44,8 +48,11 @@ public class TeacherController {
 	}
 	@GetMapping("/editTeacher")
 	private String editTeacher(@RequestParam int id,Model model) {
+		System.out.println(ts.getTeacherById(id));
 		model.addAttribute("tModel",ts.getTeacherById(id));
 		model.addAttribute("fList", fs.getAllFaculty());
+		model.addAttribute("sList", ss.getAllSubject());
+
 		return "EditTeacher";
 	}
 	@PostMapping("/updateTeacher")

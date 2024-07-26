@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body class="sb-nav-fixed">
+	<th:block th:insert="TopNavBar.html"></th:block>
+	<div id="layoutSidenav">
+		<th:block th:insert="SideNavBar.html"></th:block>
+		<div id="layoutSidenav_content">
+			<main>
+
+
+		 <div class="container-fluid px-4">
+                        <h1 class="mt-4">Edit Fees Type</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Edit Fees Type</li>
+                        </ol>
+                       
+                        <div class="card mb-4">
+                            
+                            <div class="card-body">
+                                <form action="/updateFeesType" method="post">
+										<div class="row">
+												<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="department">Faculty</label>
+													 <select th:field="*{faculty}" id="department" required class="form-control">
+														
+														<option th:each="f:${fList}" th:value="${f.id}">[[${f.name}]]</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="grade">Grade</label>
+													 <select th:field="*{grade}" id="grade" required class="form-control">
+														<option value="11">11</option>
+														<option value="12">12</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="grade">Particulars</label>
+													 <input id="grade" th:field="*{particulars}"
+														placeholder="Enter Particulars" type="text"
+														class="form-control" >
+												</div>
+											</div>
+						
+												<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="endtime">Amount</label>
+														<input type="number" th:field="*{amount}"
+															class=" form-control" id="endtime" placeholder="Enter Amount" required
+															>
+												</div>
+											</div>
+									
+											
+											<div class="col-lg-12 col-md-12 col-sm-12"><br>
+												<button type="submit" class="btn btn-primary">Submit</button>
+											</div>
+										</div>
+									</form>
+                            </div>
+                        </div>
+                    </div>
+                	
+
+
+
+
+			</main>
+			<th:block th:insert="Footer.html"></th:block>
+		</div>
+	</div>
+</body>
+</html>
