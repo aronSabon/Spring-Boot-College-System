@@ -25,7 +25,7 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>Student Id</th>
+                                            <th>Roll No</th>
                                             <th>Student Name</th>
                                             <th>Fees Type</th>
                                             <th>Amount</th>
@@ -39,7 +39,7 @@
                                     </thead>
                                     <tbody>
                                         <tr th:each=f:${fList}>
-                                            <td>[[${f.studentId}]]</td>
+                                            <td>[[${f.rollNo}]]</td>
                                             <td>[[${f.studentName}]]</td>
                                             <td>[[${f.feesType}]]</td>
                                             <td>[[${f.amount}]]</td>
@@ -50,7 +50,7 @@
                                             	<a  th:href="@{/editFees(id=${f.id})}"><button class="btn btn-primary btn-sm">Edit</button></a>
                                             	<a th:href="@{/deleteFees(id=${f.id})}"><button class="btn btn-danger btn-sm">Delete</button></a><br>
                                             	<a  th:href="@{/addFeesFromList(id=${f.id})}"><button class="btn btn-primary btn-sm">Add Fees</button></a>
-                                            	<a th:href="@{/paymentDetails(id=${f.studentId})}"><button class="btn btn-success btn-sm">Payment Details</button></a>
+                                            	<a th:href="@{/paymentDetails(rollNo=${f.rollNo})}"><button class="btn btn-success btn-sm">Payment Details</button></a>
                                             </td>
                                         </tr>
                                        

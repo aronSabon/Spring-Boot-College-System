@@ -3,6 +3,7 @@ package appSoft.project;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 public class TestClass {
@@ -19,7 +20,12 @@ public class TestClass {
 	   	
 	   int time =  LocalTime.now().getSecond();
 	   	System.out.println(photo+time);
+	   	System.out.println(LocalTime.now().truncatedTo(ChronoUnit.SECONDS));
 	   	
+	   	
+	   	String date = "2024-06-20";
+		System.out.println(date);
 	}
+	
 
 }

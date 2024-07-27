@@ -46,15 +46,15 @@ public class FeesServiceImpl implements FeesService {
 		}
 
 		@Override
-		public List<Fees> getAllFeesByStudentId(int id) {
+		public List<Fees> getAllFeesByRollNo(int rollNo) {
 			// TODO Auto-generated method stub
-			return fr.findByStudentId(id);
+			return fr.findByRollNo(rollNo);
 		}
 
 		@Override
-		public List<Fees> getAllFeesByStudentIdAndStatus(int id,FeesStatus status) {
+		public List<Fees> getAllFeesByRollNoAndStatus(int rollNo,FeesStatus status) {
 			// TODO Auto-generated method stub
-			return fr.findByStudentIdAndStatus(id, status);
+			return fr.findByRollNoAndStatus(rollNo, status);
 		}
 
 }

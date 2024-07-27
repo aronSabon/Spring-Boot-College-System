@@ -2,6 +2,7 @@ package appSoft.project.service;
 
 import java.util.List;
 
+import appSoft.project.model.Faculty;
 import appSoft.project.model.FeesType;
 
 public interface FeesTypeService {
@@ -10,4 +11,5 @@ public interface FeesTypeService {
 		void deleteFeesTypeById(int id);
 		FeesType getFeesTypeById(int id);
 		void updateFeesType(FeesType feesType);
+		List<FeesType> getFeesTypeByGradeAndFaculty(String grade, Faculty faculty);
 }

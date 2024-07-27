@@ -11,6 +11,6 @@ public interface FeesService {
 		void deleteFeesById(int id);
 		Fees getFeesById(int id);
 		void updateFees(Fees fees);
-		List<Fees> getAllFeesByStudentId(int id);
-		List<Fees> getAllFeesByStudentIdAndStatus(int id,FeesStatus status);
+		List<Fees> getAllFeesByRollNo(int rollNo);
+		List<Fees> getAllFeesByRollNoAndStatus(int rollNo,FeesStatus status);
 }

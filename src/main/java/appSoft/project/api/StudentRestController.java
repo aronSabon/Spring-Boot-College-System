@@ -38,8 +38,10 @@ public class StudentRestController {
 	@PostMapping("/api/student")
 	public String add(@RequestBody Student student) {
 		ss.addStudent(student);
+		
 		return "success";
 	}
+	
 	@DeleteMapping("/api/student/{id}")
 	public String delete(@PathVariable int id) {
 		ss.deleteStudentById(id);

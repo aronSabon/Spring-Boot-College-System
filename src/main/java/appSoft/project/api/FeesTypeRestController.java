@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import appSoft.project.model.FeesType;
+import appSoft.project.model.Student;
+import appSoft.project.repository.FeesTypeRepository;
 import appSoft.project.service.FeesTypeService;
 
 @RestController
@@ -21,6 +23,8 @@ public class FeesTypeRestController {
 	@Autowired   
 	private FeesTypeService fts;  
 	
+	@Autowired   
+	private FeesTypeRepository ftr; 
 
 
 	
@@ -35,6 +39,12 @@ public class FeesTypeRestController {
 	@PostMapping("/api/feesType")
 	public String add(@RequestBody FeesType feesType) {
 		fts.addFeesType(feesType);
+		return "success";
+	}
+	@PostMapping("/api/feesType/list")
+	public String addList(@RequestBody FeesType[] feesType) {
+		ftr.saveAll(List.of(feesType));
+		
 		return "success";
 	}
 	@DeleteMapping("/api/feesType/{id}")

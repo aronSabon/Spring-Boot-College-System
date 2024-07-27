@@ -13,11 +13,12 @@
 
 
 		 <div class="container-fluid px-4">
-                        <h1 class="mt-4">Fees List</h1>
+                        <h1 class="mt-4">Fees Type List</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Fees List</li>
+                            <li class="breadcrumb-item active">Fees Type List</li>
                         </ol>
+                        <a href="/addFeesType"><button class="btn btn-warning">Add Fees Type</button></a>
                        
                         <div class="card mb-4">
                             
@@ -25,10 +26,12 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
+                                        <th>Grade</th>
                                             <th>Faculty</th>
-                                            <th>Grade</th>
+                                            
                                             <th>Particulars</th>
                                             <th>Amount</th>
+                                            <th>Due Date</th>
                                            
                                             <th>
                                             Actions</th>
@@ -36,10 +39,13 @@
                                     </thead>
                                     <tbody>
                                         <tr th:each=ft:${ftList}>
+                                          <td>[[${ft.grade}]]</td>
                                             <td>[[${ft.faculty}]]</td>
-                                            <td>[[${ft.grade}]]</td>
+                                          
                                             <td>[[${ft.particulars}]]</td>
                                             <td>[[${ft.amount}]]</td>
+                                            <td>[[${ft.dueDate}]]</td>
+                                            
                                            
                                             <td>
                                             	<a  th:href="@{/editFeesType(id=${ft.id})}"><button class="btn btn-primary btn-sm">Edit</button></a>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body class="sb-nav-fixed">
+	<th:block th:insert="TopNavBar.html"></th:block>
+	<div id="layoutSidenav">
+		<th:block th:insert="SideNavBar.html"></th:block>
+		<div id="layoutSidenav_content">
+			<main>
+
+
+		 <div class="container-fluid px-4">
+                        <h1 class="mt-4">Student Payment</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a th:href="@{/paymentDetails(rollNo=${student.rollNo})}">Payment Details</a></li>
+                            <li class="breadcrumb-item active">Student Payment</li>
+                        </ol>
+                       
+                        <div class="card mb-4">
+                            
+                            <div class="card-body">
+                                <form action="/addFees" method="post"  th:object="${student}">
+										<div class="row">
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="fullName">Roll No</label>
+													<input id="fullName" th:field="*{rollNo}"
+														placeholder="Enter Roll No" type="text"
+														class="form-control" readonly>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="grade">Student Name</label>
+													 <input id="grade"  th:field="*{fullName}"
+														placeholder="Enter Student Name" type="text"
+														class="form-control" readonly>
+												</div>
+											</div>
+											
+										
+										<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="department">Fees Type</label>
+													 <select name="feesType" id="department" required class="form-control">
+														
+														
+														<option th:each="ft:${ftList}" th:value="${ft.particulars}">[[${ft.particulars}]]</option>
+													</select>
+												</div>
+											</div>
+											
+												 <div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label">Fees Type</label>
+													<div th:each="ft:${ftList}">
+														<input type="checkbox" name="feesType" th:value="${ft.particulars}" th:id="${ft.particulars}"  >
+														<label th:for="${ft.particulars}">[[${ft.particulars}]]</label>
+													</div>
+												</div>
+											</div> 
+											
+											
+												<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="endtime">Amount</label>
+														<input type="number" name="amount"
+															class=" form-control" id="endtime" placeholder="Enter Amount" required
+															>
+												</div>
+											</div>
+										
+										
+										
+										
+										
+										
+												<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="date">Date</label>
+														<input type="date" name="invoiceDate" th:value="${date}"
+															class=" form-control" id="date" required
+															>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="time">Time</label>
+														<input type="text" th:value="${time}"
+															class=" form-control" id="time" required
+															>
+												</div>
+											</div>
+											
+											<div class="col-lg-12 col-md-12 col-sm-12"><br>
+												<button type="submit" class="btn btn-primary">Submit</button>
+											</div>
+										</div>
+									</form>
+									<table id="example" class="table table-striped table-bordered">
+                                   <thead>
+                                        <tr>
+                                           
+                                            <th></th>
+                                          
+                                            <th>PARTICULARS</th>
+                                            <th>AMOUNT</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each=ft:${feeTypeList}>
+                                        
+											<td><input type="checkbox"></td>
+                                            <td>[[${ft.particulars}]]</td>
+                                            <td>[[${ft.amount}]]</td>
+                                        </tr>
+                                         <tr th:each=f:${fList}>
+                                        
+                                            <td><input type="checkbox"></td>
+                                        
+                                            <td>[[${f.feesType}]]</td>
+                                            <td>[[${f.amount}]]</td>
+                                        </tr>
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                	
+
+
+
+
+			</main>
+			<th:block th:insert="Footer.html"></th:block>
+		</div>
+	</div>
+</body>
+</html>

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import appSoft.project.constant.FeesStatus;
 import appSoft.project.model.FeesType;
 import appSoft.project.service.FacultyService;
 import appSoft.project.service.FeesTypeService;
@@ -27,7 +28,9 @@ public class FeesTypeController {
 	}
 	@PostMapping("/addFeesType")
 	private String addFeesType(@ModelAttribute FeesType feesType) {
+		feesType.setStatus(FeesStatus.UNPAID);
 		fts.addFeesType(feesType);
+		
 		return "redirect:/addFeesType";
 	}
 	
@@ -44,6 +47,8 @@ public class FeesTypeController {
 	@GetMapping("/editFeesType")
 	private String editFeesType(@RequestParam int id,Model model) {
 		model.addAttribute("ftModel",fts.getFeesTypeById(id));
+		model.addAttribute("fList",fs.getAllFaculty());
+
 		return "EditFeesType";
 	}
 	@PostMapping("/updateFeesType")

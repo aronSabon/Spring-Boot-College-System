@@ -2,6 +2,7 @@ package appSoft.project.service;
 
 import java.util.List;
 
+import appSoft.project.model.Faculty;
 import appSoft.project.model.Student;
 
 public interface StudentService {
@@ -12,4 +13,5 @@ public interface StudentService {
 		void updateStudent(Student student);
 		
 		Student getStudentByRollNo(int rollNo);
+		List<Student> getStudentByGradeAndFaculty(String grade, Faculty faculty);
 }

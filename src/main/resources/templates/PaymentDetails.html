@@ -31,7 +31,7 @@
 									</div>
 									<div class="personal-activity">
 										<div class="personal-icons">
-											<img src="assets/img/icons/buliding-icon.svg" alt>
+											<img src="assets/img/icons/buliding-icon.svg" >
 										</div>
 										<div class="views-personal">
 											<h4>Faculty</h4>
@@ -177,29 +177,31 @@
                                     <thead>
                                         <tr>
                                            
-                                            <th>Fees Type</th>
-                                            <th>Amount</th>
-                                            <th>Invoice Date</th>
-                                            
+                                            <th>GRADE</th>
+                                            <th>FACULTY</th>
+                                            <th>PARTICULARS</th>
+                                            <th>AMOUNT</th>
                                             <th>Due Date</th>
                                             <th>Status</th>
-                                           
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each=f:${fList}>
+                                      
+                                         <tr th:each=f:${fList}>
                                         
+                                            <td>[[${f.grade}]]</td>
+                                            <td>[[${f.faculty.name}]]</td>
                                             <td>[[${f.feesType}]]</td>
                                             <td>[[${f.amount}]]</td>
-                                            <td>[[${f.invoiceDate}]]</td>
                                             <td>[[${f.dueDate}]]</td>
                                             <td>[[${f.status}]]</td>
-                                           
                                         </tr>
                                        
                                     </tbody>
                                 </table>
-									<button>Generate Receipt</button>
+                                
+									 <a th:href="@{/studentPayment(rollNo=${rollNo})}"><button class="btn btn-success">Payment</button></a>
 								
 								</div>
 							</div>

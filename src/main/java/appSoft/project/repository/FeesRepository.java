@@ -12,8 +12,8 @@ import appSoft.project.model.Fees;
 import appSoft.project.model.Student;
 
 public interface FeesRepository extends JpaRepository<Fees, Integer> {
-	List<Fees> findByStudentId(int studentId);
-	List<Fees> findByStudentIdAndStatus(int id,FeesStatus status);
+	List<Fees> findByRollNo(int rollNo);
+	List<Fees> findByRollNoAndStatus(int rollNo,FeesStatus status);
 
 
 }

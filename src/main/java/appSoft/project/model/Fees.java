@@ -26,7 +26,7 @@ public class Fees {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private int studentId;
+	private int rollNo;
 	private String studentName;
 	private String feesType;
 	private double amount;
@@ -37,6 +37,9 @@ public class Fees {
 	
 	@Enumerated(EnumType.STRING)
 	private FeesStatus status;
+	@OneToOne
+	private Faculty faculty;
+	private String grade;
 	
 
 }
