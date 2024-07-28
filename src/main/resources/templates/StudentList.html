@@ -46,7 +46,7 @@
                                             <td>[[${s.admissionDate}]]</td>
                                             <td>
                                             	<a  th:href="@{/editStudent(id=${s.id})}"><button class="btn btn-primary">Edit</button></a>
-                                            	<a th:href="@{/deleteStudent(id=${s.id})}"><button class="btn btn-danger">Delete</button></a>
+                                            	<a th:href="@{/deleteStudent(id=${s.id},rollNo=${s.rollNo})}"><button class="btn btn-danger">Delete</button></a>
                                             </td>
                                         </tr>
                                        

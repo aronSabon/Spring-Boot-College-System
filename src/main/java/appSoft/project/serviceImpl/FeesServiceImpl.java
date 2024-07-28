@@ -57,4 +57,16 @@ public class FeesServiceImpl implements FeesService {
 			return fr.findByRollNoAndStatus(rollNo, status);
 		}
 
+		@Override
+		public List<Fees> deleteAllByRollNo(int rollNo) {
+			// TODO Auto-generated method stub
+			return fr.deleteAllByRollNo(rollNo);
+		}
+
+		@Override
+		public Fees getFeesByRollNoAndStatusAndFeesType(int rollNo, FeesStatus status, String feesType) {
+			// TODO Auto-generated method stub
+			return fr.findByRollNoAndStatusAndFeesType(rollNo, status, feesType);
+		}
+
 }

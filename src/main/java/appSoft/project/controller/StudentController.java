@@ -89,8 +89,10 @@ public class StudentController {
 		return "StudentList";
 	}
 	@GetMapping("/deleteStudent")
-	private String deleteStudent(@RequestParam int id) {
+	private String deleteStudent(@RequestParam int id,@RequestParam int rollNo) {
+		feesService.deleteAllByRollNo(rollNo);
 		ss.deleteStudentById(id);
+
 		return "redirect:/studentList";
 	}
 	@GetMapping("/editStudent")

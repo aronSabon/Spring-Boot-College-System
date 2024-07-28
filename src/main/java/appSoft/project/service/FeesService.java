@@ -13,4 +13,6 @@ public interface FeesService {
 		void updateFees(Fees fees);
 		List<Fees> getAllFeesByRollNo(int rollNo);
 		List<Fees> getAllFeesByRollNoAndStatus(int rollNo,FeesStatus status);
+		List<Fees> deleteAllByRollNo(int rollNo);
+		Fees getFeesByRollNoAndStatusAndFeesType(int rollNo,FeesStatus status,String feesType);
 }

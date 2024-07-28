@@ -201,7 +201,6 @@
                                     </tbody>
                                 </table>
                                 
-									 <a th:href="@{/studentPayment(rollNo=${rollNo})}"><button class="btn btn-success">Payment</button></a>
 								
 								</div>
 							</div>
@@ -219,7 +218,7 @@
 									<table  id="example" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                           
+                                           <th>Particulars</th>
                                             <th>Paid With</th>
                                             <th>Date And Time</th>
                                             <th>Amount</th>
@@ -228,11 +227,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr >
-                                        
-                                          
-                                            
-                                           
+                                        <tr th:each="payment:${paymentList}" >
+                                        <td>[[${payment.feesType}]] </td>
+                                             <td>[[${payment.paidWith}]] </td>
+                                             <td>[[${payment.date}]],[[${payment.time}]] </td>
+                                             <td>[[${payment.amount}]] </td>
                                         </tr>
                                        
                                     </tbody>
@@ -253,24 +252,24 @@
 						<div class="student-personals-grpp">
 							<div class="card mb-0">
 								<div class="card-body">
-								 <h3 class="mt-4">Receipt</h3>
+								 <h3 class="mt-4">Payable</h3>
 									<table  id="example" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
                                            
                                             <th>Fees Type</th>
                                             <th>Amount</th>
-                                            <th>Invoice Date</th>
+                                            <th>Due Date</th>
                                         
                                            
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each=upf:${upfList}>
+                                        <tr th:each=df:${dfList}>
                                         
-                                            <td>[[${upf.feesType}]]</td>
-                                            <td>[[${upf.amount}]]</td>
-                                            <td>[[${upf.invoiceDate}]]</td>
+                                            <td>[[${df.feesType}]]</td>
+                                            <td>[[${df.amount}]]</td>
+                                            <td>[[${df.dueDate}]]</td>
                                             
                                            
                                         </tr>
@@ -288,8 +287,8 @@
                                                     <td class="right">[[${subTotal}]]</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="left"><strong>Due violation *[[${dueViolation}]]</strong></td>
-                                                    <td class="right">[[${dueViolationFee}]]</td>
+                                                    <td class="left"><strong>Discount</strong></td>
+                                                    <td class="right"></td>
                                                 </tr>
                                                
                                                 <tr>
@@ -298,6 +297,7 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+                           			 <a th:href="@{/studentPayment(rollNo=${rollNo})}"><button class="btn btn-success">Payment</button></a>
                                         
                                     
 								

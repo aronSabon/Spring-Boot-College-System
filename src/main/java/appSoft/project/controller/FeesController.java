@@ -28,14 +28,14 @@ public class FeesController {
 	FeesService fs;
 	@Autowired
 	StudentService ss;
-	
+
 	@Autowired
 	private FeesTypeService  feesTypeService;
-	
+
 	@GetMapping("/addFees")
 	private String feesForm(Model model) {
 		model.addAttribute("date", LocalDate.now());
-		
+
 		return "AddFees";
 	}
 	@GetMapping("/addFeesFromList")
@@ -46,14 +46,14 @@ public class FeesController {
 	}
 	@PostMapping("/addFeesFromList")
 	private String addFeesFromList(@ModelAttribute Fees fees) {
-		
+
 		fees.setStatus(FeesStatus.UNPAID);
 		Student student = ss.getStudentByRollNo(fees.getRollNo());
 		fees.setGrade(student.getGrade());
 		fees.setFaculty(student.getFaculty());
 		fs.addFees(fees);
-		
-		
+
+
 		return "redirect:/feesList";
 	}
 	@PostMapping("/addFees")
@@ -63,23 +63,25 @@ public class FeesController {
 		fees.setGrade(student.getGrade());
 		fees.setFaculty(student.getFaculty());
 		fs.addFees(fees);
-		
-		
+
+
 		return "redirect:/addFees";
 	}
-	
+
 	@GetMapping("/feesList")
 	private String feesList(Model model) {
 		List<Fees> feesList=fs.getAllFees();
 		for(Fees i : feesList) {
-			if(i.getDueDate().isBefore(LocalDate.now())) {
-				i.setStatus(FeesStatus.DUE);
+			if(i.getStatus()==FeesStatus.UNPAID) {
+				if(i.getDueDate().isBefore(LocalDate.now())) {
+					i.setStatus(FeesStatus.DUE);
+				}
+				fs.updateFees(i);
 			}
-			fs.updateFees(i);
 		}
 		model.addAttribute("fList",feesList );
-		
-		
+
+
 		return "FeesList";
 	}
 	@GetMapping("/deleteFees")
@@ -97,58 +99,5 @@ public class FeesController {
 		fs.updateFees(fees);
 		return "redirect:/feesList";
 	}
-	@GetMapping("/paymentDetails")
-	private String paymentDetails(@RequestParam int rollNo,Model model) {
-		
-		
-		model.addAttribute("sModel",ss.getStudentByRollNo(rollNo));
-		Student student = ss.getStudentByRollNo(rollNo);
-	
-		model.addAttribute("upfList", fs.getAllFeesByRollNoAndStatus(rollNo, FeesStatus.UNPAID));
-		
-		List<Fees>feesFilter=fs.getAllFeesByRollNoAndStatus(rollNo, FeesStatus.UNPAID);
-		double subTotal=0;
-		int dueViolation=0;
-		for(Fees f : feesFilter) {
-			subTotal+=f.getAmount();
-		}
-		for(Fees f : feesFilter) {
-			if (f.getDueDate().isAfter(LocalDate.now())) {
-				dueViolation+=1;
-			}
-		}
-		double dueViolationFee = dueViolation*1000;
-		double total=subTotal+dueViolationFee;
-		model.addAttribute("subTotal",subTotal);
-		model.addAttribute("dueViolation",dueViolation);
-		model.addAttribute("dueViolationFee",dueViolationFee);
-		model.addAttribute("total",total);
-		
 
-	
-//		List<Fees>feesList=fs.getAllFeesByRollNo(rollNo);
-//		for(Fees i : feesList) {
-//			if(i.getDueDate().isBefore(LocalDate.now())) {
-//				i.setStatus(FeesStatus.DUE);
-//			}
-//		}
-		
-		model.addAttribute("fList",fs.getAllFeesByRollNo(rollNo));
-		model.addAttribute("rollNo",student.getRollNo());
-		
-		return "PaymentDetails";
-	}
-	@GetMapping("/studentPayment")
-	private String studentPayment(@RequestParam int rollNo, Model model) {
-		Student student= ss.getStudentByRollNo(rollNo);
-		model.addAttribute("student",ss.getStudentByRollNo(rollNo));
-		model.addAttribute("ftList",feesTypeService.getFeesTypeByGradeAndFaculty(student.getGrade(), student.getFaculty()));
-		model.addAttribute("date",LocalDate.now());
-		model.addAttribute("time",LocalTime.now().truncatedTo(ChronoUnit.SECONDS));
-		
-		model.addAttribute("feeTypeList",feesTypeService.getFeesTypeByGradeAndFaculty(student.getGrade(), student.getFaculty()));
-		model.addAttribute("fList",fs.getAllFeesByRollNo(rollNo));
-
-		return null;
-	}
 }
