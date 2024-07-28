@@ -43,15 +43,22 @@
 										</div>
 									</div>
 
+								
+
 									<div class="col-sm-6">
 										<div class="form-group">
-											<label class="form-label" for="department">Fees Type</label>
-											<select name="feesType" id="department" required
-												class="form-control">
-												<option th:each="f:${fList}" th:value="${f.feesType}">[[${f.feesType}]]</option>
-											</select>
+											<label class="form-label">Fees Type</label>
+											<div th:each="f:${fList}">
+												<input type="checkbox" name="feesType"
+													th:value="${f.feesType}" th:id="${f.feesType}">
+												<label th:for="${f.feesType}">[[${f.feesType}]]</label>
+											</div>
 										</div>
 									</div>
+
+
+
+
 
 									<div class="col-sm-6">
 										<div class="form-group">

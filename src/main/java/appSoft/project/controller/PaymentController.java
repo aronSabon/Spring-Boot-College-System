@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,7 @@ public class PaymentController {
 		feesFilter.addAll(feesUnpaid);
 		model.addAttribute("dfList", feesFilter);
 
-		
+
 
 		double subTotal=0;
 		double discount=0;
@@ -81,7 +82,7 @@ public class PaymentController {
 
 		return "PaymentDetails";
 	}
-	
+
 	@GetMapping("/studentPayment")
 	private String studentPayment(@RequestParam int rollNo, Model model) {
 		Student student= ss.getStudentByRollNo(rollNo);
@@ -98,16 +99,95 @@ public class PaymentController {
 
 		return "StudentPayment";
 	}
-	
+
 	@PostMapping("/payment")
 	private String payment(@ModelAttribute Payment payment, RedirectAttributes redirectAttribute) {
-		ps.addPayment(payment);
-		Fees fees=fs.getFeesByRollNoAndStatusAndFeesType(payment.getRollNo(), FeesStatus.DUE, payment.getFeesType());
-		if(payment.getAmount()==fees.getAmount()) {
-			fees.setStatus(FeesStatus.PAID);
-			fs.updateFees(fees);
+
+
+//		String[] split =(payment.getFeesType().split(","));
+//		for(int i =0; i<split.length ; i++) {
+//		System.out.println(split[i]);
+//		
+//	}
+		List<Fees>feesDue=fs.getAllFeesByRollNoAndStatus(payment.getRollNo(), FeesStatus.DUE);
+		List<Fees>feesUnpaid=fs.getAllFeesByRollNoAndStatus(payment.getRollNo(), FeesStatus.UNPAID);
+		List<Fees>feesFilter = new ArrayList<>();
+		feesFilter.addAll(feesDue);
+		feesFilter.addAll(feesUnpaid);
+
+		// for multiple feesType input
+		double totalPayment=payment.getAmount();
+		String[] feesType =(payment.getFeesType().split(","));
+		
+		for(Fees i : feesFilter) {
+			for(int a = 0; a<feesType.length ; a++) {
+				System.out.println("workinggg 1");
+				if(i.getFeesType().equals(feesType[a])) {
+					System.out.println("workinggg 2");
+					if(totalPayment>0) {
+						System.out.println("working 3");
+						if(totalPayment>i.getAmount()) {
+							totalPayment=totalPayment-i.getAmount();
+							i.setStatus(FeesStatus.PAID);
+							fs.updateFees(i);
+						    ps.addPayment(payment);
+
+						}
+						else if(totalPayment==i.getAmount()) {
+							totalPayment=totalPayment-i.getAmount();
+							i.setStatus(FeesStatus.PAID);
+							fs.updateFees(i);
+							ps.addPayment(payment);
+						}
+						else if(totalPayment<i.getAmount()) {
+							i.setAmount(i.getAmount()-totalPayment);
+							fs.updateFees(i);
+							ps.addPayment(payment);
+						}
+					}
+				}
+			}
 		}
 		redirectAttribute.addAttribute("rollNo",payment.getRollNo());
 		return	 "redirect:/studentPayment";
+
+
+		//		Fees fees=fs.getFeesByRollNoAndStatusAndFeesType(payment.getRollNo(), FeesStatus.DUE, payment.getFeesType());
+
+
+
+		//working for single feesType input
+		//		for(Fees i : feesFilter) {
+		//			if(payment.getFeesType().equals(i.getFeesType())) {
+		//				if(payment.getAmount()==i.getAmount()) {
+		//					i.setStatus(FeesStatus.PAID);
+		//					fs.updateFees(i);
+		//					ps.addPayment(payment);
+		//				}
+		//				else if(payment.getAmount()<i.getAmount()) {
+		//					i.setAmount(i.getAmount()-payment.getAmount());
+		//					fs.updateFees(i);
+		//					ps.addPayment(payment);
+		//
+		//				}
+		//			}
+		//		}
+		//		redirectAttribute.addAttribute("rollNo",payment.getRollNo());
+		//		return	 "redirect:/studentPayment";
+
+
+
+		//working for single feesType INput
+		//		Fees fees=fs.getFeesByRollNoAndStatusAndFeesType(payment.getRollNo(), FeesStatus.DUE, payment.getFeesType());
+		//		if(payment.getAmount()==fees.getAmount()) {
+		//			fees.setStatus(FeesStatus.PAID);
+		//			fs.updateFees(fees);
+		//		}
+		//		else if(payment.getAmount()<fees.getAmount()) {
+		//			fees.setAmount(fees.getAmount()-payment.getAmount());
+		//			fs.updateFees(fees);
+		//		}
+		//		redirectAttribute.addAttribute("rollNo",payment.getRollNo());
+		//		return	 "redirect:/studentPayment";
 	}
 }
