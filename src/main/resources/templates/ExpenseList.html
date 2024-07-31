@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body class="sb-nav-fixed">
+	<th:block th:insert="TopNavBar.html"></th:block>
+	<div id="layoutSidenav">
+		<th:block th:insert="SideNavBar.html"></th:block>
+		<div id="layoutSidenav_content">
+			<main>
+
+
+		 <div class="container-fluid px-4">
+                        <h1 class="mt-4">Expense List</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Expense List</li>
+                        </ol>
+                       
+                        <div class="card mb-4">
+                            
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                            <th>Expense Type</th>
+                                            <th>Particulars</th>
+                                            <th>Amount</th>
+                                            <th>Purchase Date</th>
+                                            
+                                            <th>Purchase By</th>
+                                             <th>Remarks</th>
+                                            <th>
+                                            Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each=e:${expenseList}>
+                                            <td>[[${e.expenseType}]]</td>
+                                            <td>[[${e.particulars}]]</td>
+                                            <td>[[${e.amount}]]</td>
+                                            <td>[[${e.purchaseDate}]]</td>
+                                             <td>[[${e.purchaseBy}]]</td>
+                                             <td>[[${e.remarks}]]</td>
+                                            <td>
+                                            	<a  th:href="@{/editExpense(id=${e.id})}"><button class="btn btn-primary">Edit</button></a>
+                                            	<a th:href="@{/deleteExpense(id=${e.id})}"><button class="btn btn-danger">Delete</button></a>
+                                            </td>
+                                        </tr>
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                	
+
+
+
+
+			</main>
+			<th:block th:insert="Footer.html"></th:block>
+		</div>
+	</div>
+</body>
+</html>

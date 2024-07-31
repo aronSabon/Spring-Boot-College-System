@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body class="sb-nav-fixed">
+	<th:block th:insert="TopNavBar.html"></th:block>
+	<div id="layoutSidenav">
+		<th:block th:insert="SideNavBar.html"></th:block>
+		<div id="layoutSidenav_content">
+			<main>
+
+
+		 <div class="container-fluid px-4">
+                        <h1 class="mt-4">Add Expense</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Add Expense</li>
+                        </ol>
+                       
+                        <div class="card mb-4">
+                            
+                            <div class="card-body">
+                                <form action="/addExpense" method="post"  >
+										<div class="row">
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="fullName">Expense Type</label>
+													<select  name="expenseType" id="fullName" required class="form-control">
+													<option value="">Select</option>
+													<option value="Stationary">Stationary</option>
+													<option value= "Furniture">Furniture</option>
+													<option value= "Electronics">Electronics</option>
+													<option value="Practical">Practical</option>
+													<option value="Rent">Rent</option>
+													<option value="Maintenance">Maintenance</option>
+													<option value= "Tour">Tour</option>
+													<option value= "Registration">Registration</option>
+													<option value="Others">Others</option>
+												</select>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="particulars">Particulars</label>
+													<input id="particulars" name='particulars'
+														placeholder="Enter Particulars" type="text"
+														class="form-control" >
+												</div>
+											</div>
+										
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="amount">Amount</label>
+													<input id="amount" name='amount'
+														placeholder="Enter Amount" type="number"
+														class="form-control" >
+												</div>
+											</div>
+											
+												<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="purchaseBy">Purchase By</label>
+													<input id="purchaseBy" name='purchaseBy'
+														placeholder="Enter Purchaser Name" type="text"
+														class="form-control" >
+												</div>
+											</div>
+												<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="purchaseDate">Purchase Date</label>
+													<input id="purchaseDate" name='purchaseDate' th:value="${date}"
+														placeholder="Enter Date" type="date"
+														class="form-control" >
+												</div>
+											</div>
+										<div class="col-sm-6">
+											<div class="row">
+												<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="purchaseDate">Remarks</label>
+													<input id="remarks" name='remarks' 
+														placeholder="Enter Remarks" type="text"
+														class="form-control" >
+												</div>
+											</div>
+											
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="grade">Grade</label>
+													 <select name="grade" id="grade" required class="form-control">
+														<option value="">Select Grade</option>
+														<option value="11">11</option>
+														<option value="12">12</option>
+														<option value="DHM">DHM</option>
+														<option value="Both">Both</option>
+														<option value="Others">Others</option>
+													</select>
+												</div>
+											</div>
+											
+											</div>
+										</div>
+											
+											<div class="col-lg-12 col-md-12 col-sm-12"><br>
+												<button type="submit" class="btn btn-primary">Submit</button>
+											</div>
+										</div>
+									</form>
+                            </div>
+                        </div>
+                    </div>
+                	
+
+
+
+
+			</main>
+			<th:block th:insert="Footer.html"></th:block>
+		</div>
+	</div>
+</body>
+</html>
