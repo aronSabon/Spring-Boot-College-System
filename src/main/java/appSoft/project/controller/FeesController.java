@@ -51,6 +51,8 @@ public class FeesController {
 		Student student = ss.getStudentByRollNo(fees.getRollNo());
 		fees.setGrade(student.getGrade());
 		fees.setFaculty(student.getFaculty());
+		fees.setAmountPaid(0);
+
 		fs.addFees(fees);
 
 
@@ -62,6 +64,7 @@ public class FeesController {
 		Student student = ss.getStudentByRollNo(fees.getRollNo());
 		fees.setGrade(student.getGrade());
 		fees.setFaculty(student.getFaculty());
+		fees.setAmountPaid(0);
 		fs.addFees(fees);
 
 

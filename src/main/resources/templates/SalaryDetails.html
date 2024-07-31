@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	
 </head>
 <body class="sb-nav-fixed">
 	<th:block th:insert="TopNavBar.html"></th:block>
@@ -27,7 +26,7 @@
 										</div>
 										<div class="views-personal">
 											<h4>Name</h4>
-											<h5>[[${sModel.fullName}]]</h5>
+											<h5>[[${teacherModel.fullName}]]</h5>
 										</div>
 									</div>
 									<div class="personal-activity">
@@ -36,7 +35,7 @@
 										</div>
 										<div class="views-personal">
 											<h4>Faculty</h4>
-											<h5>[[${sModel.faculty.name}]]</h5>
+											<h5>[[${teacherModel.faculty.name}]]</h5>
 										</div>
 									</div>
 									<div class="personal-activity">
@@ -45,52 +44,81 @@
 										</div>
 										<div class="views-personal">
 											<h4>Grade</h4>
-											<h5>[[${sModel.grade}]] [[${sModel.section}]]</h5>
+											<h5>[[${teacherModel.grade}]] </h5>
 										</div>
 									</div>
 									<div class="personal-activity">
 										<div class="personal-icons">
-											<i class="feather-mail"></i>
+											<i class="feather-phone-call"></i>
 										</div>
 										<div class="views-personal">
-											<h4>Roll No</h4>
-											<h5>[[${sModel.rollNo}]]</h5>
+											<h4>Section</h4>
+											<h5> [[${teacherModel.section}]]</h5>
 										</div>
 									</div>
+									<div class="personal-activity">
+										<div class="personal-icons">
+											<i class="feather-phone-call"></i>
+										</div>
+										<div class="views-personal">
+											<h4>Subject</h4>
+											<h5> [[${teacherModel.subject.name}]]</h5>
+										</div>
+									</div>
+									<div class="personal-activity">
+										<div class="personal-icons">
+											<i class="feather-phone-call"></i>
+										</div>
+										<div class="views-personal">
+											<h4>E-mail</h4>
+											<h5> [[${teacherModel.email}]]</h5>
+										</div>
+									</div>
+									<div class="personal-activity">
+										<div class="personal-icons">
+											<i class="feather-phone-call"></i>
+										</div>
+										<div class="views-personal">
+											<h4>Experience</h4>
+											<h5> [[${teacherModel.experience}]]</h5>
+										</div>
+									</div>
+									<div class="personal-activity">
+										<div class="personal-icons">
+											<i class="feather-phone-call"></i>
+										</div>
+										<div class="views-personal">
+											<h4>Qualification</h4>
+											<h5> [[${teacherModel.qualification}]]</h5>
+										</div>
+									</div>
+									
 									<div class="personal-activity">
 										<div class="personal-icons">
 											<i class="feather-user"></i>
 										</div>
 										<div class="views-personal">
 											<h4>Gender</h4>
-											<h5>[[${sModel.gender}]]</h5>
+											<h5>[[${teacherModel.gender}]]</h5>
 										</div>
 									</div>
 									<div class="personal-activity">
 										<div class="personal-icons">
-											<i class="feather-user"></i>
+											<i class="feather-phone-call"></i>
 										</div>
 										<div class="views-personal">
-											<h4>Parent Name</h4>
-											<h5>[[${sModel.parentName}]]</h5>
+											<h4>Mobile Number</h4>
+											<h5> [[${teacherModel.mobileNumber}]]</h5>
 										</div>
 									</div>
-									<div class="personal-activity">
-										<div class="personal-icons">
-											<i class="feather-user"></i>
-										</div>
-										<div class="views-personal">
-											<h4>Parent Mobile Number</h4>
-											<h5>[[${sModel.parentMobileNumber}]]</h5>
-										</div>
-									</div>
+									
 									<div class="personal-activity">
 										<div class="personal-icons">
 											<i class="feather-user"></i>
 										</div>
 										<div class="views-personal">
 											<h4>Date of Birth</h4>
-											<h5>[[${sModel.dob}]]</h5>
+											<h5>[[${teacherModel.dob}]]</h5>
 										</div>
 									</div>
 									<div class="personal-activity">
@@ -98,8 +126,8 @@
 											<i class="feather-user"></i>
 										</div>
 										<div class="views-personal">
-											<h4>Admission Date</h4>
-											<h5>[[${sModel.admissionDate}]]</h5>
+											<h4>Join Date</h4>
+											<h5>[[${teacherModel.joinDate}]]</h5>
 										</div>
 									</div>
 									<div class="personal-activity">
@@ -108,7 +136,7 @@
 										</div>
 										<div class="views-personal">
 											<h4>City</h4>
-											<h5>[[${sModel.address.city}]]</h5>
+											<h5>[[${teacherModel.address.city}]]</h5>
 										</div>
 									</div>
 									<div class="personal-activity">
@@ -117,7 +145,25 @@
 										</div>
 										<div class="views-personal">
 											<h4>State</h4>
-											<h5>[[${sModel.address.state}]]</h5>
+											<h5>[[${teacherModel.address.state}]]</h5>
+										</div>
+									</div>
+									<div class="personal-activity">
+										<div class="personal-icons">
+											<i class="feather-phone-call"></i>
+										</div>
+										<div class="views-personal">
+											<h4>UserName</h4>
+											<h5> [[${teacherModel.username}]]</h5>
+										</div>
+									</div>
+									<div class="personal-activity">
+										<div class="personal-icons">
+											<i class="feather-phone-call"></i>
+										</div>
+										<div class="views-personal">
+											<h4>Password</h4>
+											<h5> [[${teacherModel.password}]]</h5>
 										</div>
 									</div>
 									
@@ -173,32 +219,32 @@
 						<div class="student-personals-grp">
 							<div class="card mb-0">
 								<div class="card-body">
-								 <h3 class="mt-4">Invoice List</h3>
+								 <h3 class="mt-4">Salary List</h3>
 									<table id="datatablesSimple">
                                     <thead>
                                         <tr>
                                            
                                             <th>GRADE</th>
                                             <th>FACULTY</th>
-                                            <th>PARTICULARS</th>
+                                           	<th>Subject</th>
+                                           	 	<th>Section</th>
                                             <th>AMOUNT</th>
-                                            <th>AMOUNT PAID</th>
-                                            <th>Due Date</th>
+                                            <th>Pay Date</th>
                                             <th>Status</th>
                                             
                                         </tr>
                                     </thead>
                                     <tbody>
                                       
-                                         <tr th:each=f:${fList}>
+                                        <tr th:each=s:${salaryList}>
                                         
-                                            <td>[[${f.grade}]]</td>
-                                            <td>[[${f.faculty.name}]]</td>
-                                            <td>[[${f.feesType}]]</td>
-                                            <td>[[${f.amount}]]</td>
-                                            <td>[[${f.amountPaid}]]</td>
-                                            <td>[[${f.dueDate}]]</td>
-                                            <td>[[${f.status}]]</td>
+                                            <td>[[${s.grade}]]</td>
+                                            <td>[[${s.faculty.name}]]</td>
+                                            <td>[[${s.subject.name}]]</td>
+                                              <td>[[${s.section}]]</td>
+                                            <td>[[${s.amount}]]</td>
+                                            <td>[[${s.payDate}]]</td>
+                                            <td>[[${s.status}]]</td>
                                         </tr>
                                        
                                     </tbody>
@@ -217,7 +263,7 @@
 					<div class="student-personals-grpp">
 							<div class="card mb-0">
 								<div class="card-body">
-								 <h3 class="mt-4">Payment History</h3>
+								 <h3 class="mt-4">Salary History</h3>
 									<table  id="example" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
@@ -230,12 +276,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="payment:${paymentList}" >
-                                        <td>[[${payment.feesType}]] </td>
-                                             <td>[[${payment.paidWith}]] </td>
-                                             <td>[[${payment.date}]],[[${payment.time}]] </td>
-                                             <td>[[${payment.amount}]] </td>
-                                        </tr>
+                                    
                                        
                                     </tbody>
                                 </table>
@@ -245,78 +286,7 @@
 						</div>
 					
 					
-					
-					<br>
-					
-					
-					
-						
-						
-						<div class="student-personals-grpp">
-							<div class="card mb-0">
-								<div class="card-body">
-								 <h3 class="mt-4">Payable</h3>
-									<table  id="example" class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                           
-                                            <th>Fees Type</th>
-                                            <th>Remaining Amount</th>
-                                            <th>Due Date</th>
-                                        
-                                           
-                                        </tr>
-                                        
-                                    </thead>
-                                    
-                                    <tbody>
-                                   
-                                        <tr th:each=f:${duesFilteredList}>
-                                        
-                                            <td>[[${f.feesType}]]</td>
-                                            <td>[[${f.amount}]]</td>
-                                            <td>[[${f.dueDate}]]</td>
-                                            
-                                           
-                                        </tr>
-                                       
-                                    </tbody>
-                                </table>
-                                <hr>
-								
-								
-								
-                                        <table class="table table-striped table-bordered">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="left"><strong>Subtotal</strong></td>
-                                                    <td class="right">[[${subTotal}]]</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="left"><strong>Discount</strong></td>
-                                                    <td class="right"></td>
-                                                </tr>
-                                               
-                                                <tr>
-                                                    <td class="left"><strong>Total</strong></td>
-                                                    <td class="right"><strong>[[${total}]]</strong></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                           			 <a th:href="@{/studentPayment(rollNo=${rollNo})}"><button class="btn btn-success">Payment</button></a>
-                                        
-                                    
-								
-								
-								
-								</div>
-							</div>
-						</div>
-						
-						
-					
-						
-						
+				
 						
 					</div>
 				</div>
@@ -324,6 +294,5 @@
 			<th:block th:insert="Footer.html"></th:block>
 		</div>
 	</div>
-
 </body>
 </html>

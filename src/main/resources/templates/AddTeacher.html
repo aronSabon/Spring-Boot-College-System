@@ -38,6 +38,13 @@
 														<span>Basic Details</span>
 													</h5>
 												</div>
+												
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">Teacher Id <span class="login-danger">*</span></label> <input
+															type="text" class="form-control" placeholder="Enter Id" name="teacherId">
+													</div>
+												</div>
 											
 												<div class="col-12 col-sm-4">
 													<div class="form-group local-forms">
@@ -109,7 +116,7 @@
 												<div class="col-12 col-sm-4">
 													<div class="form-group local-forms">
 														<label class="editLabel">Section <span class="login-danger">*</span></label>
-														<select class="form-control" name="section">
+														<select class="form-control" name="section" multiple>
 															<option value="A">A</option>
 															<option value="B">B</option>
 															<option value="C">C</option>
@@ -121,8 +128,8 @@
 												<div class="col-12 col-sm-4">
 													<div class="form-group local-forms">
 														<label class="editLabel">Subject <span class="login-danger">*</span></label>
-														<select class="form-control" name="subject" multiple>
-															<option th:each="s:${sList}" th:value="${s.name}">[[${s.name}]]</option>
+														<select class="form-control" name="subject" >
+															<option th:each="s:${sList}" th:value="${s.id}">[[${s.name}]]</option>
 														</select>												
 													</div>
 												</div>

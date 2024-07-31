@@ -14,6 +14,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 
 @Data
@@ -22,6 +23,14 @@ public class Salary {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	private String teacherId;
+	@OneToOne
+	private Faculty faculty;
+	private String grade;
+	private String section;
+	@OneToOne
+	private Subject subject;
+	
 	private String fullName;
 	private String gender;
 	@DateTimeFormat(iso = ISO.DATE)

@@ -40,6 +40,9 @@ public class Fees {
 	@OneToOne
 	private Faculty faculty;
 	private String grade;
+	private double amountPaid;
+	
+	
 	
 
 }

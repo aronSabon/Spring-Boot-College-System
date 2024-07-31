@@ -44,4 +44,10 @@ public class SalaryServiceImpl implements SalaryService {
 			sr.save(salary);
 		}
 
+		@Override
+		public List<Salary> getAllSalaryByTeacherId(String teacherId) {
+			// TODO Auto-generated method stub
+			return sr.findByTeacherId(teacherId);
+		}
+
 }

@@ -41,41 +41,29 @@ public class PaymentController {
 
 	@GetMapping("/paymentDetails")
 	private String paymentDetails(@RequestParam int rollNo,Model model) {
-
-
-		model.addAttribute("sModel",ss.getStudentByRollNo(rollNo));
-		Student student = ss.getStudentByRollNo(rollNo);
-
-
+		
 		List<Fees>feesDue=fs.getAllFeesByRollNoAndStatus(rollNo, FeesStatus.DUE);
 		List<Fees>feesUnpaid=fs.getAllFeesByRollNoAndStatus(rollNo, FeesStatus.UNPAID);
 		List<Fees>feesFilter = new ArrayList<>();
 		feesFilter.addAll(feesDue);
 		feesFilter.addAll(feesUnpaid);
-		model.addAttribute("dfList", feesFilter);
-
-
+		for(Fees f : feesFilter) {
+			f.setAmount(f.getAmount()-f.getAmountPaid());
+		}
+		model.addAttribute("duesFilteredList", feesFilter);
 
 		double subTotal=0;
 		double discount=0;
 		for(Fees f : feesFilter) {
 			subTotal+=f.getAmount();
 		}
-
 		double total=subTotal-discount;
+		
+		Student student = ss.getStudentByRollNo(rollNo);
+
+		model.addAttribute("sModel",student);
 		model.addAttribute("subTotal",subTotal);
-
 		model.addAttribute("total",total);
-
-
-
-		//		List<Fees>feesList=fs.getAllFeesByRollNo(rollNo);
-		//		for(Fees i : feesList) {
-		//			if(i.getDueDate().isBefore(LocalDate.now())) {
-		//				i.setStatus(FeesStatus.DUE);
-		//			}
-		//		}
-
 		model.addAttribute("fList",fs.getAllFeesByRollNo(rollNo));
 		model.addAttribute("rollNo",student.getRollNo());
 		model.addAttribute("paymentList",ps.getAllByRollNo(rollNo));
@@ -95,6 +83,10 @@ public class PaymentController {
 		List<Fees>feesFilter = new ArrayList<>();
 		feesFilter.addAll(feesDue);
 		feesFilter.addAll(feesUnpaid);
+		for(Fees f : feesFilter) {
+			f.setAmount(f.getAmount()-f.getAmountPaid());
+		}
+
 		model.addAttribute("fList",feesFilter);
 
 		return "StudentPayment";
@@ -121,26 +113,25 @@ public class PaymentController {
 		
 		for(Fees i : feesFilter) {
 			for(int a = 0; a<feesType.length ; a++) {
-				System.out.println("workinggg 1");
 				if(i.getFeesType().equals(feesType[a])) {
-					System.out.println("workinggg 2");
 					if(totalPayment>0) {
-						System.out.println("working 3");
 						if(totalPayment>i.getAmount()) {
 							totalPayment=totalPayment-i.getAmount();
 							i.setStatus(FeesStatus.PAID);
+							i.setAmountPaid(i.getAmount());
 							fs.updateFees(i);
 						    ps.addPayment(payment);
-
 						}
 						else if(totalPayment==i.getAmount()) {
 							totalPayment=totalPayment-i.getAmount();
 							i.setStatus(FeesStatus.PAID);
+							i.setAmountPaid(i.getAmount());
+
 							fs.updateFees(i);
 							ps.addPayment(payment);
 						}
-						else if(totalPayment<i.getAmount()) {
-							i.setAmount(i.getAmount()-totalPayment);
+						else if(totalPayment<i.getAmount()) {  
+							i.setAmountPaid(totalPayment);
 							fs.updateFees(i);
 							ps.addPayment(payment);
 						}

@@ -10,4 +10,6 @@ public interface SalaryService {
 		void deleteSalaryById(int id);
 		Salary getSalaryById(int id);
 		void updateSalary(Salary salary);
+		
+		List<Salary> getAllSalaryByTeacherId(String teacherId);
 		}

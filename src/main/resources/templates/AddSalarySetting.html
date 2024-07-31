@@ -13,32 +13,23 @@
 
 
 		 <div class="container-fluid px-4">
-                        <h1 class="mt-4">Add Subject</h1>
+                        <h1 class="mt-4">Add Salary Setting</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Add Subject</li>
+                            <li class="breadcrumb-item"><a href="/salarySettingList">Salary Setting List</a></li>
+                            <li class="breadcrumb-item active">Add Salary Setting</li>
                         </ol>
                        
                         <div class="card mb-4">
                             
                             <div class="card-body">
-                                <form action="/addSubject" method="post">
+                                <form action="/addSalarySetting" method="post">
 										<div class="row">
-											<div class="col-sm-6">
-												<div class="form-group">
-													<label class="form-label" for="subjectName">Name</label>
-													 <input id="subjectName" name='name'
-														placeholder="Enter Subject Name" type="text"
-														class="form-control" required>
-												</div>
-											</div>
-														<div class="col-sm-6">
+												<div class="col-sm-6">
 												<div class="form-group">
 													<label class="form-label" for="department">Faculty</label>
 													 <select name="faculty" id="department" required class="form-control">
 														<option value="">Select</option>
-														
-														<option th:each="f:${facultyList}" th:value="${f.id}">[[${f.name}]]</option>
+														<option th:each="f:${fList}" th:value="${f.id}">[[${f.name}]]</option>
 													</select>
 												</div>
 											</div>
@@ -52,10 +43,29 @@
 													</select>
 												</div>
 											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="date">Subject</label>
+														<select name="subject" class=" form-control">
+														<option value="">Select</option>
+															<option th:each="s:${sList}" th:value="${s.id}"> [[${s.name}]]</option>
+														</select>
+												</div>
+											</div>
+										
+						
+												<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="endtime">Amount</label>
+														<input type="number" name="amount"
+															class=" form-control" id="endtime" placeholder="Enter Amount" required
+															>
+												</div>
+											</div>
 											
-
-											<div class="col-lg-12 col-md-12 col-sm-12">
-												<br>
+									
+											
+											<div class="col-lg-12 col-md-12 col-sm-12"><br>
 												<button type="submit" class="btn btn-primary">Submit</button>
 											</div>
 										</div>

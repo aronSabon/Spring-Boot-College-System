@@ -25,9 +25,11 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
+                                         <th>Teacher Id</th>
                                             <th>Name</th>
                                             <th>Faculty</th>
                                             <th>Grade</th>
+                                            <th>Section</th>
                                             <th>Gender</th>
                                             <th>Subject</th>
                                             <th>Mobile Number</th>
@@ -37,15 +39,17 @@
                                     </thead>
                                     <tbody>
                                         <tr th:each=t:${tList}>
+                                        <td>[[${t.teacherId}]]</td>
                                             <td>[[${t.fullName}]]</td>
                                             <td>
                                               <th:block th:each="fact : ${t.faculty}">
                                                 [[${fact.name}]]
                                               </th:block>
                                             </td>
-                                            <td>[[${t.grade}]][[${t.section}]]</td>
+                                            <td>[[${t.grade}]]</td>
+                                            <td> [[${t.section}]]</td>
                                             <td>[[${t.gender}]]</td>
-                                            <td>[[${t.subject}]]</td>
+                                            <td>[[${t.subject.name}]]</td>
                                             <td>[[${t.mobileNumber}]]</td>
                                             <td>[[${t.address.state}]],[[${t.address.city}]]</td>
                                             <td>

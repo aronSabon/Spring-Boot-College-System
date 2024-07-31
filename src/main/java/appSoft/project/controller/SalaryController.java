@@ -13,18 +13,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import appSoft.project.constant.SalaryStatus;
 import appSoft.project.model.Salary;
+import appSoft.project.service.FacultyService;
 import appSoft.project.service.SalaryService;
+import appSoft.project.service.SubjectService;
+import appSoft.project.service.TeacherService;
 
 
 @Controller
 public class SalaryController {
 	@Autowired
 	SalaryService ss;
+	@Autowired
+	FacultyService facultyService;
+	@Autowired
+	TeacherService teacherService;
+	@Autowired
+	SubjectService subjectService;
 	
 	
 	@GetMapping("/addSalary")
 	private String salaryForm(Model model) {
-		
+		model.addAttribute("facultyList",facultyService.getAllFaculty());
+		model.addAttribute("subjectList",subjectService.getAllSubject());
 		return "AddSalary";
 	}
 	
@@ -47,7 +57,9 @@ public class SalaryController {
 	}
 	@GetMapping("/editSalary")
 	private String editSalary(@RequestParam int id,Model model) {
-		model.addAttribute("sModel",ss.getSalaryById(id));
+		model.addAttribute("salaryModel",ss.getSalaryById(id));
+		model.addAttribute("facultyList",facultyService.getAllFaculty());
+
 		return "EditSalary";
 	}
 	@PostMapping("/updateSalary")
@@ -55,5 +67,12 @@ public class SalaryController {
 		ss.updateSalary(salary);
 		return "redirect:/salaryList";
 	}
+	@GetMapping("/salaryDetails")
+	private String salaryDetails(@RequestParam String teacherId,Model model) {
+		model.addAttribute("teacherModel",teacherService.getTeacherByTeacherId(teacherId));
+		model.addAttribute("salaryList",ss.getAllSalaryByTeacherId(teacherId));
+		return "SalaryDetails";
+	}
+	
 
 }

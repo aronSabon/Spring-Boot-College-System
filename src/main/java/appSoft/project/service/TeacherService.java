@@ -10,4 +10,6 @@ public interface TeacherService {
 		void deleteTeacherById(int id);
 		Teacher getTeacherById(int id);
 		void updateTeacher(Teacher teacher);
+		
+		Teacher getTeacherByTeacherId(String teacherId);
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import appSoft.project.model.Subject;
+import appSoft.project.service.FacultyService;
 import appSoft.project.service.SubjectService;
 
 
@@ -16,9 +17,13 @@ import appSoft.project.service.SubjectService;
 public class SubjectController {
 	@Autowired
 	SubjectService ss;
+	@Autowired
+	FacultyService facultyService;
 	
 	@GetMapping("/addSubject")
-	private String subjectForm() {
+	private String subjectForm(Model model) {
+		model.addAttribute("facultyList",facultyService.getAllFaculty());
+		
 		
 		return "AddSubject";
 	}
@@ -30,7 +35,7 @@ public class SubjectController {
 	
 	@GetMapping("/subjectList")
 	private String subjectList(Model model) {
-		model.addAttribute("sList", ss.getAllSubject());
+		model.addAttribute("subjectList", ss.getAllSubject());
 		return "SubjectList";
 	}
 	@GetMapping("/deleteSubject")

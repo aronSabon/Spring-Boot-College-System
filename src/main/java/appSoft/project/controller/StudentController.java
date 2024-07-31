@@ -70,6 +70,7 @@ public class StudentController {
 			fees1.setFaculty(student.getFaculty());
 			fees1.setStudentName(student.getFullName());
 			fees1.setAmount(i.getAmount());
+			fees1.setAmountPaid(0);
 			fees1.setFeesType(i.getParticulars());
 			fees1.setInvoiceDate(student.getAdmissionDate());
 			fees1.setStatus(i.getStatus());

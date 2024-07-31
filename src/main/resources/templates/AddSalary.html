@@ -24,12 +24,50 @@
                             <div class="card-body">
                                 <form action="/addSalary" method="post"  >
 										<div class="row">
+										<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="tid">Teacher Id</label>
+													<input id="tid" name='teacherId'
+														placeholder="Enter Teacher Id" type="text"
+														class="form-control" >
+												</div>
+											</div>
 											<div class="col-sm-6">
 												<div class="form-group">
 													<label class="form-label" for="fullName">Name</label>
 													<input id="fullName" name='fullName'
 														placeholder="Enter Full Name" type="text"
 														class="form-control" >
+												</div>
+											</div>
+													<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="department">Faculty</label>
+													 <select name="faculty" id="department" required class="form-control">
+														<option value="">Select</option>
+														
+														<option th:each="f:${facultyList}" th:value="${f.id}">[[${f.name}]]</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="subject">Subject</label>
+													 <select name="subject" id="subject" required class="form-control">
+														<option value="">Select</option>
+														
+														<option th:each="s:${subjectList}" th:value="${s.id}">[[${s.name}]]</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="grade">Grade</label>
+													 <select name="grade" id="grade" required class="form-control">
+														<option value="">Select Grade</option>
+														<option value="11">11</option>
+														<option value="12">12</option>
+													</select>
 												</div>
 											</div>
 											<div class="col-sm-6">

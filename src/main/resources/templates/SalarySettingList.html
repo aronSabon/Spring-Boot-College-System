@@ -13,11 +13,12 @@
 
 
 		 <div class="container-fluid px-4">
-                        <h1 class="mt-4">Subject List</h1>
+                        <h1 class="mt-4">Salary Setting List</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Subject List</li>
+                            <li class="breadcrumb-item active">Salary Setting List</li>
                         </ol>
+                        <a href="/addSalarySetting"><button class="btn btn-warning">Add Salary Setting</button></a>
                        
                         <div class="card mb-4">
                             
@@ -25,23 +26,26 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                         
-                                            <th>Name</th>
-                                             <th>Grade</th>
-                                              <th>Faculty</th>
-                                            <th>Actions</th>
-                                            
+                                        <th>Grade</th>
+                                            <th>Faculty</th>
+                                            <th>Subject</th>
+                                            <th>Amount</th>
+                                           
+                                            <th>
+                                            Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each=s:${subjectList}>
-                                            <td>[[${s.name}]]</td>
-                                                <td>[[${s.grade}]]</td>
-                                                    <td>[[${s.faculty.name}]]</td>
-                                        
+                                        <tr th:each=s:${salarySettingList}>
+                                          <td>[[${s.grade}]]</td>
+                                            <td>[[${s.faculty.name}]]</td>
+                                          <td>[[${s.subject.name}]]</td>
+                                            <td>[[${s.amount}]]</td>
+                                            
+                                           
                                             <td>
-                                            	<a  th:href="@{/editSubject(id=${s.id})}"><button class="btn btn-primary">Edit</button></a>
-                                            	<a th:href="@{/deleteSubject(id=${s.id})}"><button class="btn btn-danger">Delete</button></a>
+                                            	<a  th:href="@{/editSalarySetting(id=${s.id})}"><button class="btn btn-primary btn-sm">Edit</button></a>
+                                            	<a th:href="@{/deleteSalarySetting(id=${s.id})}"><button class="btn btn-danger btn-sm">Delete</button></a>
                                             </td>
                                         </tr>
                                        

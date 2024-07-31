@@ -19,6 +19,7 @@ public class Teacher {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	private String teacherId;
 	private String fullName;
 	private String gender;
 	private Date dob;
@@ -29,15 +30,16 @@ public class Teacher {
 	private String email;
 	private String username;
 	private String password;
-	@ManyToMany
-	List<Faculty> faculty;
+	@OneToOne
+	private Faculty faculty;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
 	private String imageName;
 	private String grade;
 	private String section;
-	private String subject;
+	@OneToOne
+	private Subject subject;
 
 
 
