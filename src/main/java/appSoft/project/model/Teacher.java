@@ -40,6 +40,8 @@ public class Teacher {
 	private String section;
 	@OneToOne
 	private Subject subject;
+	private double salary;
+	private int period;
 
 
 

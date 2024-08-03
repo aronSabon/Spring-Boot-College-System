@@ -1,5 +1,6 @@
 package appSoft.project.serviceImpl;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,12 @@ public class ExpenseServiceImpl implements ExpenseService {
 		public void updateExpense(Expense expense) {
 			// TODO Auto-generated method stub
 			expenseRepository.save(expense);
+		}
+
+		@Override
+		public List<Expense> getAllByPurchaseDateBetween(LocalDate expenseFrom, LocalDate expenseTo) {
+			// TODO Auto-generated method stub
+			return expenseRepository.findAllByPurchaseDateBetween(expenseFrom, expenseTo);
 		}
 
 }

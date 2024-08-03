@@ -228,7 +228,9 @@
                                             <th>FACULTY</th>
                                            	<th>Subject</th>
                                            	 	<th>Section</th>
+                                           	 	<th>Period</th>
                                             <th>AMOUNT</th>
+                                            <th>Amount Paid</th>
                                             <th>Pay Date</th>
                                             <th>Status</th>
                                             
@@ -242,13 +244,19 @@
                                             <td>[[${s.faculty.name}]]</td>
                                             <td>[[${s.subject.name}]]</td>
                                               <td>[[${s.section}]]</td>
+                                                 <td>[[${s.period}]]</td>
                                             <td>[[${s.amount}]]</td>
+                                         <td>[[${s.amountPaid}]]</td>
                                             <td>[[${s.payDate}]]</td>
                                             <td>[[${s.status}]]</td>
                                         </tr>
                                        
                                     </tbody>
                                 </table>
+                                <div>
+                                <a th:href="@{/teacherPayment(teacherId=${teacherModel.teacherId})}"><button class="btn btn-success">Pay</button></a>
+                                </div>
+                                
                                 
 								
 								</div>
@@ -267,16 +275,21 @@
 									<table  id="example" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                           <th>Particulars</th>
+                                           <th>Salary Id</th>
                                             <th>Paid With</th>
                                             <th>Date And Time</th>
                                             <th>Amount</th>
-                                        
-                                           
+                  
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    
+                                    	<tr th:each="p:${paymentHistory}">
+                                    	<td>[[${p.salaryId}]]</td>
+                                    	<td>[[${p.paidWith}]]</td>
+                                    	<td>[[${p.date}]], [[${p.time}]]</td>
+                                    	<td>[[${p.amount}]]</td>
+                                    	</tr>
+                                    	
                                        
                                     </tbody>
                                 </table>

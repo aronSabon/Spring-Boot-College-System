@@ -13,10 +13,10 @@
 
 
 				<div class="container-fluid px-4">
-					<h1 class="mt-4">Add Salary</h1>
+					<h1 class="mt-4">Edit Salary</h1>
 					<ol class="breadcrumb mb-4">
 						<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-						<li class="breadcrumb-item active">Add Salary</li>
+						<li class="breadcrumb-item active">Edit Salary</li>
 					</ol>
 
 					<div class="card mb-4">
@@ -51,13 +51,13 @@
 									</div>
 									<div class="col-sm-6">
 										<div class="form-group">
-											<label class="form-label" for="salary">Salary</label> <select
-												th:field="*{salary}" id="salary" required
+											<label class="form-label" for="amount">Amount</label> <input
+												id="fullName" th:field="*{amount}"
+												placeholder="Enter Amount" type="number"
 												class="form-control">
-												<option th:each="s:${salaryList}" th:value="${s.id}">[[${s.name}]]</option>
-											</select>
 										</div>
 									</div>
+									
 									<div class="col-sm-6">
 										<div class="form-group">
 											<label class="form-label" for="grade">Grade</label> <select
@@ -87,6 +87,32 @@
 												id="startTime" placeholder="Enter Pay Date" required>
 										</div>
 									</div>
+													
+												<div class="col-sm-6">
+												<div class="form-group">
+													<div class="form-label" >Section</div>
+													<input type="checkbox" th:field="*{section}" id ="a" value="A"><label for="a">A</label>&nbsp;&nbsp;
+														<input type="checkbox" th:field="*{section}" id ="b" value="B"><label for="b">B</label>&nbsp;&nbsp;
+														<input type="checkbox" th:field="*{section}" id ="c" value="C"><label for="c">C</label>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="period">Period</label>
+													 <select  th:field="*{period}"  id="period" required class="form-control">
+													<option value="1">1</option>
+															<option value="2">2</option>
+															<option value="3">3</option>
+															<option value="4">4</option>
+															<option value="5">5</option>
+															<option value="6">6</option>
+															<option value="7">7</option>
+															<option value="8">8</option>
+															<option value="9">9</option>
+															<option value="10">10</option>
+													</select>
+												</div>
+											</div>
 									<div class="col-sm-6">
 										<div class="form-group">
 											<label class="form-label" for="endtime">Amount</label> <input

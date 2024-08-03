@@ -13,13 +13,13 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Payment {
+public class SalaryPayment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 private int id;
-	private int rollNo;
+	private String teacherId;
 	private String fullName;
-	private String feesType;
+	private String  salaryId;
 	private double amount;
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate date;

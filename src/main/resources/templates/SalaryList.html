@@ -25,6 +25,7 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
+                                        <th>Salary Id</th>
                                         <th>Teacher Id</th>
                                             <th>Name</th>
                                              <th>Faculty</th>
@@ -33,6 +34,7 @@
                                             <th>Section</th>
                                             <th>Gender</th>
                                             <th>Pay Date</th>
+                                            <th>Period</th>
                                             <th>Amount</th>
                                             <th>Status</th>
                                             <th> Actions</th>
@@ -40,6 +42,7 @@
                                     </thead>
                                     <tbody>
                                         <tr th:each=s:${sList}>
+                                        <td>[[${s.id}]]</td>
                                         <td>[[${s.teacherId}]]</td>
                                             <td>[[${s.fullName}]]</td>
                                             <td>[[${s.faculty.name}]]</td>
@@ -48,13 +51,14 @@
                                              <td>[[${s.section}]]</td>
                                             <td>[[${s.gender}]]</td>
                                             <td>[[${s.payDate}]]</td>
+                                            <td>[[${s.period}]]</td>
                                             <td>[[${s.amount}]]</td>
                                             <td>[[${s.status}]]</td>
                                             
                                             <td>
                                             	<a  th:href="@{/editSalary(id=${s.id})}"><button class="btn btn-primary btn-sm">Edit</button></a>
                                             	<a th:href="@{/deleteSalary(id=${s.id})}"><button class="btn btn-danger btn-sm">Delete</button></a>
-                                            	<a th:href="@{/salaryDetails(teacherId=${s.teacherId})}"><button class="btn btn-success btn-sm">Salary Details</button></a>
+                                            	<a th:href="@{/salaryPaymentDetails(teacherId=${s.teacherId})}"><button class="btn btn-success btn-sm">Salary Details</button></a>
                                             	
                                             </td>
                                         </tr>

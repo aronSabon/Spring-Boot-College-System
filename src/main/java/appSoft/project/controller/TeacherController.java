@@ -19,6 +19,7 @@ import appSoft.project.model.Salary;
 import appSoft.project.model.SalarySetting;
 import appSoft.project.model.Teacher;
 import appSoft.project.service.FacultyService;
+import appSoft.project.service.SalaryPaymentService;
 import appSoft.project.service.SalaryService;
 import appSoft.project.service.SalarySettingService;
 import appSoft.project.service.SubjectService;
@@ -37,6 +38,8 @@ public class TeacherController {
 	SalarySettingService salarySettingService;
 	@Autowired
 	SalaryService salaryService;
+	@Autowired
+	SalaryPaymentService salaryPaymentService;
 	
 	@GetMapping("/addTeacher")
 	private String teacherForm(Model model) {
@@ -50,23 +53,20 @@ public class TeacherController {
 		ts.addTeacher(teacher);
 		
 
-		SalarySetting salarySetting=salarySettingService.getSalarySettingByGradeAndFacultyAndSubject(teacher.getGrade(), teacher.getFaculty(), teacher.getSubject());
+//		SalarySetting salarySetting=salarySettingService.getSalarySettingByGradeAndFacultyAndSubject(teacher.getGrade(), teacher.getFaculty(), teacher.getSubject());
 	
 
-		double salaryAmount=salarySetting.getAmount();
-		String[] section = teacher.getSection().split(",");
-		if(section.length>1) {
-			salaryAmount*=section.length;
-		}
+		
 			Salary salary = new Salary();
-			salary.setAmount(salaryAmount);
-			salary.setFaculty(salarySetting.getFaculty());
+			salary.setAmount(teacher.getSalary()*teacher.getPeriod());
+			salary.setFaculty(teacher.getFaculty());
 			salary.setFullName(teacher.getFullName());
 			salary.setGender(teacher.getGender());
 			salary.setGrade(teacher.getGrade());
 			salary.setSubject(teacher.getSubject());
 			salary.setSection(teacher.getSection());
-			salary.setPayDate(LocalDate.now());
+			salary.setPeriod(teacher.getPeriod());
+			salary.setPayDate(LocalDate.now().withDayOfMonth(28));
 			salary.setStatus(SalaryStatus.UNPAID);
 			salary.setTeacherId(teacher.getTeacherId());
 			salaryService.addSalary(salary);
@@ -80,8 +80,11 @@ public class TeacherController {
 		return "TeacherList";
 	}
 	@GetMapping("/deleteTeacher")
-	private String deleteTeacher(@RequestParam int id) {
+	private String deleteTeacher(@RequestParam int id,@RequestParam String teacherId) {
+		salaryService.deleteAllByTeacherId(teacherId);
+		salaryPaymentService.deleteAllByTeacherId(teacherId);
 		ts.deleteTeacherById(id);
+		
 		return "redirect:/teacherList";
 	}
 	@GetMapping("/editTeacher")

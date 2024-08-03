@@ -178,11 +178,11 @@
                                     <thead>
                                         <tr>
                                            
-                                            <th>GRADE</th>
-                                            <th>FACULTY</th>
+                                           
                                             <th>PARTICULARS</th>
                                             <th>AMOUNT</th>
-                                            <th>AMOUNT PAID</th>
+                                            <th> PAID</th>
+                                              <th> Remaining</th>
                                             <th>Due Date</th>
                                             <th>Status</th>
                                             
@@ -190,13 +190,13 @@
                                     </thead>
                                     <tbody>
                                       
-                                         <tr th:each=f:${fList}>
+                                         <tr th:each=f:${feesList}>
                                         
-                                            <td>[[${f.grade}]]</td>
-                                            <td>[[${f.faculty.name}]]</td>
+                                           
                                             <td>[[${f.feesType}]]</td>
                                             <td>[[${f.amount}]]</td>
                                             <td>[[${f.amountPaid}]]</td>
+                                            <td>[[${f.amount-f.amountPaid}]]</td>
                                             <td>[[${f.dueDate}]]</td>
                                             <td>[[${f.status}]]</td>
                                         </tr>
@@ -271,11 +271,11 @@
                                     
                                     <tbody>
                                    
-                                        <tr th:each=f:${duesFilteredList}>
+                                        <tr th:each=df:${duesFilteredList}>
                                         
-                                            <td>[[${f.feesType}]]</td>
-                                            <td>[[${f.amount}]]</td>
-                                            <td>[[${f.dueDate}]]</td>
+                                            <td>[[${df.feesType}]]</td>
+                                            <td>[[${df.amount-df.amountPaid}]]</td>
+                                            <td>[[${df.dueDate}]]</td>
                                             
                                            
                                         </tr>

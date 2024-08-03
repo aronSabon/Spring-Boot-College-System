@@ -110,14 +110,13 @@
 														</select>												
 													</div>
 												</div>
-												<div class="col-12 col-sm-4">
+															<div class="col-12 col-sm-4">
 													<div class="form-group local-forms">
-														<label class="editLabel">Section <span class="login-danger">*</span></label>
-														<select class="form-control" th:field="*{section}" multiple>
-															<option value="A">A</option>
-															<option value="B">B</option>
-															<option value="C">C</option>
-														</select>												
+														<div>Section <span class="login-danger">*</span></div>
+														<input type="checkbox" th:field="*{section}" id ="a" value="A"><label for="a">A</label>&nbsp;&nbsp;
+														<input type="checkbox" th:field="*{section}" id ="b" value="B"><label for="b">B</label>&nbsp;&nbsp;
+														<input type="checkbox" th:field="*{section}" id ="c" value="C"><label for="c">C</label>
+
 													</div>
 												</div>
 												
@@ -131,7 +130,31 @@
 													</div>
 												</div>
 												
-												
+												<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">Basic Salary <span class="login-danger">*</span></label>
+														<input class="form-control" type="number"
+															placeholder="Enter Salary"  th:field="*{salary}">
+													</div>
+												</div>
+													<div class="col-12 col-sm-4">
+													<div class="form-group local-forms">
+														<label class="editLabel">Period <span class="login-danger">*</span></label>
+														<select class="form-control"  th:field="*{period}" >
+															<option value="1">1</option>
+															<option value="2">2</option>
+															<option value="3">3</option>
+															<option value="4">4</option>
+															<option value="5">5</option>
+															<option value="6">6</option>
+															<option value="7">7</option>
+															<option value="8">8</option>
+															<option value="9">9</option>
+															<option value="10">10</option>
+														
+														</select>												
+													</div>
+												</div>
 												
 											
 												

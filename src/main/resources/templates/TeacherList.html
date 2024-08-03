@@ -34,6 +34,8 @@
                                             <th>Subject</th>
                                             <th>Mobile Number</th>
                                             <th>Address</th>
+                                            <th>Basic Salary</th>
+                                            <th>Period</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -52,9 +54,11 @@
                                             <td>[[${t.subject.name}]]</td>
                                             <td>[[${t.mobileNumber}]]</td>
                                             <td>[[${t.address.state}]],[[${t.address.city}]]</td>
+                                                <td> [[${t.salary}]]</td>
+                                            <td>[[${t.period}]]</td>
                                             <td>
                                             	<a  th:href="@{/editTeacher(id=${t.id})}"><button class="btn btn-primary">Edit</button></a>
-                                            	<a th:href="@{/deleteTeacher(id=${t.id})}"><button class="btn btn-danger">Delete</button></a>
+                                            	<a th:href="@{/deleteTeacher(id=${t.id},teacherId=${t.teacherId})}"><button class="btn btn-danger">Delete</button></a>
                                             </td>
                                         </tr>
                                        

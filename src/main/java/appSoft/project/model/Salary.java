@@ -36,8 +36,10 @@ public class Salary {
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate payDate;
 	private double amount;
+	private int period;
 	@Enumerated(EnumType.STRING)
 	private SalaryStatus status;
+	private double amountPaid;
 	
 
 }

@@ -18,39 +18,43 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import appSoft.project.constant.FeesStatus;
 import appSoft.project.model.Fees;
-import appSoft.project.model.Payment;
+import appSoft.project.model.FeesPayment;
 import appSoft.project.model.Student;
 import appSoft.project.service.FeesService;
 import appSoft.project.service.FeesTypeService;
-import appSoft.project.service.PaymentService;
+import appSoft.project.service.FeesPaymentService;
 import appSoft.project.service.StudentService;
 
 @Controller
-public class PaymentController {
+public class FeesPaymentController {
 	@Autowired
-	FeesService fs;
+	FeesService feesService;
 	@Autowired
-	StudentService ss;
+	StudentService studentService;
 
 	@Autowired
 	private FeesTypeService  feesTypeService;
 	@Autowired
-	private PaymentService ps;
+	private FeesPaymentService feesPaymentService;
 
 
 
 	@GetMapping("/paymentDetails")
 	private String paymentDetails(@RequestParam int rollNo,Model model) {
+		model.addAttribute("feesList",feesService.getAllFeesByRollNo(rollNo));
 		
-		List<Fees>feesDue=fs.getAllFeesByRollNoAndStatus(rollNo, FeesStatus.DUE);
-		List<Fees>feesUnpaid=fs.getAllFeesByRollNoAndStatus(rollNo, FeesStatus.UNPAID);
+		
+		List<Fees>feesDue=feesService.getAllFeesByRollNoAndStatus(rollNo, FeesStatus.DUE);
+		List<Fees>feesUnpaid=feesService.getAllFeesByRollNoAndStatus(rollNo, FeesStatus.UNPAID);
 		List<Fees>feesFilter = new ArrayList<>();
 		feesFilter.addAll(feesDue);
 		feesFilter.addAll(feesUnpaid);
-		for(Fees f : feesFilter) {
-			f.setAmount(f.getAmount()-f.getAmountPaid());
-		}
+		
 		model.addAttribute("duesFilteredList", feesFilter);
+System.out.println(feesFilter);
+System.out.println(feesFilter);
+System.out.println(feesFilter);
+System.out.println(feesFilter);
 
 		double subTotal=0;
 		double discount=0;
@@ -59,41 +63,39 @@ public class PaymentController {
 		}
 		double total=subTotal-discount;
 		
-		Student student = ss.getStudentByRollNo(rollNo);
+		Student student = studentService.getStudentByRollNo(rollNo);
 
 		model.addAttribute("sModel",student);
 		model.addAttribute("subTotal",subTotal);
 		model.addAttribute("total",total);
-		model.addAttribute("fList",fs.getAllFeesByRollNo(rollNo));
 		model.addAttribute("rollNo",student.getRollNo());
-		model.addAttribute("paymentList",ps.getAllByRollNo(rollNo));
+		model.addAttribute("paymentList",feesPaymentService.getAllByRollNo(rollNo));
 
-		return "PaymentDetails";
+		
+		return "FeesPaymentDetails";
 	}
 
 	@GetMapping("/studentPayment")
 	private String studentPayment(@RequestParam int rollNo, Model model) {
-		Student student= ss.getStudentByRollNo(rollNo);
-		model.addAttribute("student",ss.getStudentByRollNo(rollNo));
+		Student student= studentService.getStudentByRollNo(rollNo);
+		model.addAttribute("student",studentService.getStudentByRollNo(rollNo));
 		model.addAttribute("date",LocalDate.now());
 		model.addAttribute("time",LocalTime.now().truncatedTo(ChronoUnit.SECONDS));
 		model.addAttribute("feeTypeList",feesTypeService.getFeesTypeByGradeAndFaculty(student.getGrade(), student.getFaculty()));
-		List<Fees>feesDue=fs.getAllFeesByRollNoAndStatus(rollNo, FeesStatus.DUE);
-		List<Fees>feesUnpaid=fs.getAllFeesByRollNoAndStatus(rollNo, FeesStatus.UNPAID);
+		List<Fees>feesDue=feesService.getAllFeesByRollNoAndStatus(rollNo, FeesStatus.DUE);
+		List<Fees>feesUnpaid=feesService.getAllFeesByRollNoAndStatus(rollNo, FeesStatus.UNPAID);
 		List<Fees>feesFilter = new ArrayList<>();
 		feesFilter.addAll(feesDue);
 		feesFilter.addAll(feesUnpaid);
-		for(Fees f : feesFilter) {
-			f.setAmount(f.getAmount()-f.getAmountPaid());
-		}
-
+		
+		
 		model.addAttribute("fList",feesFilter);
 
 		return "StudentPayment";
 	}
 
 	@PostMapping("/payment")
-	private String payment(@ModelAttribute Payment payment, RedirectAttributes redirectAttribute) {
+	private String feesPayment(@ModelAttribute FeesPayment feesPayment, RedirectAttributes redirectAttribute) {
 
 
 //		String[] split =(payment.getFeesType().split(","));
@@ -101,49 +103,49 @@ public class PaymentController {
 //		System.out.println(split[i]);
 //		
 //	}
-		List<Fees>feesDue=fs.getAllFeesByRollNoAndStatus(payment.getRollNo(), FeesStatus.DUE);
-		List<Fees>feesUnpaid=fs.getAllFeesByRollNoAndStatus(payment.getRollNo(), FeesStatus.UNPAID);
+		List<Fees>feesDue=feesService.getAllFeesByRollNoAndStatus(feesPayment.getRollNo(), FeesStatus.DUE);
+		List<Fees>feesUnpaid=feesService.getAllFeesByRollNoAndStatus(feesPayment.getRollNo(), FeesStatus.UNPAID);
 		List<Fees>feesFilter = new ArrayList<>();
 		feesFilter.addAll(feesDue);
 		feesFilter.addAll(feesUnpaid);
 
 		// for multiple feesType input
-		double totalPayment=payment.getAmount();
-		String[] feesType =(payment.getFeesType().split(","));
+		double totalPayment=feesPayment.getAmount();
+		String[] feesType =(feesPayment.getFeesType().split(","));
 		
 		for(Fees i : feesFilter) {
 			for(int a = 0; a<feesType.length ; a++) {
 				if(i.getFeesType().equals(feesType[a])) {
 					if(totalPayment>0) {
-						if(totalPayment>i.getAmount()) {
-							totalPayment=totalPayment-i.getAmount();
+						if(totalPayment>(i.getAmount()-i.getAmountPaid())) {
+							totalPayment=totalPayment-(i.getAmount()-i.getAmountPaid());
 							i.setStatus(FeesStatus.PAID);
-							i.setAmountPaid(i.getAmount());
-							fs.updateFees(i);
-						    ps.addPayment(payment);
+							i.setAmountPaid(i.getAmountPaid()+(i.getAmount()-i.getAmountPaid()));
+							feesService.updateFees(i);
+						    feesPaymentService.addPayment(feesPayment);
 						}
-						else if(totalPayment==i.getAmount()) {
-							totalPayment=totalPayment-i.getAmount();
+						else if(totalPayment==(i.getAmount()-i.getAmountPaid()))  {
+							totalPayment=totalPayment-(i.getAmount()-i.getAmountPaid());
 							i.setStatus(FeesStatus.PAID);
-							i.setAmountPaid(i.getAmount());
+							i.setAmountPaid(i.getAmountPaid()+(i.getAmount()-i.getAmountPaid()));
 
-							fs.updateFees(i);
-							ps.addPayment(payment);
+							feesService.updateFees(i);
+							feesPaymentService.addPayment(feesPayment);
 						}
-						else if(totalPayment<i.getAmount()) {  
-							i.setAmountPaid(totalPayment);
-							fs.updateFees(i);
-							ps.addPayment(payment);
+						else if(totalPayment<(i.getAmount()-i.getAmountPaid()))  {  
+							i.setAmountPaid(i.getAmountPaid()+totalPayment);
+							feesService.updateFees(i);
+							feesPaymentService.addPayment(feesPayment);
 						}
 					}
 				}
 			}
 		}
-		redirectAttribute.addAttribute("rollNo",payment.getRollNo());
+		redirectAttribute.addAttribute("rollNo",feesPayment.getRollNo());
 		return	 "redirect:/studentPayment";
 
 
-		//		Fees fees=fs.getFeesByRollNoAndStatusAndFeesType(payment.getRollNo(), FeesStatus.DUE, payment.getFeesType());
+		//		Fees fees=feesService.getFeesByRollNoAndStatusAndFeesType(payment.getRollNo(), FeesStatus.DUE, payment.getFeesType());
 
 
 
@@ -152,12 +154,12 @@ public class PaymentController {
 		//			if(payment.getFeesType().equals(i.getFeesType())) {
 		//				if(payment.getAmount()==i.getAmount()) {
 		//					i.setStatus(FeesStatus.PAID);
-		//					fs.updateFees(i);
+		//					feesService.updateFees(i);
 		//					ps.addPayment(payment);
 		//				}
 		//				else if(payment.getAmount()<i.getAmount()) {
 		//					i.setAmount(i.getAmount()-payment.getAmount());
-		//					fs.updateFees(i);
+		//					feesService.updateFees(i);
 		//					ps.addPayment(payment);
 		//
 		//				}
@@ -169,14 +171,14 @@ public class PaymentController {
 
 
 		//working for single feesType INput
-		//		Fees fees=fs.getFeesByRollNoAndStatusAndFeesType(payment.getRollNo(), FeesStatus.DUE, payment.getFeesType());
+		//		Fees fees=feesService.getFeesByRollNoAndStatusAndFeesType(payment.getRollNo(), FeesStatus.DUE, payment.getFeesType());
 		//		if(payment.getAmount()==fees.getAmount()) {
 		//			fees.setStatus(FeesStatus.PAID);
-		//			fs.updateFees(fees);
+		//			feesService.updateFees(fees);
 		//		}
 		//		else if(payment.getAmount()<fees.getAmount()) {
 		//			fees.setAmount(fees.getAmount()-payment.getAmount());
-		//			fs.updateFees(fees);
+		//			feesService.updateFees(fees);
 		//		}
 		//		redirectAttribute.addAttribute("rollNo",payment.getRollNo());
 		//		return	 "redirect:/studentPayment";

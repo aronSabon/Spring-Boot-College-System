@@ -19,6 +19,7 @@ import appSoft.project.model.FeesType;
 import appSoft.project.model.Student;
 import appSoft.project.repository.FeesRepository;
 import appSoft.project.service.FacultyService;
+import appSoft.project.service.FeesPaymentService;
 import appSoft.project.service.FeesService;
 import appSoft.project.service.FeesTypeService;
 import appSoft.project.service.StudentService;
@@ -34,6 +35,8 @@ public class StudentController {
 	FeesService feesService;
 	@Autowired 
 	FeesTypeService feesTypeService;
+	@Autowired
+	FeesPaymentService feesPaymentService;
 
 	
 	@GetMapping("/addStudent")
@@ -92,6 +95,7 @@ public class StudentController {
 	@GetMapping("/deleteStudent")
 	private String deleteStudent(@RequestParam int id,@RequestParam int rollNo) {
 		feesService.deleteAllByRollNo(rollNo);
+		feesPaymentService.deleteAllByRollNo(rollNo);
 		ss.deleteStudentById(id);
 
 		return "redirect:/studentList";

@@ -67,12 +67,7 @@ public class SalaryController {
 		ss.updateSalary(salary);
 		return "redirect:/salaryList";
 	}
-	@GetMapping("/salaryDetails")
-	private String salaryDetails(@RequestParam String teacherId,Model model) {
-		model.addAttribute("teacherModel",teacherService.getTeacherByTeacherId(teacherId));
-		model.addAttribute("salaryList",ss.getAllSalaryByTeacherId(teacherId));
-		return "SalaryDetails";
-	}
+	
 	
 
 }

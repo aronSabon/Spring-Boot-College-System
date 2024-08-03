@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import appSoft.project.constant.FeesStatus;
+import appSoft.project.constant.SalaryStatus;
 import appSoft.project.model.Salary;
 import appSoft.project.repository.SalaryRepository;
 import appSoft.project.service.SalaryService;
@@ -48,6 +50,18 @@ public class SalaryServiceImpl implements SalaryService {
 		public List<Salary> getAllSalaryByTeacherId(String teacherId) {
 			// TODO Auto-generated method stub
 			return sr.findByTeacherId(teacherId);
+		}
+
+		@Override
+		public List<Salary> getAllByTeacherIdAndStatus(String teacherId, SalaryStatus status) {
+			// TODO Auto-generated method stub
+			return sr.findByTeacherIdAndStatus(teacherId, status);
+		}
+
+		@Override
+		public List<Salary> deleteAllByTeacherId(String teacherId) {
+			// TODO Auto-generated method stub
+			return sr.deleteAllByTeacherId(teacherId);
 		}
 
 }

@@ -17,11 +17,5 @@ import java.time.LocalDate;
 public interface ExpenseRepository extends JpaRepository<Expense, Integer> {
 List<Expense> findByPurchaseDate(LocalDate purchaseDate);
 
-//@Transactional
-//@Modifying
-//@Query("Select expense where purchaseDate between :expenseFrom And :expenseTo ")
-//List<Expense> findByPurchaseDate(LocalDate expenseFrom,LocalDate expenseTo);
-List<Expense> findAllByPurchaseDateBetween(
-	      LocalDate expenseFrom,
-	      LocalDate expenseTo);
+List<Expense> findAllByPurchaseDateBetween(LocalDate expenseFrom, LocalDate expenseTo);
 }

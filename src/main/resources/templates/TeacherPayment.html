@@ -13,45 +13,45 @@
 
 
 				<div class="container-fluid px-4">
-					<h1 class="mt-4">Student Payment</h1>
+					<h1 class="mt-4">Teacher Payment</h1>
 					<ol class="breadcrumb mb-4">
 						<li class="breadcrumb-item"><a
-							th:href="@{/paymentDetails(rollNo=${student.rollNo})}">Payment
+							th:href="@{/salaryPaymentDetails(teacherId=${teacher.teacherId})}">Salary
 								Details</a></li>
-						<li class="breadcrumb-item active">Student Payment</li>
+						<li class="breadcrumb-item active">Teacher Payment</li>
 					</ol>
 
 					<div class="card mb-4">
 
 						<div class="card-body">
-							<form action="/payment" method="post" th:object="${student}">
+							<form action="/teacherPayment" method="post" th:object="${teacher}">
 								<div class="row">
 									<div class="col-sm-6">
 										<div class="form-group">
-											<label class="form-label" for="fullName">Roll No</label> <input
-												id="fullName" th:field="*{rollNo}"
+											<label class="form-label" for="fullName">Teacher Id</label> <input
+												id="fullName" th:field="*{teacherId}"
 												placeholder="Enter Roll No" type="text" class="form-control"
 												readonly>
 										</div>
 									</div>
 									<div class="col-sm-6">
 										<div class="form-group">
-											<label class="form-label" for="grade">Student Name</label> <input
+											<label class="form-label" for="grade">Teacher Name</label> <input
 												id="grade" th:field="*{fullName}"
 												placeholder="Enter Student Name" type="text"
 												class="form-control" readonly>
 										</div>
 									</div>
-
+							
 								
 
 									<div class="col-sm-6">
 										<div class="form-group">
-											<label class="form-label">Fees Type</label>
-											<div th:each="f:${fList}">
-												<input type="checkbox" name="feesType"
-													th:value="${f.feesType}" th:id="${f.feesType}">
-												<label th:for="${f.feesType}">[[${f.feesType}]]</label>
+											<label class="form-label">Salary Id</label>
+											<div th:each="s:${salaryList}">
+												<input type="checkbox" name="salaryId"
+													th:value="${s.id}" th:id="${s.id}" >
+												<label th:for="${s.id}">[[${s.id}]]</label>
 											</div>
 										</div>
 									</div>
@@ -111,18 +111,18 @@
 
 										<th></th>
 
-										<th>PARTICULARS</th>
+										<th>Salary Id</th>
 										<th>Remaining Amount</th>
 									</tr>
 								</thead>
 								<tbody>
 
-									<tr th:each=f:${fList}>
+									<tr th:each=s:${salaryList}>
 
 										<td><input type="checkbox"></td>
 
-										<td>[[${f.feesType}]]</td>
-										<td>[[${f.amount-f.amountPaid}]]</td>
+										<td>[[${s.id}]]</td>
+										<td>[[${s.amount}]]</td>
 									</tr>
 
 								</tbody>
