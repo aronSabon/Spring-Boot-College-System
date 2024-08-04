@@ -31,6 +31,7 @@
                                             <th>Purchase Date</th>
                                             
                                             <th>Purchase By</th>
+                                            <th>Grade</th>
                                              <th>Remarks</th>
                                             <th>
                                             Actions</th>
@@ -43,6 +44,7 @@
                                             <td>[[${e.amount}]]</td>
                                             <td>[[${e.purchaseDate}]]</td>
                                              <td>[[${e.purchaseBy}]]</td>
+                                             <td>[[${e.grade}]]</td>
                                              <td>[[${e.remarks}]]</td>
                                             <td>
                                             	<a  th:href="@{/editExpense(id=${e.id})}"><button class="btn btn-primary">Edit</button></a>

@@ -30,6 +30,6 @@ public class Expense {
  @DateTimeFormat(iso = ISO.DATE)
  private LocalDate purchaseDate;
  private String remarks;
- 
+ private String grade;
 
 }

@@ -12,4 +12,7 @@ public interface ExpenseService {
 		Expense getExpenseById(int id);
 		void updateExpense(Expense expense);
 		List<Expense> getAllByPurchaseDateBetween(LocalDate expenseFrom, LocalDate expenseTo);
+		
+		List<Expense> getAllByPurchaseDateBetweenAndGrade(LocalDate expenseFrom, LocalDate expenseTo, String grade);
+
 }

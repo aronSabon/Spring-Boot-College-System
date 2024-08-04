@@ -28,7 +28,7 @@ public class ExpenseController {
 	ExpenseRepository expenseRepository;
 	@Autowired
 	FeesPaymentService feesPaymentService;
-	
+
 	@GetMapping("/addExpense")
 	private String expenseForm(Model model) {
 		model.addAttribute("date",LocalDate.now());
@@ -39,7 +39,7 @@ public class ExpenseController {
 		expenseService.addExpense(expense);
 		return "redirect:/addExpense";
 	}
-	
+
 	@GetMapping("/expenseList")
 	private String expenseList(Model model) {
 		model.addAttribute("expenseList", expenseService.getAllExpense());
@@ -64,7 +64,7 @@ public class ExpenseController {
 	private String expenseReport(Model model) {
 		model.addAttribute("from", LocalDate.now().minusMonths(1));
 		model.addAttribute("to",LocalDate.now());
-		
+
 		List<Expense> expenseList=expenseService.getAllByPurchaseDateBetween(LocalDate.now().minusMonths(1), LocalDate.now());
 		List<FeesPayment> feesPaymentList=feesPaymentService.getAllByDateBetween(LocalDate.now().minusMonths(1), LocalDate.now());
 		model.addAttribute("expenseList",expenseList);
@@ -83,9 +83,33 @@ public class ExpenseController {
 	}
 	@PostMapping("/expenseReportDetail")
 	private String post(@ModelAttribute ExpenseReport expenseReport,Model model) {
+
+		if(!expenseReport.getGrade().isEmpty()) {
+			model.addAttribute("expenseReportModel",expenseReport);
+			model.addAttribute("expenseFrom",expenseReport.getExpenseFrom());
+			model.addAttribute("expenseTo",expenseReport.getExpenseTo());
+			List<Expense> expenseList=expenseService.getAllByPurchaseDateBetweenAndGrade(expenseReport.getExpenseFrom(), expenseReport.getExpenseTo(), expenseReport.getGrade());
+			List<FeesPayment> feesPaymentList=feesPaymentService.getAllByDateBetween(expenseReport.getExpenseFrom(), expenseReport.getExpenseTo());
+			model.addAttribute("expenseList",expenseList);
+			model.addAttribute("feesPaymentList",feesPaymentList);
+			double totalExpense=0;
+			for(Expense e : expenseList) {
+				totalExpense+=e.getAmount();
+			}
+			double totalIncome=0;
+			for(FeesPayment f : feesPaymentList) {
+				totalIncome+=f.getAmount();
+			}
+			model.addAttribute("totalExpense",totalExpense);
+			model.addAttribute("totalIncome",totalIncome);
+			return "ExpenseReportDetail";
+
+		}
+		model.addAttribute("expenseReportModel",expenseReport);
+
 		model.addAttribute("expenseFrom",expenseReport.getExpenseFrom());
 		model.addAttribute("expenseTo",expenseReport.getExpenseTo());
-		
+
 		List<Expense> expenseList=expenseService.getAllByPurchaseDateBetween(expenseReport.getExpenseFrom(), expenseReport.getExpenseTo());
 		List<FeesPayment> feesPaymentList=feesPaymentService.getAllByDateBetween(expenseReport.getExpenseFrom(), expenseReport.getExpenseTo());
 		model.addAttribute("expenseList",expenseList);
@@ -103,5 +127,5 @@ public class ExpenseController {
 
 		return "ExpenseReportDetail";
 	}
-	
+
 }

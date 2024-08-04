@@ -24,4 +24,5 @@ public class ExpenseReport {
 	private LocalDate expenseFrom;
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate expenseTo;
+	private String grade;
 }

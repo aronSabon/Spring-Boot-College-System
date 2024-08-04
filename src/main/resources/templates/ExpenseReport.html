@@ -26,19 +26,34 @@
 								<div class="row">
 									<div class="col-sm-6">
 										<div class="form-group">
-											<label class="form-label" for="expenseFrom">
-												From</label> <input type="date" name="expenseFrom" th:value="${from}"
+											<label class="form-label" for="expenseFrom"> From</label> <input
+												type="date" name="expenseFrom" th:value="${from}"
 												class=" form-control" id="expenseFrom"
 												placeholder="Enter Pay Date" required>
 										</div>
 									</div>
 									<div class="col-sm-6">
 										<div class="form-group">
-											<label class="form-label" for="expenseTo"> To</label>
-											<input type="date" name="expenseTo" class=" form-control" th:value="${to}"
-												id="expenseTo" placeholder="Enter Pay Date" required>
+											<label class="form-label" for="expenseTo"> To</label> <input
+												type="date" name="expenseTo" class=" form-control"
+												th:value="${to}" id="expenseTo" placeholder="Enter Pay Date"
+												required>
 										</div>
 									</div>
+									
+									<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="grade">Grade</label>
+													 <select name="grade" id="grade"  class="form-control">
+														<option value="">Select Grade</option>
+														<option value="11">11</option>
+														<option value="12">12</option>
+														<option value="DHM">DHM</option>
+														<option value="Both">Both</option>
+														<option value="Others">Others</option>
+													</select>
+												</div>
+											</div>
 									<div class="col-lg-12 col-md-12 col-sm-12">
 
 										<button type="submit" class="btn btn-primary">Generate</button>
@@ -58,18 +73,18 @@
 						<br>
 
 
-							<div class="row">
+						<div class="row">
 							<div class="col-sm-6">
 								<div class="expenseListTitle">
 									<h5>Expense List</h5>
 								</div>
 							</div>
 							<div class="col-sm-6">
-							<div class="incomeListTitle">
+								<div class="incomeListTitle">
 									<h5>Income List</h5>
 								</div>
 							</div>
-							</div>
+						</div>
 
 						<div class="row">
 							<div class="col-sm-6">
@@ -96,7 +111,7 @@
 
 									</tbody>
 								</table>
-							
+
 							</div>
 							<div class="col-sm-6">
 								<table id="datatablesSimple1">
@@ -118,7 +133,7 @@
 
 									</tbody>
 								</table>
-									
+
 							</div>
 						</div>
 						<div class="row">
@@ -128,11 +143,19 @@
 								</div>
 							</div>
 							<div class="col-sm-6">
-							<div class="totalInccome">
+								<div class="totalInccome">
 									<h5>Total Income : [[${totalIncome}]]</h5>
 								</div>
 							</div>
+						</div>
+						<hr>
+							<div class="row">
+							
+								<div class="totalBalance">
+									<h5>Balance : [[${totalIncome-totalExpense}]]</h5>
+								
 							</div>
+						</div>
 
 					</div>
 				</div>

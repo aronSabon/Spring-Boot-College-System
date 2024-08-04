@@ -30,7 +30,11 @@
 												<select  th:field="*{expenseType}" id="fullName" required class="form-control">
 													<option value="">Select</option>
 													<option value="Stationary">Stationary</option>
+													<option value= "Furniture">Furniture</option>
+													<option value= "Electronics">Electronics</option>
 													<option value="Practical">Practical</option>
+													<option value="Rent">Rent</option>
+													<option value="Maintenance">Maintenance</option>
 													<option value= "Tour">Tour</option>
 													<option value= "Registration">Registration</option>
 													<option value="Others">Others</option>
@@ -72,14 +76,34 @@
 												</div>
 											</div>
 													
+												
+											<div class="col-sm-6">
+											<div class="row">
 												<div class="col-sm-6">
 												<div class="form-group">
 													<label class="form-label" for="remarks">Remarks</label>
-													<input id="remarks"  th:field="*{remarks}"
+													<input id="remarks" th:field="*{remarks}"
 														placeholder="Enter Remarks" type="text"
 														class="form-control" >
 												</div>
 											</div>
+											
+											<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="grade">Grade</label>
+													 <select th:field="*{grade}" id="grade"  class="form-control">
+														<option value="">Select Grade</option>
+														<option value="11">11</option>
+														<option value="12">12</option>
+														<option value="DHM">DHM</option>
+														<option value="Both">Both</option>
+														<option value="Others">Others</option>
+													</select>
+												</div>
+											</div>
+											
+											</div>
+										</div>
 										
 											
 											<div class="col-lg-12 col-md-12 col-sm-12"><br>

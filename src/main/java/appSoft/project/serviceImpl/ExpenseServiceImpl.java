@@ -51,4 +51,11 @@ public class ExpenseServiceImpl implements ExpenseService {
 			return expenseRepository.findAllByPurchaseDateBetween(expenseFrom, expenseTo);
 		}
 
+		@Override
+		public List<Expense> getAllByPurchaseDateBetweenAndGrade(LocalDate expenseFrom, LocalDate expenseTo,
+				String grade) {
+			// TODO Auto-generated method stub
+			return expenseRepository.findAllByPurchaseDateBetweenAndGrade(expenseFrom, expenseTo, grade);
+		}
+
 }
