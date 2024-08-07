@@ -42,21 +42,21 @@ public class SalaryPaymentController {
 	SalaryPaymentService salaryPaymentService;
 
 	@GetMapping("/salaryPaymentDetails")
-	private String salaryDetails(@RequestParam String teacherId,Model model) {
-		model.addAttribute("teacherModel",teacherService.getTeacherByTeacherId(teacherId));
-		model.addAttribute("salaryList",salaryService.getAllSalaryByTeacherId(teacherId));
-		model.addAttribute("paymentHistory",salaryPaymentService.getAllByTeacherId(teacherId));
+	private String salaryDetails(@RequestParam int id,Model model) {
+		model.addAttribute("teacherModel",teacherService.getTeacherById(id));
+		model.addAttribute("salaryList",salaryService.getAllSalaryByTeacherId(id));
+		model.addAttribute("paymentHistory",salaryPaymentService.getAllByTeacherId(id));
 		return "SalaryPaymentDetails";
 	}
 	
 	@GetMapping("/teacherPayment")
-	private String teacherPayment( @RequestParam String teacherId ,Model model) {
-		Teacher teacher= teacherService.getTeacherByTeacherId(teacherId);
+	private String teacherPayment( @RequestParam int id ,Model model) {
+		Teacher teacher= teacherService.getTeacherById(id);
 		model.addAttribute("teacher",teacher);
 		model.addAttribute("date",LocalDate.now());
 		model.addAttribute("time",LocalTime.now().truncatedTo(ChronoUnit.SECONDS));
-		List<Salary>salaryDue=salaryService.getAllByTeacherIdAndStatus(teacherId, SalaryStatus.DUE);
-		List<Salary>salaryUnpaid=salaryService.getAllByTeacherIdAndStatus(teacherId, SalaryStatus.UNPAID);
+		List<Salary>salaryDue=salaryService.getAllByTeacherIdAndStatus(id, SalaryStatus.DUE);
+		List<Salary>salaryUnpaid=salaryService.getAllByTeacherIdAndStatus(id, SalaryStatus.UNPAID);
 		List<Salary>salaryFilter = new ArrayList<>();
 		salaryFilter.addAll(salaryDue);
 		salaryFilter.addAll(salaryUnpaid);
@@ -88,7 +88,6 @@ public class SalaryPaymentController {
 								salaryp.setFullName(salaryPayment.getFullName());
 								salaryp.setMonth(month[j]);
 								salaryp.setPaidWith(salaryPayment.getPaidWith());
-								salaryp.setSalaryId(salaryPayment.getSalaryId());
 								salaryp.setTeacherId(salaryPayment.getTeacherId());
 								salaryp.setTime(salaryPayment.getTime());
 							salaryPaymentService.addPayment(salaryp);
@@ -104,7 +103,6 @@ public class SalaryPaymentController {
 								salaryp.setFullName(salaryPayment.getFullName());
 								salaryp.setMonth(month[j]);
 								salaryp.setPaidWith(salaryPayment.getPaidWith());
-								salaryp.setSalaryId(salaryPayment.getSalaryId());
 								salaryp.setTeacherId(salaryPayment.getTeacherId());
 								salaryp.setTime(salaryPayment.getTime());
 							salaryPaymentService.addPayment(salaryp);
@@ -121,7 +119,6 @@ public class SalaryPaymentController {
 								salaryp.setFullName(salaryPayment.getFullName());
 								salaryp.setMonth(month[j]);
 								salaryp.setPaidWith(salaryPayment.getPaidWith());
-								salaryp.setSalaryId(salaryPayment.getSalaryId());
 								salaryp.setTeacherId(salaryPayment.getTeacherId());
 								salaryp.setTime(salaryPayment.getTime());
 							salaryPaymentService.addPayment(salaryp);
@@ -134,7 +131,7 @@ public class SalaryPaymentController {
 				}
 			}
 		}
-		redirectAttribute.addAttribute("teacherId",salaryPayment.getTeacherId());
+		redirectAttribute.addAttribute("id",salaryPayment.getTeacherId());
 		return "redirect:/teacherPayment";
 	}
 //

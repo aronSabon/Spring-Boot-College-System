@@ -22,6 +22,8 @@
                         <div class="card mb-4">
                             
                             <div class="card-body">
+                              <a href="/salaryExcel"><button class="btn btn-success">Excel</button></a>
+                            <br><br>
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
@@ -35,6 +37,7 @@
                                             <th>Period</th>
                                             <th>Month</th>
                                             <th>Amount</th>
+                                             <th>Amount Paid</th>
                                             <th>Status</th>
                                             <th> Actions</th>
                                         </tr>
@@ -51,12 +54,13 @@
                                             <td>[[${s.period}]]</td>
                                             <td>[[${s.month}]]</td>
                                             <td>[[${s.amount}]]</td>
+                                            <td>[[${s.amountPaid}]]</td>
                                             <td>[[${s.status}]]</td>
                                             
                                             <td>
                                             	<a  th:href="@{/editSalary(id=${s.id})}"><button class="btn btn-primary btn-sm">Edit</button></a>
                                             	<a th:href="@{/deleteSalary(id=${s.id})}"><button class="btn btn-danger btn-sm">Delete</button></a>
-                                            	<a th:href="@{/salaryPaymentDetails(teacherId=${s.teacherId})}"><button class="btn btn-success btn-sm">Salary Details</button></a>
+                                            	<a th:href="@{/salaryPaymentDetails(id=${s.teacherId})}"><button class="btn btn-success btn-sm">Salary Details</button></a>
                                             	
                                             </td>
                                         </tr>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import appSoft.project.constant.FeesStatus;
 import appSoft.project.model.Fees;
@@ -20,6 +21,8 @@ import appSoft.project.model.Student;
 import appSoft.project.service.FeesService;
 import appSoft.project.service.FeesTypeService;
 import appSoft.project.service.StudentService;
+import appSoft.project.utils.ExpenseExcel;
+import appSoft.project.utils.FeesExcel;
 
 
 @Controller
@@ -101,6 +104,13 @@ public class FeesController {
 	private String updateFees(@ModelAttribute Fees fees) {
 		fs.updateFees(fees);
 		return "redirect:/feesList";
+	}
+	@GetMapping("/feesExcel")
+	public  ModelAndView excel() {
+		ModelAndView mv =new ModelAndView();
+		mv.addObject("feesList", fs.getAllFees());
+		mv.setView(new FeesExcel());
+		return mv;
 	}
 
 }

@@ -22,9 +22,14 @@
                         <div class="card mb-4">
                             
                             <div class="card-body">
+                            <a href="/studentExcel"><button class="btn btn-success">Excel</button></a>
+                            <br><br>
                                 <table id="datatablesSimple">
+                               
+                                
                                     <thead>
                                         <tr>
+                                        
                                          <th>Roll No</th>
                                             <th>Full Name</th>
                                             <th>Faculty</th>
@@ -45,8 +50,8 @@
                                             <td>[[${s.email}]]</td>
                                             <td>[[${s.admissionDate}]]</td>
                                             <td>
-                                            	<a  th:href="@{/editStudent(id=${s.id})}"><button class="btn btn-primary">Edit</button></a>
-                                            	<a th:href="@{/deleteStudent(id=${s.id},rollNo=${s.rollNo})}"><button class="btn btn-danger">Delete</button></a>
+                                            	<a  th:href="@{/editStudent(id=${s.id})}"><button class="btn btn-primary  btn-sm">Edit</button></a>
+                                            	<a th:href="@{/deleteStudent(id=${s.id},rollNo=${s.rollNo})}"><button class="btn btn-danger btn-sm ">Delete</button></a>
                                             </td>
                                         </tr>
                                        

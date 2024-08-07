@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import appSoft.project.constant.SalaryStatus;
 import appSoft.project.model.Salary;
@@ -17,6 +18,8 @@ import appSoft.project.service.FacultyService;
 import appSoft.project.service.SalaryService;
 import appSoft.project.service.SubjectService;
 import appSoft.project.service.TeacherService;
+import appSoft.project.utils.SalaryExcel;
+import appSoft.project.utils.StudentExcel;
 
 
 @Controller
@@ -66,6 +69,13 @@ public class SalaryController {
 	private String updateSalary(@ModelAttribute Salary salary) {
 		ss.updateSalary(salary);
 		return "redirect:/salaryList";
+	}
+	@GetMapping("/salaryExcel")
+	public  ModelAndView excel() {
+		ModelAndView mv =new ModelAndView();
+		mv.addObject("salaryList", ss.getAllSalary());
+		mv.setView(new SalaryExcel());
+		return mv;
 	}
 	
 	

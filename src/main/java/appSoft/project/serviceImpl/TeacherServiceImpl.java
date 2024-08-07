@@ -44,10 +44,6 @@ public class TeacherServiceImpl implements TeacherService {
 			tr.save(teacher);
 		}
 
-		@Override
-		public Teacher getTeacherByTeacherId(String teacherId) {
-			// TODO Auto-generated method stub
-			return tr.findByTeacherId(teacherId);
-		}
+	
 
 }

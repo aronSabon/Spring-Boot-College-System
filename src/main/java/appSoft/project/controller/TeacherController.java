@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import appSoft.project.constant.SalaryStatus;
 import appSoft.project.model.Fees;
@@ -24,6 +25,8 @@ import appSoft.project.service.SalaryService;
 import appSoft.project.service.SalarySettingService;
 import appSoft.project.service.SubjectService;
 import appSoft.project.service.TeacherService;
+import appSoft.project.utils.StudentExcel;
+import appSoft.project.utils.TeacherExcel;
 
 
 @Controller
@@ -63,12 +66,12 @@ public class TeacherController {
 			salary.setFullName(teacher.getFullName());
 			salary.setGender(teacher.getGender());
 			salary.setGrade(teacher.getGrade());
+			salary.setTeacherId(teacher.getId());
 			salary.setSubject(teacher.getSubject());
 			salary.setSection(teacher.getSection());
 			salary.setPeriod(teacher.getPeriod());
 			salary.setPayDate(LocalDate.now().withDayOfMonth(28));
 			salary.setStatus(SalaryStatus.UNPAID);
-			salary.setTeacherId(teacher.getTeacherId());
 			salary.setMonth(LocalDate.now().getMonth().toString());
 			salaryService.addSalary(salary);
 		
@@ -81,16 +84,15 @@ public class TeacherController {
 		return "TeacherList";
 	}
 	@GetMapping("/deleteTeacher")
-	private String deleteTeacher(@RequestParam int id,@RequestParam String teacherId) {
-		salaryService.deleteAllByTeacherId(teacherId);
-		salaryPaymentService.deleteAllByTeacherId(teacherId);
+	private String deleteTeacher(@RequestParam int id) {
+		salaryService.deleteAllByTeacherId(id);
+		salaryPaymentService.deleteAllByTeacherId(id);
 		ts.deleteTeacherById(id);
 		
 		return "redirect:/teacherList";
 	}
 	@GetMapping("/editTeacher")
 	private String editTeacher(@RequestParam int id,Model model) {
-		System.out.println(ts.getTeacherById(id));
 		model.addAttribute("tModel",ts.getTeacherById(id));
 		model.addAttribute("fList", fs.getAllFaculty());
 		model.addAttribute("sList", ss.getAllSubject());
@@ -103,5 +105,12 @@ public class TeacherController {
 
 		ts.updateTeacher(teacher);
 		return "redirect:/teacherList";
+	}
+	@GetMapping("/teacherExcel")
+	public  ModelAndView excel() {
+		ModelAndView mv =new ModelAndView();
+		mv.addObject("teacherList", ts.getAllTeacher());
+		mv.setView(new TeacherExcel());
+		return mv;
 	}
 }

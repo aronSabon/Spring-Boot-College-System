@@ -1,7 +1,6 @@
 package appSoft.project.controller;
 
-import java.time.LocalDate;
-import java.time.Month;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +11,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
-import appSoft.project.constant.FeesStatus;
+
 import appSoft.project.model.Fees;
 import appSoft.project.model.FeesType;
 import appSoft.project.model.Student;
-import appSoft.project.repository.FeesRepository;
 import appSoft.project.service.FacultyService;
 import appSoft.project.service.FeesPaymentService;
 import appSoft.project.service.FeesService;
 import appSoft.project.service.FeesTypeService;
 import appSoft.project.service.StudentService;
+import appSoft.project.utils.StudentExcel;
 
 
 @Controller
@@ -111,5 +111,12 @@ public class StudentController {
 		student.setImageName(image.getOriginalFilename());
 		ss.updateStudent(student);
 		return "redirect:/studentList";
+	}
+	@GetMapping("/studentExcel")
+	public  ModelAndView excel() {
+		ModelAndView mv =new ModelAndView();
+		mv.addObject("studentList", ss.getAllStudent());
+		mv.setView(new StudentExcel());
+		return mv;
 	}
 }

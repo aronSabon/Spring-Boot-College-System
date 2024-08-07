@@ -11163,7 +11163,7 @@ body {
 .datatable-table > thead > tr > td,
 .datatable-table > thead > tr > th {
   vertical-align: top;
-  padding: 0.5rem 0.5rem;
+  padding: 0.2rem 0.5rem;
 }
 
 .datatable-table > thead > tr > th {
@@ -11355,7 +11355,7 @@ input:-webkit-autofill:focus {
     box-shadow: none;
     color: #333;
     font-size: 15px;
-    height: 45px;
+    height: 35px;
 }
 .form-control:focus {
 	border-color: #3d5ee1;
@@ -20899,5 +20899,11 @@ ol.breadcrumb.bg-secondary {
 .totalBalance{
 	text-align:center;
 }
-
-
+.bg-custom {
+  --bs-bg-opacity: 1;
+  background-color: rgb(161 152 152);
+}
+.sb-sidenav-custom {
+  background-color: rgb(161 152 152);
+  color: rgba(255, 255, 255, 0.5);
+}

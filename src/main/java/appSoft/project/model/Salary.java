@@ -23,7 +23,7 @@ public class Salary {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String teacherId;
+	private int teacherId;
 	@OneToOne
 	private Faculty faculty;
 	private String grade;

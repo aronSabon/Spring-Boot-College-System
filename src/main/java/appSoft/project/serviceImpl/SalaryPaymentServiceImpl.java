@@ -46,9 +46,9 @@ public class SalaryPaymentServiceImpl implements SalaryPaymentService {
 		}
 
 		@Override
-		public List<SalaryPayment> getAllByTeacherId(String teacherId) {
+		public List<SalaryPayment> getAllByTeacherId(int id) {
 			// TODO Auto-generated method stub
-			return salaryPaymentRepository.findByTeacherId(teacherId);
+			return salaryPaymentRepository.findByTeacherId(id);
 		}
 
 		@Override
@@ -58,9 +58,9 @@ public class SalaryPaymentServiceImpl implements SalaryPaymentService {
 		}
 
 		@Override
-		public List<SalaryPayment> deleteAllByTeacherId(String teacherId) {
+		public List<SalaryPayment> deleteAllByTeacherId(int id) {
 			// TODO Auto-generated method stub
-			return salaryPaymentRepository.deleteAllByTeacherId(teacherId);
+			return salaryPaymentRepository.deleteAllByTeacherId(id);
 		}
 
 }

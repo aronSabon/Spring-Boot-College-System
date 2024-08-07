@@ -22,10 +22,11 @@
                         <div class="card mb-4">
                             
                             <div class="card-body">
+                             <a href="/teacherExcel"><button class="btn btn-success">Excel</button></a>
+                            <br><br>
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                         <th>Teacher Id</th>
                                             <th>Name</th>
                                             <th>Faculty</th>
                                             <th>Grade</th>
@@ -41,7 +42,6 @@
                                     </thead>
                                     <tbody>
                                         <tr th:each=t:${tList}>
-                                        <td>[[${t.teacherId}]]</td>
                                             <td>[[${t.fullName}]]</td>
                                             <td>
                                               <th:block th:each="fact : ${t.faculty}">
@@ -58,7 +58,7 @@
                                             <td>[[${t.period}]]</td>
                                             <td>
                                             	<a  th:href="@{/editTeacher(id=${t.id})}"><button class="btn btn-primary">Edit</button></a>
-                                            	<a th:href="@{/deleteTeacher(id=${t.id},teacherId=${t.teacherId})}"><button class="btn btn-danger">Delete</button></a>
+                                            	<a th:href="@{/deleteTeacher(id=${t.id})}"><button class="btn btn-danger">Delete</button></a>
                                             </td>
                                         </tr>
                                        

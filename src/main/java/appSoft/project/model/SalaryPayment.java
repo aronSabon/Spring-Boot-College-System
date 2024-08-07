@@ -17,9 +17,8 @@ public class SalaryPayment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 private int id;
-	private String teacherId;
+	private int teacherId;
 	private String fullName;
-	private String  salaryId;
 	private double amount;
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate date;

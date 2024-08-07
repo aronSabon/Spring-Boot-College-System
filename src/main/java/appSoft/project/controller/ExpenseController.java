@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import appSoft.project.model.Expense;
 import appSoft.project.model.ExpenseReport;
@@ -22,6 +23,8 @@ import appSoft.project.service.ExpenseService;
 import appSoft.project.service.FeesPaymentService;
 import appSoft.project.service.SalaryPaymentService;
 import appSoft.project.service.SalaryService;
+import appSoft.project.utils.ExpenseExcel;
+import appSoft.project.utils.TeacherExcel;
 
 
 @Controller
@@ -66,6 +69,14 @@ public class ExpenseController {
 		expenseService.updateExpense(expense);
 		return "redirect:/expenseList";
 	}
+	@GetMapping("/expenseExcel")
+	public  ModelAndView excel() {
+		ModelAndView mv =new ModelAndView();
+		mv.addObject("expenseList", expenseService.getAllExpense());
+		mv.setView(new ExpenseExcel());
+		return mv;
+	}
+	
 	@GetMapping("/expenseReport")
 	private String expenseReport(Model model) {
 		model.addAttribute("from", LocalDate.now().minusMonths(1));

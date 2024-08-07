@@ -51,9 +51,9 @@ public class CollegeSystemApplication {
 			salary.setSubject(t.getSubject());
 			salary.setSection(t.getSection());
 			salary.setPeriod(t.getPeriod());
+			salary.setTeacherId(t.getId());
 			salary.setPayDate(LocalDate.now().withDayOfMonth(28));
 			salary.setStatus(SalaryStatus.UNPAID);
-			salary.setTeacherId(t.getTeacherId());
 			salary.setMonth(LocalDate.now().getMonth().toString());
 			salaryService.addSalary(salary);
 		}

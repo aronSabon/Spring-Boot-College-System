@@ -16,11 +16,11 @@ import appSoft.project.model.Student;
 import jakarta.transaction.Transactional;
 
 public interface SalaryPaymentRepository extends JpaRepository<SalaryPayment, Integer> {
-	List<SalaryPayment> findByTeacherId(String teacherId);
+	List<SalaryPayment> findByTeacherId(int id);
 	List<SalaryPayment> findAllByDateBetween(LocalDate from, LocalDate to);
 	
 	@Transactional
-	List<SalaryPayment> deleteAllByTeacherId(String teacherId);
+	List<SalaryPayment> deleteAllByTeacherId(int id);
 
 
 }

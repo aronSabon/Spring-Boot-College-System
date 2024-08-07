@@ -9,6 +9,5 @@ import java.util.List;
 
 
 public interface TeacherRepository extends JpaRepository<Teacher, Integer> {
-Teacher  findByTeacherId(String teacherId);
 
 }

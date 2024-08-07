@@ -11,9 +11,9 @@ public interface SalaryPaymentService {
 		void deletePaymentById(int id);
 		SalaryPayment getPaymentById(int id);
 		void updatePayment(SalaryPayment salaryPayment);
-		List<SalaryPayment> getAllByTeacherId(String teacherId);
+		List<SalaryPayment> getAllByTeacherId(int id);
 		
 		List<SalaryPayment> getAllByDateBetween(LocalDate from, LocalDate to);
-		List<SalaryPayment> deleteAllByTeacherId(String teacherId);
+		List<SalaryPayment> deleteAllByTeacherId(int id);
 }
 

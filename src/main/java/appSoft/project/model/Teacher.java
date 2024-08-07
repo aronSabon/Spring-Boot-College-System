@@ -1,7 +1,11 @@
 package appSoft.project.model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -19,12 +23,13 @@ public class Teacher {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String teacherId;
 	private String fullName;
 	private String gender;
-	private Date dob;
+	@DateTimeFormat(iso = ISO.DATE)
+	private LocalDate dob;
 	private int mobileNumber;
-	private Date  joinDate;
+	@DateTimeFormat(iso = ISO.DATE)
+	private LocalDate  joinDate;
 	private String qualification;
 	private String experience;
 	private String email;

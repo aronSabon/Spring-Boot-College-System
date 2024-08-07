@@ -47,21 +47,21 @@ public class SalaryServiceImpl implements SalaryService {
 		}
 
 		@Override
-		public List<Salary> getAllSalaryByTeacherId(String teacherId) {
+		public List<Salary> getAllSalaryByTeacherId(int id) {
 			// TODO Auto-generated method stub
-			return sr.findByTeacherId(teacherId);
+			return sr.findAllByTeacherId(id);
 		}
 
 		@Override
-		public List<Salary> getAllByTeacherIdAndStatus(String teacherId, SalaryStatus status) {
+		public List<Salary> getAllByTeacherIdAndStatus(int id, SalaryStatus status) {
 			// TODO Auto-generated method stub
-			return sr.findByTeacherIdAndStatus(teacherId, status);
+			return sr.findByTeacherIdAndStatus(id, status);
 		}
 
 		@Override
-		public List<Salary> deleteAllByTeacherId(String teacherId) {
+		public List<Salary> deleteAllByTeacherId(int id) {
 			// TODO Auto-generated method stub
-			return sr.deleteAllByTeacherId(teacherId);
+			return sr.deleteAllByTeacherId(id);
 		}
 
 }

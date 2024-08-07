@@ -14,9 +14,9 @@ import appSoft.project.model.Salary;
 import jakarta.transaction.Transactional;
 
 public interface SalaryRepository extends JpaRepository<Salary, Integer> {
-List<Salary> findByTeacherId(String teacherId);
-List<Salary> findByTeacherIdAndStatus(String teacherId,SalaryStatus status);
+List<Salary> findAllByTeacherId(int id);
+List<Salary> findByTeacherIdAndStatus(int id,SalaryStatus status);
 @Transactional
-List<Salary> deleteAllByTeacherId(String teacherId);
+List<Salary> deleteAllByTeacherId(int id);
 
 }
