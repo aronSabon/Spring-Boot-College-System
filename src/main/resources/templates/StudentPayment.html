@@ -50,7 +50,7 @@
 											<label class="form-label">Fees Type</label>
 											<div th:each="f:${fList}">
 												<input type="checkbox" name="feesType"
-													th:value="${f.feesType}" th:id="${f.feesType}">
+													th:value="${f.feesType}" th:id="${f.feesType}"required>
 												<label th:for="${f.feesType}">[[${f.feesType}]]</label>
 											</div>
 										</div>

@@ -50,7 +50,7 @@
 											<label class="form-label">Month</label>
 											<div th:each="s:${salaryList}">
 												<input type="checkbox" name="month"
-													th:value="${s.month}" th:id="${s.month}" >
+													th:value="${s.month}" th:id="${s.month}" required>
 												<label th:for="${s.month}">[[${s.month}]] : Rs. [[${s.amount-s.amountPaid}]]</label>
 											</div>
 										</div>
