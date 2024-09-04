@@ -69,48 +69,65 @@ public class SalaryPaymentController {
 	
 	@PostMapping("/teacherPayment")
 	private String SalaryPayment(@ModelAttribute SalaryPayment salaryPayment, RedirectAttributes redirectAttribute) {
-		String[] salaryId =(salaryPayment.getSalaryId().split(","));
-		List<Integer> salaryIdList= new ArrayList<>();
-		for(int i =0; i<salaryId.length ; i++) {
-			salaryIdList.add(Integer.parseInt(salaryId[i]));
-		}
+		String[] month =(salaryPayment.getMonth().split(","));
 
 		List<Salary>salaryDue=salaryService.getAllByTeacherIdAndStatus(salaryPayment.getTeacherId(), SalaryStatus.DUE);
 		List<Salary>salaryUnpaid=salaryService.getAllByTeacherIdAndStatus(salaryPayment.getTeacherId(), SalaryStatus.UNPAID);
 		List<Salary>salaryFilter = new ArrayList<>();
 		salaryFilter.addAll(salaryDue);
 		salaryFilter.addAll(salaryUnpaid);
-//
 		double totalPayment=salaryPayment.getAmount();
-//		
 		for(Salary i : salaryFilter) {
-			for(Integer id:salaryIdList) {
-				if(i.getId()==id) {
+			for(int j=0; j<month.length; j++) {
+				if(i.getMonth().equals(month[j])) {
 					if(totalPayment>0) {
 						if(totalPayment>(i.getAmount()-i.getAmountPaid())) {
+								SalaryPayment salaryp= new SalaryPayment();
+								salaryp.setAmount(i.getAmount()-i.getAmountPaid());
+								salaryp.setDate(salaryPayment.getDate());
+								salaryp.setFullName(salaryPayment.getFullName());
+								salaryp.setMonth(month[j]);
+								salaryp.setPaidWith(salaryPayment.getPaidWith());
+								salaryp.setSalaryId(salaryPayment.getSalaryId());
+								salaryp.setTeacherId(salaryPayment.getTeacherId());
+								salaryp.setTime(salaryPayment.getTime());
+							salaryPaymentService.addPayment(salaryp);
 							totalPayment=totalPayment-(i.getAmount()-i.getAmountPaid());
 							i.setStatus(SalaryStatus.PAID);
 							i.setAmountPaid(i.getAmountPaid()+(i.getAmount()-i.getAmountPaid()));
 							salaryService.updateSalary(i);
-							salaryPaymentService.addPayment(salaryPayment);
-							System.out.println(totalPayment);
 						}
 						else if(totalPayment==(i.getAmount()-i.getAmountPaid())) {
+								SalaryPayment salaryp= new SalaryPayment();
+								salaryp.setAmount(i.getAmount()-i.getAmountPaid());
+								salaryp.setDate(salaryPayment.getDate());
+								salaryp.setFullName(salaryPayment.getFullName());
+								salaryp.setMonth(month[j]);
+								salaryp.setPaidWith(salaryPayment.getPaidWith());
+								salaryp.setSalaryId(salaryPayment.getSalaryId());
+								salaryp.setTeacherId(salaryPayment.getTeacherId());
+								salaryp.setTime(salaryPayment.getTime());
+							salaryPaymentService.addPayment(salaryp);
 							totalPayment=totalPayment-(i.getAmount()-i.getAmountPaid());
 							i.setStatus(SalaryStatus.PAID);
 							i.setAmountPaid(i.getAmountPaid()+(i.getAmount()-i.getAmountPaid()));
-
-							salaryService.updateSalary(i);
-							salaryPaymentService.addPayment(salaryPayment);
-							System.out.println(totalPayment);
+						salaryService.updateSalary(i);
 
 						}
 						else if(totalPayment<(i.getAmount()-i.getAmountPaid())) {  
+								SalaryPayment salaryp= new SalaryPayment();
+								salaryp.setAmount(totalPayment);
+								salaryp.setDate(salaryPayment.getDate());
+								salaryp.setFullName(salaryPayment.getFullName());
+								salaryp.setMonth(month[j]);
+								salaryp.setPaidWith(salaryPayment.getPaidWith());
+								salaryp.setSalaryId(salaryPayment.getSalaryId());
+								salaryp.setTeacherId(salaryPayment.getTeacherId());
+								salaryp.setTime(salaryPayment.getTime());
+							salaryPaymentService.addPayment(salaryp);
 							i.setAmountPaid(i.getAmountPaid()+totalPayment);
 							salaryService.updateSalary(i);
-							salaryPaymentService.addPayment(salaryPayment);
 							totalPayment=totalPayment-totalPayment;
-							System.out.println(totalPayment);
 
 						}
 					}

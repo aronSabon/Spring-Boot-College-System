@@ -36,8 +36,8 @@ public class CollegeSystemApplication {
 	
 	//10:15 AM on the 15th day of every month 
 	//<seconds> <minutes> <hours> <day-of-month> <month> <day-of-week> <year>
-	@Scheduled(cron = "0 0 10 1 * ?",zone = "Asia/Kathmandu")
-//	@Scheduled(cron = "0 42 15 3 * ?",zone = "Asia/Kathmandu")
+//	@Scheduled(cron = "0 0 10 1 * ?",zone = "Asia/Kathmandu")
+	@Scheduled(cron = "0 2 14 4 * ?",zone = "Asia/Kathmandu")
 
 	public void scheduleTaskUsingCronExpression() {
 		List<Teacher> teacherList= teacherService.getAllTeacher();
@@ -54,6 +54,7 @@ public class CollegeSystemApplication {
 			salary.setPayDate(LocalDate.now().withDayOfMonth(28));
 			salary.setStatus(SalaryStatus.UNPAID);
 			salary.setTeacherId(t.getTeacherId());
+			salary.setMonth(LocalDate.now().getMonth().toString());
 			salaryService.addSalary(salary);
 		}
 		System.out.println("doneee");

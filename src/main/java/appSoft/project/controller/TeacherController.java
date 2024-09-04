@@ -69,6 +69,7 @@ public class TeacherController {
 			salary.setPayDate(LocalDate.now().withDayOfMonth(28));
 			salary.setStatus(SalaryStatus.UNPAID);
 			salary.setTeacherId(teacher.getTeacherId());
+			salary.setMonth(LocalDate.now().getMonth().toString());
 			salaryService.addSalary(salary);
 		
 		

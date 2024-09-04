@@ -40,6 +40,7 @@ public class Salary {
 	@Enumerated(EnumType.STRING)
 	private SalaryStatus status;
 	private double amountPaid;
+	private String month;
 	
 
 }

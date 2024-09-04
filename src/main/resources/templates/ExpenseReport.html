@@ -94,7 +94,7 @@
 											<th>Expense Type</th>
 											<th>Particulars</th>
 											<th>Amount</th>
-											<th>Purchase Date</th>
+											<th>Expense Date</th>
 
 
 										</tr>
@@ -105,8 +105,12 @@
 											<td>[[${e.particulars}]]</td>
 											<td>[[${e.amount}]]</td>
 											<td>[[${e.purchaseDate}]]</td>
-
-
+										</tr>
+										<tr th:each="s:${salaryPaymentList}">
+											<td>Salary</td>
+											<td>[[${s.fullName}]]</td>
+											<td>[[${s.amount}]]</td>
+											<td>[[${s.date}]]</td>
 										</tr>
 
 									</tbody>
@@ -119,7 +123,7 @@
 										<tr>
 											<th>Fees Type</th>
 											<th>Amount</th>
-											<th>Purchase Date</th>
+											<th>Income Date</th>
 
 
 										</tr>

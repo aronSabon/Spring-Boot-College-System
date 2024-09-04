@@ -47,11 +47,11 @@
 
 									<div class="col-sm-6">
 										<div class="form-group">
-											<label class="form-label">Salary Id</label>
+											<label class="form-label">Month</label>
 											<div th:each="s:${salaryList}">
-												<input type="checkbox" name="salaryId"
-													th:value="${s.id}" th:id="${s.id}" >
-												<label th:for="${s.id}">[[${s.id}]]</label>
+												<input type="checkbox" name="month"
+													th:value="${s.month}" th:id="${s.month}" >
+												<label th:for="${s.month}">[[${s.month}]] : Rs. [[${s.amount-s.amountPaid}]]</label>
 											</div>
 										</div>
 									</div>

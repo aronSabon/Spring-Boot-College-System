@@ -25,16 +25,15 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                        <th>Salary Id</th>
-                                        <th>Teacher Id</th>
+                                      
                                             <th>Name</th>
                                              <th>Faculty</th>
                                             <th>Grade</th>
                                             <th>Subject</th>
                                             <th>Section</th>
-                                            <th>Gender</th>
                                             <th>Pay Date</th>
                                             <th>Period</th>
+                                            <th>Month</th>
                                             <th>Amount</th>
                                             <th>Status</th>
                                             <th> Actions</th>
@@ -42,16 +41,15 @@
                                     </thead>
                                     <tbody>
                                         <tr th:each=s:${sList}>
-                                        <td>[[${s.id}]]</td>
-                                        <td>[[${s.teacherId}]]</td>
+                                      
                                             <td>[[${s.fullName}]]</td>
                                             <td>[[${s.faculty.name}]]</td>
                                             <td>[[${s.grade}]]</td>
                                              <td>[[${s.subject.name}]]</td>
                                              <td>[[${s.section}]]</td>
-                                            <td>[[${s.gender}]]</td>
                                             <td>[[${s.payDate}]]</td>
                                             <td>[[${s.period}]]</td>
+                                            <td>[[${s.month}]]</td>
                                             <td>[[${s.amount}]]</td>
                                             <td>[[${s.status}]]</td>
                                             

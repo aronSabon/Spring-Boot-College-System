@@ -121,6 +121,25 @@
 										</div>
 									</div>
 									<div class="col-sm-6">
+												<div class="form-group">
+													<label class="form-label" for="month">Month</label>
+													 <select th:field="*{month}" id="month" required class="form-control">
+															<option value="JANUARY">JANUARY</option>
+															<option value="FEBURARY">FEBURARY</option>
+															<option value="MARCH">MARCH</option>
+															<option value="APRIL">APRIL</option>
+															<option value="MAY">MAY</option>
+															<option value="JUNE">JUNE</option>
+															<option value="JULY">JULY</option>
+															<option value="AUGUST">AUGUST</option>
+															<option value="SEPTEMBER">SEPTEMBER</option>
+															<option value="OCTOBER">OCTOBER</option>
+															<option value="NOVEMBER">NOVEMBER</option>
+															<option value="DECEMBER">DECEMBER</option>
+													</select>
+												</div>
+											</div>
+									<div class="col-sm-6">
 										<div class="form-group">
 											<label class="form-label" for="status">Status</label> <input
 												type="text" th:field="*{status}" class=" form-control"

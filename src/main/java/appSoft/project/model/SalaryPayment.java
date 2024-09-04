@@ -25,5 +25,6 @@ private int id;
 	private LocalDate date;
 	private String time;
 	private String paidWith;
+	private String month;
 	
 }

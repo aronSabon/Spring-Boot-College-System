@@ -22,4 +22,5 @@ public interface SalaryPaymentRepository extends JpaRepository<SalaryPayment, In
 	@Transactional
 	List<SalaryPayment> deleteAllByTeacherId(String teacherId);
 
+
 }

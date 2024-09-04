@@ -224,13 +224,12 @@
                                     <thead>
                                         <tr>
                                            
-                                            <th>GRADE</th>
-                                            <th>FACULTY</th>
-                                           	<th>Subject</th>
-                                           	 	<th>Section</th>
+                                                                                       <th>Month</th>
+                                           
                                            	 	<th>Period</th>
                                             <th>AMOUNT</th>
                                             <th>Amount Paid</th>
+                                            <th>Amount Remaining</th>
                                             <th>Pay Date</th>
                                             <th>Status</th>
                                             
@@ -240,13 +239,12 @@
                                       
                                         <tr th:each=s:${salaryList}>
                                         
-                                            <td>[[${s.grade}]]</td>
-                                            <td>[[${s.faculty.name}]]</td>
-                                            <td>[[${s.subject.name}]]</td>
-                                              <td>[[${s.section}]]</td>
+                                                                                    <td>[[${s.month}]]</td>
+                                           
                                                  <td>[[${s.period}]]</td>
                                             <td>[[${s.amount}]]</td>
                                          <td>[[${s.amountPaid}]]</td>
+                                         <td>[[${s.amount-s.amountPaid}]]</td>
                                             <td>[[${s.payDate}]]</td>
                                             <td>[[${s.status}]]</td>
                                         </tr>
@@ -275,19 +273,20 @@
 									<table  id="example" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                           <th>Salary Id</th>
-                                            <th>Paid With</th>
+                                           <th>Month</th>
+                                              <th>Amount</th>
                                             <th>Date And Time</th>
-                                            <th>Amount</th>
-                  
+                                          
+                  <th>Paid With</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     	<tr th:each="p:${paymentHistory}">
-                                    	<td>[[${p.salaryId}]]</td>
-                                    	<td>[[${p.paidWith}]]</td>
-                                    	<td>[[${p.date}]], [[${p.time}]]</td>
+                                    	<td>[[${p.month}]]</td>
                                     	<td>[[${p.amount}]]</td>
+                                    	<td>[[${p.date}]], [[${p.time}]]</td>
+                                    	
+                                    	<td>[[${p.paidWith}]]</td>
                                     	</tr>
                                     	
                                        
