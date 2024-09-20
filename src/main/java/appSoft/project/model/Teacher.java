@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
@@ -35,15 +36,15 @@ public class Teacher {
 	private String email;
 	private String username;
 	private String password;
-	@OneToOne
+	@ManyToOne
 	private Faculty faculty;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Address address;
 	private String imageName;
 	private String grade;
 	private String section;
-	@OneToOne
+	@ManyToOne
 	private Subject subject;
 	private double salary;
 	private int period;

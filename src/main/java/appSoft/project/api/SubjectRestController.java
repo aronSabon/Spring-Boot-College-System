@@ -3,6 +3,7 @@ package appSoft.project.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,6 +56,11 @@ public class SubjectRestController {
 	public String update(@RequestBody Subject subject) {
 		ss.updateSubject(subject);
 		return "Success";
+	}
+	@GetMapping("/subject/{grade}")
+	public List<Subject> getSubjectByGrade(@PathVariable String grade,Model model) {
+		System.out.println( ss.getAllSubjecByGrade(grade).size());
+		return ss.getAllSubjecByGrade(grade);
 	}
 	
 }

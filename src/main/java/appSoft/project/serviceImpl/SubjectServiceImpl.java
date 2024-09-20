@@ -44,4 +44,10 @@ public class SubjectServiceImpl implements SubjectService {
 			sr.save(subject);
 		}
 
+		@Override
+		public List<Subject> getAllSubjecByGrade(String grade) {
+			// TODO Auto-generated method stub
+			return sr.findByGrade(grade);
+		}
+
 }

@@ -14,6 +14,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
 
@@ -24,11 +25,11 @@ public class Salary {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private int teacherId;
-	@OneToOne
+	@ManyToOne
 	private Faculty faculty;
 	private String grade;
 	private String section;
-	@OneToOne
+	@ManyToOne
 	private Subject subject;
 	
 	private String fullName;

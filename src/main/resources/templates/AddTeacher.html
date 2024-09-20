@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js">
+</script>
 </head>
 <body class="sb-nav-fixed">
 	<th:block th:insert="TopNavBar.html"></th:block>
@@ -100,7 +102,7 @@
 												<div class="col-12 col-sm-4">
 													<div class="form-group local-forms">
 														<label class="editLabel">Grade <span class="login-danger">*</span></label>
-														<select class="form-control" name="grade" >
+														<select class="form-control" name="grade" onchange="updateSubjectSelect()"  id="gradeSelect">
 															<option value="" >Select Grade</option>
 															<option value="11">11</option>
 															<option value="12">12</option>
@@ -122,8 +124,8 @@
 												<div class="col-12 col-sm-4">
 													<div class="form-group local-forms">
 														<label class="editLabel">Subject <span class="login-danger">*</span></label>
-														<select class="form-control" name="subject" >
-															<option th:each="s:${sList}" th:value="${s.id}">[[${s.name}]]</option>
+														<select class="form-control" name="subject"  id="subjectSelect">
+<option value="" >--Select Subject--</option>															
 														</select>												
 													</div>
 												</div>
@@ -238,7 +240,21 @@
 		<th:block th:insert="Footer.html"></th:block>
 	</div>
 	</div>
-	
+	<script>
+    function updateSubjectSelect() {
+    	let gradeSelect = document.getElementById("gradeSelect").value;
+    	$.get("http://localhost:9090/subject/" + gradeSelect, function(data){
+    	    $('#subjectSelect').empty(); // Clear previous options
+    	    for(var i = 0; i < data.length; i++){
+    	        $('#subjectSelect').append('<option value=' + data[i].id + '>' + data[i].name + '</option>');
+    	    }
+    	}).fail(function() {
+    	    alert("Error retrieving subjects");
+    	});
+     
+    }
+</script>
+
 </body>
 
 </html>

@@ -10,4 +10,5 @@ public interface SubjectService {
 		void deleteSubjectById(int id);
 		Subject getSubjectById(int id);
 		void updateSubject(Subject subject);
+		List<Subject> getAllSubjecByGrade(String grade);
 }

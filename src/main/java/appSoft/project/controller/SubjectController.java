@@ -38,6 +38,9 @@ public class SubjectController {
 		model.addAttribute("subjectList", ss.getAllSubject());
 		return "SubjectList";
 	}
+	
+	
+	
 	@GetMapping("/deleteSubject")
 	private String deleteSubject(@RequestParam int id) {
 		ss.deleteSubjectById(id);

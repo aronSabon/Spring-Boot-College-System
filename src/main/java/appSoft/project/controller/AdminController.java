@@ -33,6 +33,10 @@ public class AdminController {
 	private String getIndex() {
 		return "Login";
 	}
+	@GetMapping("/ajaxTest")
+	private String getIndexsd() {
+		return "AjaxTest";
+	}
 	@PostMapping("/login")
 	private String postLogin(@ModelAttribute Admin admin, Model model) {
 		Admin adminCheck=adminService.findByUsernameAndPassword(admin.getUsername(), admin.getPassword());

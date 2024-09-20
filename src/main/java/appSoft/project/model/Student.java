@@ -12,6 +12,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
 
@@ -34,9 +35,9 @@ public class Student {
 	private LocalDate dob;
 	@DateTimeFormat(iso =  ISO.DATE)
 	private LocalDate admissionDate;
-	@OneToOne
+	@ManyToOne
 	private Faculty faculty;
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Address address;
 	private String imageName;
 
