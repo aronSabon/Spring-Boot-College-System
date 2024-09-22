@@ -63,4 +63,10 @@ public class FeesPaymentServiceImpl implements FeesPaymentService {
 			return pr.deleteAllByRollNo(rollNo);
 		}
 
+		@Override
+		public List<FeesPayment> getAllByDateBetweenAndGrade(LocalDate from, LocalDate to, String grade) {
+			// TODO Auto-generated method stub
+			return pr.findAllByDateBetweenAndGrade(from, to, grade);
+		}
+
 }

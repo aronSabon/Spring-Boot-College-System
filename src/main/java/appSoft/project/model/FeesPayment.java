@@ -21,6 +21,8 @@ private int id;
 	private String fullName;
 	private String feesType;
 	private double amount;
+	private String grade;
+
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate date;
 	private String time;

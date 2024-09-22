@@ -77,15 +77,15 @@ public class ExpenseController {
 		return mv;
 	}
 	
-	@GetMapping("/expenseReport")
+	@GetMapping("/financeReport")
 	private String expenseReport(Model model) {
 		model.addAttribute("from", LocalDate.now().minusMonths(1));
 		model.addAttribute("to",LocalDate.now());
 
 		List<Expense> expenseList=expenseService.getAllByPurchaseDateBetween(LocalDate.now().minusMonths(1), LocalDate.now());
-		List<SalaryPayment> salaryPaymentList= salaryPaymentService.getAllByDateBetween(LocalDate.now().minusMonths(1), LocalDate.now());
+//		List<SalaryPayment> salaryPaymentList= salaryPaymentService.getAllByDateBetween(LocalDate.now().minusMonths(1), LocalDate.now());
 		List<FeesPayment> feesPaymentList=feesPaymentService.getAllByDateBetween(LocalDate.now().minusMonths(1), LocalDate.now());
-		model.addAttribute("salaryPaymentList",salaryPaymentList);
+//		model.addAttribute("salaryPaymentList",salaryPaymentList);
 		model.addAttribute("expenseList",expenseList);
 		model.addAttribute("feesPaymentList",feesPaymentList);
 		
@@ -93,8 +93,8 @@ public class ExpenseController {
 //			totalExpense+=e.getAmount();
 //		}
 		double totalExpense= expenseList.stream().filter(x-> x.getAmount()> 0).mapToDouble(exp -> exp.getAmount()).sum();
-		double ts = salaryPaymentList.stream().filter( x -> x.getAmount() > 0).mapToDouble(sal -> sal.getAmount()).sum();
-		totalExpense +=ts; 
+//		double ts = salaryPaymentList.stream().filter( x -> x.getAmount() > 0).mapToDouble(sal -> sal.getAmount()).sum();
+//		totalExpense +=ts; 
 		
 		double totalIncome=0;
 		for(FeesPayment f : feesPaymentList) {
@@ -102,9 +102,9 @@ public class ExpenseController {
 		}
 		model.addAttribute("totalExpense",totalExpense);
 		model.addAttribute("totalIncome",totalIncome);
-		return "ExpenseReport";
+		return "FinanceReport";
 	}
-	@PostMapping("/expenseReportDetail")
+	@PostMapping("/financeReportDetail")
 	private String post(@ModelAttribute ExpenseReport expenseReport,Model model) {
 
 		if(!expenseReport.getGrade().isEmpty()) {
@@ -112,37 +112,53 @@ public class ExpenseController {
 			model.addAttribute("expenseFrom",expenseReport.getExpenseFrom());
 			model.addAttribute("expenseTo",expenseReport.getExpenseTo());
 			List<Expense> expenseList=expenseService.getAllByPurchaseDateBetweenAndGrade(expenseReport.getExpenseFrom(), expenseReport.getExpenseTo(), expenseReport.getGrade());
-			List<SalaryPayment> salaryPaymentList= salaryPaymentService.getAllByDateBetween(expenseReport.getExpenseFrom(), expenseReport.getExpenseTo());
-			List<FeesPayment> feesPaymentList=feesPaymentService.getAllByDateBetween(expenseReport.getExpenseFrom(), expenseReport.getExpenseTo());
-			model.addAttribute("salaryPaymentList",salaryPaymentList);
+//			List<SalaryPayment> salaryPaymentList= salaryPaymentService.getAllByDateBetween(expenseReport.getExpenseFrom(), expenseReport.getExpenseTo());
+			List<FeesPayment> feesPaymentList=feesPaymentService.getAllByDateBetweenAndGrade(expenseReport.getExpenseFrom(), expenseReport.getExpenseTo(), expenseReport.getGrade());
+//			model.addAttribute("salaryPaymentList",salaryPaymentList);
 			model.addAttribute("expenseList",expenseList);
 			model.addAttribute("feesPaymentList",feesPaymentList);
-			double totalExpense=0;
-			for(Expense e : expenseList) {
-				totalExpense+=e.getAmount();
-			}
+//			double totalExpense=0;
+//			for(Expense e : expenseList) {
+//				totalExpense+=e.getAmount();
+//			}
+//			double totalIncome=0;
+//			for(FeesPayment f : feesPaymentList) {
+//				totalIncome+=f.getAmount();
+//			}
+			double totalExpense= expenseList.stream().filter(x-> x.getAmount()> 0).mapToDouble(exp -> exp.getAmount()).sum();
+//			double ts = salaryPaymentList.stream().filter( x -> x.getAmount() > 0).mapToDouble(sal -> sal.getAmount()).sum();
+//			totalExpense +=ts; 
+			
 			double totalIncome=0;
 			for(FeesPayment f : feesPaymentList) {
 				totalIncome+=f.getAmount();
 			}
 			model.addAttribute("totalExpense",totalExpense);
 			model.addAttribute("totalIncome",totalIncome);
-			return "ExpenseReportDetail";
+			return "FinanceReportDetail";
 
 		}
 		model.addAttribute("expenseReportModel",expenseReport);
 		model.addAttribute("expenseFrom",expenseReport.getExpenseFrom());
 		model.addAttribute("expenseTo",expenseReport.getExpenseTo());
 		List<Expense> expenseList=expenseService.getAllByPurchaseDateBetween(expenseReport.getExpenseFrom(), expenseReport.getExpenseTo());
-		List<SalaryPayment> salaryPaymentList= salaryPaymentService.getAllByDateBetween(expenseReport.getExpenseFrom(), expenseReport.getExpenseTo());
+//		List<SalaryPayment> salaryPaymentList= salaryPaymentService.getAllByDateBetween(expenseReport.getExpenseFrom(), expenseReport.getExpenseTo());
 		List<FeesPayment> feesPaymentList=feesPaymentService.getAllByDateBetween(expenseReport.getExpenseFrom(), expenseReport.getExpenseTo());
 		model.addAttribute("expenseList",expenseList);
-		model.addAttribute("salaryPaymentList",salaryPaymentList);
+//		model.addAttribute("salaryPaymentList",salaryPaymentList);
 		model.addAttribute("feesPaymentList",feesPaymentList);
-		double totalExpense=0;
-		for(Expense e : expenseList) {
-			totalExpense+=e.getAmount();
-		}
+//		double totalExpense=0;
+//		for(Expense e : expenseList) {
+//			totalExpense+=e.getAmount();
+//		}
+//		double totalIncome=0;
+//		for(FeesPayment f : feesPaymentList) {
+//			totalIncome+=f.getAmount();
+//		}
+		double totalExpense= expenseList.stream().filter(x-> x.getAmount()> 0).mapToDouble(exp -> exp.getAmount()).sum();
+//		double ts = salaryPaymentList.stream().filter( x -> x.getAmount() > 0).mapToDouble(sal -> sal.getAmount()).sum();
+//		totalExpense +=ts; 
+		
 		double totalIncome=0;
 		for(FeesPayment f : feesPaymentList) {
 			totalIncome+=f.getAmount();
@@ -150,7 +166,7 @@ public class ExpenseController {
 		model.addAttribute("totalExpense",totalExpense);
 		model.addAttribute("totalIncome",totalIncome);
 
-		return "ExpenseReportDetail";
+		return "FinanceReportDetail";
 	}
 
 }

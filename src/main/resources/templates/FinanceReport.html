@@ -22,7 +22,7 @@
 					<div class="card mb-4">
 						<div class="card-body">
 
-							<form action="/expenseReportDetail" method="post">
+							<form action="/financeReportDetail" method="post">
 								<div class="row">
 									<div class="col-sm-6">
 										<div class="form-group">
@@ -40,34 +40,32 @@
 												required>
 										</div>
 									</div>
-									
+
 									<div class="col-sm-6">
-												<div class="form-group">
-													<label class="form-label" for="grade">Grade</label>
-													 <select name="grade" id="grade"  class="form-control">
-														<option value="">Select Grade</option>
-														<option value="11">11</option>
-														<option value="12">12</option>
-														<option value="DHM">DHM</option>
-														<option value="Both">Both</option>
-														<option value="Others">Others</option>
-													</select>
-												</div>
-											</div>
+										<div class="form-group">
+											<label class="form-label" for="grade">Grade</label> <select
+												name="grade" id="grade" class="form-control">
+												<option value="">Select Grade</option>
+												<option value="11">11</option>
+												<option value="12">12</option>
+												<option value="DHM">DHM</option>
+												<option value="Both">Both</option>
+												<option value="Others">Others</option>
+											</select>
+										</div>
+									</div>
 									<div class="col-lg-12 col-md-12 col-sm-12">
 
 										<button type="submit" class="btn btn-primary">Generate</button>
-                          
+
 									</div>
 								</div>
 
 							</form>
 						</div>
+						<br> <a href="/financeExcel"><button
+								class="btn btn-success">Excel</button></a> <br>
 						<br>
-
-
- <a href="/financeExcel"><button class="btn btn-success">Excel</button></a>
-                            <br><br>
 
 						<div class="expenseDetailRange">
 							<h4>Report From [[${from}]] To [[${to}]]</h4>
@@ -77,48 +75,20 @@
 
 						<div class="row">
 							<div class="col-sm-6">
-								<div class="expenseListTitle">
-									<h5>Expense List</h5>
+								<div class="incomeListTitle">
+									<h5>Income Details</h5>
 								</div>
 							</div>
 							<div class="col-sm-6">
-								<div class="incomeListTitle">
-									<h5>Income List</h5>
+								<div class="expenseListTitle">
+									<h5>Expense Details</h5>
 								</div>
 							</div>
+
 						</div>
 
 						<div class="row">
-							<div class="col-sm-6">
-								<table id="datatablesSimple">
-									<thead>
-										<tr>
-											<th>Expense Type</th>
-											<th>Particulars</th>
-											<th>Amount</th>
-											<th>Expense Date</th>
-
-
-										</tr>
-									</thead>
-									<tbody>
-										<tr th:each=e:${expenseList}>
-											<td>[[${e.expenseType}]]</td>
-											<td>[[${e.particulars}]]</td>
-											<td>[[${e.amount}]]</td>
-											<td>[[${e.purchaseDate}]]</td>
-										</tr>
-										<tr th:each="s:${salaryPaymentList}">
-											<td>Salary</td>
-											<td>[[${s.fullName}]]</td>
-											<td>[[${s.amount}]]</td>
-											<td>[[${s.date}]]</td>
-										</tr>
-
-									</tbody>
-								</table>
-
-							</div>
+							
 							<div class="col-sm-6">
 								<table id="datatablesSimple1">
 									<thead>
@@ -141,25 +111,56 @@
 								</table>
 
 							</div>
+							<div class="col-sm-6">
+								<table id="datatablesSimple">
+									<thead>
+										<tr>
+											<th>Expense Type</th>
+											<th>Particulars</th>
+											<th>Amount</th>
+											<th>Expense Date</th>
+
+
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each=e:${expenseList}>
+											<td>[[${e.expenseType}]]</td>
+											<td>[[${e.particulars}]]</td>
+											<td>[[${e.amount}]]</td>
+											<td>[[${e.purchaseDate}]]</td>
+										</tr>
+										<!--/* 		<tr th:each="s:${salaryPaymentList}">
+											<td>Salary</td>
+											<td>[[${s.fullName}]]</td>
+											<td>[[${s.amount}]]</td>
+											<td>[[${s.date}]]</td>
+										</tr> */-->
+
+									</tbody>
+								</table>
+
+							</div>
 						</div>
 						<div class="row">
+						<div class="col-sm-6">
+								<div class="totalInccome">
+									<h5>Total Income : [[${totalIncome}]]</h5>
+								</div>
+							</div>
 							<div class="col-sm-6">
 								<div class="totalExpense">
 									<h5>Total Expense : [[${totalExpense}]]</h5>
 								</div>
 							</div>
-							<div class="col-sm-6">
-								<div class="totalInccome">
-									<h5>Total Income : [[${totalIncome}]]</h5>
-								</div>
-							</div>
+							
 						</div>
 						<hr>
-							<div class="row">
-							
-								<div class="totalBalance">
-									<h5>Balance : [[${totalIncome-totalExpense}]]</h5>
-								
+						<div class="row">
+
+							<div class="totalBalance">
+								<h5>Balance : [[${totalIncome-totalExpense}]]</h5>
+
 							</div>
 						</div>
 

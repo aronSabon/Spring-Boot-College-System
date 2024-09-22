@@ -1,6 +1,10 @@
 package appSoft.project.controller;
 
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,27 +49,33 @@ public class StudentController {
 		return "AddStudent";
 	}
 	@PostMapping("/addStudent")
-	private String addStudent(@ModelAttribute Student student,@RequestParam MultipartFile image) {
+	private String addStudent(@ModelAttribute Student student,@RequestParam MultipartFile image,Model model) {
+		if(!image.isEmpty()) {
+			try {
+				model.addAttribute("message","image upload success");
+
+				Files.copy(image.getInputStream(), 
+				Path.of("src/main/resources/static/studentImages/"+student.getEmail()+".jpg"), 
+				StandardCopyOption.REPLACE_EXISTING);
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("image upload failed");
+			}
+		}
+		else {
+		model.addAttribute("message","image upload failed");
+
+		return "redirect:/addStudent";
+		}
+		
+		
+		
 		student.setImageName(image.getOriginalFilename());
 		ss.addStudent(student);
-		
-//		Fees fees=new Fees();
-//		fees.setGrade(student.getGrade());
-//		fees.setFaculty(student.getFaculty());
-//		fees.setStudentName(student.getFullName());
-//		fees.setAmount(student.getFaculty().getAdmissionFee());
-//		fees.setFeesType("Admission Fee");
-//		fees.setInvoiceDate(student.getAdmissionDate());
-//		fees.setStatus(FeesStatus.UNPAID);
-//		fees.setRollNo(student.getRollNo());
-//		fees.setDueDate(LocalDate.of(2024, Month.OCTOBER, 12));
-//		feesService.addFees(fees);
-		
-		
-	
 		List<FeesType>feesTypeList=feesTypeService.getFeesTypeByGradeAndFaculty(student.getGrade(), student.getFaculty());
 	
-
 		for(FeesType i : feesTypeList) {
 			System.out.println(i);
 			Fees fees1 = new Fees();
@@ -81,10 +91,6 @@ public class StudentController {
 			fees1.setDueDate(i.getDueDate());
 			feesService.addFees(fees1);
 		}
-		
-		
-		
-		
 		return "redirect:/addStudent";
 	}
 	@GetMapping("/studentList")

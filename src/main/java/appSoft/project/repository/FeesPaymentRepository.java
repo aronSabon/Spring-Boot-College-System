@@ -17,6 +17,9 @@ import jakarta.transaction.Transactional;
 public interface FeesPaymentRepository extends JpaRepository<FeesPayment, Integer> {
 	List<FeesPayment> findByRollNo(int rollNo);
 	List<FeesPayment> findAllByDateBetween(LocalDate from, LocalDate to);
+	List<FeesPayment> findAllByDateBetweenAndGrade(LocalDate from, LocalDate to,String grade);
+
+	
 @Transactional
 	List<FeesPayment> deleteAllByRollNo(int rollNo);
 }

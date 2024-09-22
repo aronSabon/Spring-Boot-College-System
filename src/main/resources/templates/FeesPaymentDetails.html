@@ -23,17 +23,21 @@
 									</div>
 									<div class="personal-activity">
 										<div class="personal-icons">
+											<img  th:src="@{'studentImages/'+${sModel.email}+'.jpg'}" width="90px"  style="border-radius: 50%;">
+										</div>
+									</div>
+									<div class="personal-activity">
+										<div class="personal-icons">
 											<i class="feather-user"></i>
 										</div>
+										
 										<div class="views-personal">
 											<h4>Name</h4>
 											<h5>[[${sModel.fullName}]]</h5>
 										</div>
 									</div>
 									<div class="personal-activity">
-										<div class="personal-icons">
-											<img src="assets/img/icons/buliding-icon.svg" >
-										</div>
+										
 										<div class="views-personal">
 											<h4>Faculty</h4>
 											<h5>[[${sModel.faculty.name}]]</h5>
@@ -160,7 +164,9 @@
                                        
                                     </tbody>
                                 </table>
-                                
+                                                  <div>
+                           			 <a th:href="@{/studentPayment(rollNo=${rollNo})}"><button class="btn btn-success">Payment</button></a>
+                                </div>
 								
 								</div>
 							</div>
@@ -196,85 +202,12 @@
                                        
                                     </tbody>
                                 </table>
+              
                           
 								</div>
 							</div>
 						</div>
-					
-					
-					
-					<br>
-					
-					
-					
-						
-						
-						<div class="student-personals-grpp">
-							<div class="card mb-0">
-								<div class="card-body">
-								 <h3 class="mt-4">Payable</h3>
-									<table  id="example" class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                           
-                                            <th>Fees Type</th>
-                                            <th>Remaining Amount</th>
-                                            <th>Due Date</th>
-                                        
-                                           
-                                        </tr>
-                                        
-                                    </thead>
-                                    
-                                    <tbody>
-                                   
-                                        <tr th:each=df:${duesFilteredList}>
-                                        
-                                            <td>[[${df.feesType}]]</td>
-                                            <td>[[${df.amount-df.amountPaid}]]</td>
-                                            <td>[[${df.dueDate}]]</td>
-                                            
-                                           
-                                        </tr>
-                                       
-                                    </tbody>
-                                </table>
-                                <hr>
-								
-								
-								
-                                        <table class="table table-striped table-bordered">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="left"><strong>Subtotal</strong></td>
-                                                    <td class="right">[[${subTotal}]]</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="left"><strong>Discount</strong></td>
-                                                    <td class="right"></td>
-                                                </tr>
-                                               
-                                                <tr>
-                                                    <td class="left"><strong>Total</strong></td>
-                                                    <td class="right"><strong>[[${total}]]</strong></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                           			 <a th:href="@{/studentPayment(rollNo=${rollNo})}"><button class="btn btn-success">Payment</button></a>
-                                        
-                                    
-								
-								
-								
-								</div>
-							</div>
-						</div>
-						
-						
-					
-						
-						
-						
+			
 					</div>
 				</div>
 			</main>

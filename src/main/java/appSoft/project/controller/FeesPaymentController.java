@@ -118,24 +118,59 @@ System.out.println(feesFilter);
 				if(i.getFeesType().equals(feesType[a])) {
 					if(totalPayment>0) {
 						if(totalPayment>(i.getAmount()-i.getAmountPaid())) {
+							FeesPayment feesp = new FeesPayment();
+							feesp.setAmount(i.getAmount()-i.getAmountPaid());
+							feesp.setDate(feesPayment.getDate());
+							feesp.setFullName(feesPayment.getFullName());
+							feesp.setFeesType(feesType[a]);
+							feesp.setPaidWith(feesPayment.getPaidWith());
+							feesp.setRollNo(feesPayment.getRollNo());
+							feesp.setTime(feesPayment.getTime());
+							feesp.setGrade(feesFilter.get(0).getGrade());
+							
+							
+						    feesPaymentService.addPayment(feesp);
 							totalPayment=totalPayment-(i.getAmount()-i.getAmountPaid());
 							i.setStatus(FeesStatus.PAID);
 							i.setAmountPaid(i.getAmountPaid()+(i.getAmount()-i.getAmountPaid()));
 							feesService.updateFees(i);
-						    feesPaymentService.addPayment(feesPayment);
 						}
 						else if(totalPayment==(i.getAmount()-i.getAmountPaid()))  {
+							FeesPayment feesp = new FeesPayment();
+							feesp.setAmount(i.getAmount()-i.getAmountPaid());
+							feesp.setDate(feesPayment.getDate());
+							feesp.setFullName(feesPayment.getFullName());
+							feesp.setFeesType(feesType[a]);
+							feesp.setPaidWith(feesPayment.getPaidWith());
+							feesp.setRollNo(feesPayment.getRollNo());
+							feesp.setTime(feesPayment.getTime());
+							feesp.setGrade(feesFilter.get(0).getGrade());
+
+							
+							feesPaymentService.addPayment(feesp);
 							totalPayment=totalPayment-(i.getAmount()-i.getAmountPaid());
 							i.setStatus(FeesStatus.PAID);
 							i.setAmountPaid(i.getAmountPaid()+(i.getAmount()-i.getAmountPaid()));
 
 							feesService.updateFees(i);
-							feesPaymentService.addPayment(feesPayment);
 						}
 						else if(totalPayment<(i.getAmount()-i.getAmountPaid()))  {  
+							FeesPayment feesp = new FeesPayment();
+							feesp.setAmount(totalPayment);
+							feesp.setDate(feesPayment.getDate());
+							feesp.setFullName(feesPayment.getFullName());
+							feesp.setFeesType(feesType[a]);
+							feesp.setPaidWith(feesPayment.getPaidWith());
+							feesp.setRollNo(feesPayment.getRollNo());
+							feesp.setTime(feesPayment.getTime());
+							feesp.setGrade(feesFilter.get(0).getGrade());
+
+							
+							feesPaymentService.addPayment(feesp);
 							i.setAmountPaid(i.getAmountPaid()+totalPayment);
 							feesService.updateFees(i);
-							feesPaymentService.addPayment(feesPayment);
+							totalPayment=totalPayment-totalPayment;
+
 						}
 					}
 				}

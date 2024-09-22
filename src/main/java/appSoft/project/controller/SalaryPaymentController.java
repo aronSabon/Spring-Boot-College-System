@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import appSoft.project.constant.FeesStatus;
 import appSoft.project.constant.SalaryStatus;
+import appSoft.project.model.Expense;
 import appSoft.project.model.Fees;
 import appSoft.project.model.Salary;
 import appSoft.project.model.SalaryPayment;
@@ -28,6 +29,7 @@ import appSoft.project.service.FeesService;
 import appSoft.project.service.FeesTypeService;
 import appSoft.project.service.SalaryPaymentService;
 import appSoft.project.service.SalaryService;
+import appSoft.project.service.ExpenseService;
 import appSoft.project.service.FeesPaymentService;
 import appSoft.project.service.StudentService;
 import appSoft.project.service.TeacherService;
@@ -40,6 +42,8 @@ public class SalaryPaymentController {
 	SalaryService salaryService;
 	@Autowired
 	SalaryPaymentService salaryPaymentService;
+	@Autowired
+	ExpenseService expenseService;
 
 	@GetMapping("/salaryPaymentDetails")
 	private String salaryDetails(@RequestParam int id,Model model) {
@@ -95,6 +99,16 @@ public class SalaryPaymentController {
 							i.setStatus(SalaryStatus.PAID);
 							i.setAmountPaid(i.getAmountPaid()+(i.getAmount()-i.getAmountPaid()));
 							salaryService.updateSalary(i);
+							
+							//add into expense
+							Expense expense = new Expense();
+							expense.setExpenseType("Salary");
+							expense.setAmount(salaryp.getAmount());
+							expense.setGrade(salaryFilter.get(0).getGrade());
+							expense.setParticulars(salaryFilter.get(0).getFullName());
+							expense.setPurchaseDate(salaryp.getDate());
+							expense.setRemarks("salary paid");
+							expenseService.addExpense(expense);
 						}
 						else if(totalPayment==(i.getAmount()-i.getAmountPaid())) {
 								SalaryPayment salaryp= new SalaryPayment();
@@ -110,6 +124,16 @@ public class SalaryPaymentController {
 							i.setStatus(SalaryStatus.PAID);
 							i.setAmountPaid(i.getAmountPaid()+(i.getAmount()-i.getAmountPaid()));
 						salaryService.updateSalary(i);
+						
+						//add into expense
+						Expense expense = new Expense();
+						expense.setExpenseType("Salary");
+						expense.setAmount(salaryp.getAmount());
+						expense.setGrade(salaryFilter.get(0).getGrade());
+						expense.setParticulars(salaryFilter.get(0).getFullName());
+						expense.setPurchaseDate(salaryp.getDate());
+						expense.setRemarks("salary paid");
+						expenseService.addExpense(expense);
 
 						}
 						else if(totalPayment<(i.getAmount()-i.getAmountPaid())) {  
@@ -125,6 +149,16 @@ public class SalaryPaymentController {
 							i.setAmountPaid(i.getAmountPaid()+totalPayment);
 							salaryService.updateSalary(i);
 							totalPayment=totalPayment-totalPayment;
+							
+							//add into expense
+							Expense expense = new Expense();
+							expense.setExpenseType("Salary");
+							expense.setAmount(salaryp.getAmount());
+							expense.setGrade(salaryFilter.get(0).getGrade());
+							expense.setParticulars(salaryFilter.get(0).getFullName());
+							expense.setPurchaseDate(salaryp.getDate());
+							expense.setRemarks("salary paid");
+							expenseService.addExpense(expense);
 
 						}
 					}

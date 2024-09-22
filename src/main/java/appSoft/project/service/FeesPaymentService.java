@@ -14,6 +14,8 @@ public interface FeesPaymentService {
 		List<FeesPayment> getAllByRollNo(int rollNo);
 		
 		List<FeesPayment> getAllByDateBetween(LocalDate from, LocalDate to);
+		List<FeesPayment> getAllByDateBetweenAndGrade(LocalDate from, LocalDate to,String grade);
+
 		
 		List<FeesPayment> deleteAllByRollNo(int rollNo);
 }

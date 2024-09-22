@@ -57,10 +57,10 @@ public class SubjectRestController {
 		ss.updateSubject(subject);
 		return "Success";
 	}
-	@GetMapping("/subject/{grade}")
-	public List<Subject> getSubjectByGrade(@PathVariable String grade,Model model) {
-		System.out.println( ss.getAllSubjecByGrade(grade).size());
-		return ss.getAllSubjecByGrade(grade);
-	}
+//	@GetMapping("/subject/{grade}")
+//	public List<Subject> getSubjectByGrade(@PathVariable String grade,Model model) {
+//		System.out.println( ss.getAllSubjecByGrade(grade).size());
+//		return ss.getAllSubjecByGrade(grade);
+//	}
 	
 }
