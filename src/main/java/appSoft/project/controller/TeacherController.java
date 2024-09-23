@@ -142,7 +142,6 @@ public class TeacherController {
 			i.setAmount(teacher.getSalary()*teacher.getPeriod());
 			i.setFullName(teacher.getFullName());
 			i.setGrade(teacher.getGrade());
-			i.setMonth(teacher.getJoinDate().getMonth().toString());
 			i.setPeriod(teacher.getPeriod());
 			i.setSection(teacher.getSection());
 			i.setSubject(teacher.getSubject());
