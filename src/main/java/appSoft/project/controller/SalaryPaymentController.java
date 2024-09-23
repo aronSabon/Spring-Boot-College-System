@@ -47,6 +47,10 @@ public class SalaryPaymentController {
 
 	@GetMapping("/salaryPaymentDetails")
 	private String salaryDetails(@RequestParam int id,Model model) {
+		List<Salary> salaryList = salaryService.getAllSalaryByTeacherId(id);
+		boolean allPaid = salaryList.stream().allMatch(s -> s.getStatus().equals(SalaryStatus.PAID));
+		System.out.println(allPaid);
+		model.addAttribute("allPaid", allPaid);
 		model.addAttribute("teacherModel",teacherService.getTeacherById(id));
 		model.addAttribute("salaryList",salaryService.getAllSalaryByTeacherId(id));
 		model.addAttribute("paymentHistory",salaryPaymentService.getAllByTeacherId(id));
