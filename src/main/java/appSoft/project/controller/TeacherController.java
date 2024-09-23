@@ -1,5 +1,9 @@
 package appSoft.project.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -56,9 +60,25 @@ public class TeacherController {
 		return "AddTeacher";
 	}
 	@PostMapping("/addTeacher")
-	private String addTeacher(@ModelAttribute Teacher teacher,@RequestParam MultipartFile image,RedirectAttributes redirectAttributes) {
+	private String addTeacher(@ModelAttribute Teacher teacher,@RequestParam MultipartFile image,RedirectAttributes redirectAttributes,Model model) {
+		if(!image.isEmpty()) {
+			try {
+				Files.copy(image.getInputStream(), 
+				Path.of("src/main/resources/static/teacherImages/"+teacher.getEmail()+".jpg"), 
+				StandardCopyOption.REPLACE_EXISTING);
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("image upload failed");
+			}
+		}
+		else {
+		model.addAttribute("message","image upload failed");
+		}
+		
 		  try {
-			  teacher.setImageName(image.getOriginalFilename());
+			  teacher.setImageName(teacher.getEmail()+".jpg");
 				ts.addTeacher(teacher);
 
 				Salary salary = new Salary();

@@ -72,7 +72,7 @@ public class StudentController {
 		
 		
 		
-		student.setImageName(image.getOriginalFilename());
+		student.setImageName(student.getEmail()+".jpg");
 		ss.addStudent(student);
 		List<FeesType>feesTypeList=feesTypeService.getFeesTypeByGradeAndFaculty(student.getGrade(), student.getFaculty());
 	
