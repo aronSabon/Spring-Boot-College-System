@@ -22,8 +22,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import appSoft.project.constant.SalaryStatus;
 import appSoft.project.model.Fees;
+import appSoft.project.model.FeesPayment;
 import appSoft.project.model.FeesType;
 import appSoft.project.model.Salary;
+import appSoft.project.model.SalaryPayment;
 import appSoft.project.model.SalarySetting;
 import appSoft.project.model.Subject;
 import appSoft.project.model.Teacher;
@@ -133,8 +135,24 @@ public class TeacherController {
 	}
 	@PostMapping("/updateTeacher")
 	private String updateTeacher(@ModelAttribute Teacher teacher,@RequestParam MultipartFile image) {
-		teacher.setImageName(image.getOriginalFilename());
-
+		teacher.setImageName(teacher.getEmail()+".jpg");
+		List<Salary> salaryList = salaryService.getAllSalaryByTeacherId(teacher.getId());
+		for(Salary i : salaryList) {
+			i.setFaculty(teacher.getFaculty());
+			i.setAmount(teacher.getSalary()*teacher.getPeriod());
+			i.setFullName(teacher.getFullName());
+			i.setGrade(teacher.getGrade());
+			i.setMonth(teacher.getJoinDate().getMonth().toString());
+			i.setPeriod(teacher.getPeriod());
+			i.setSection(teacher.getSection());
+			i.setSubject(teacher.getSubject());
+			salaryService.updateSalary(i);
+		}
+		List<SalaryPayment> salaryPaymentList = salaryPaymentService.getAllByTeacherId(teacher.getId());
+		for(SalaryPayment i : salaryPaymentList) {
+			i.setFullName(teacher.getFullName());
+			salaryPaymentService.updatePayment(i);
+		}
 		ts.updateTeacher(teacher);
 		return "redirect:/teacherList";
 	}
