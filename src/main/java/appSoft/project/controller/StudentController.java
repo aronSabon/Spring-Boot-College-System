@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import appSoft.project.model.Fees;
+import appSoft.project.model.FeesPayment;
 import appSoft.project.model.FeesType;
 import appSoft.project.model.Student;
 import appSoft.project.service.FacultyService;
@@ -67,7 +69,6 @@ public class StudentController {
 		else {
 		model.addAttribute("message","image upload failed");
 
-		return "redirect:/addStudent";
 		}
 		
 		
@@ -114,8 +115,25 @@ public class StudentController {
 	}
 	@PostMapping("/updateStudent")
 	private String updateStudent(@ModelAttribute Student student,@RequestParam MultipartFile image) {
-		student.setImageName(image.getOriginalFilename());
+		
+		student.setImageName(student.getEmail()+".jpg");
 		ss.updateStudent(student);
+		
+		List<Fees> feesList = feesService.getAllFeesByRollNo(student.getRollNo());
+		for(Fees i : feesList) {
+			i.setRollNo(student.getRollNo());
+			i.setStudentName(student.getFullName());
+			i.setFaculty(student.getFaculty());
+			i.setGrade(student.getGrade());
+			feesService.updateFees(i);
+		}
+		List<FeesPayment> feesPaymentList = feesPaymentService.getAllByRollNo(student.getRollNo());
+		for(FeesPayment i : feesPaymentList) {
+			i.setFullName(student.getFullName());
+			i.setGrade(student.getGrade());
+			i.setRollNo(student.getRollNo());
+			feesPaymentService.updatePayment(i);
+		}
 		return "redirect:/studentList";
 	}
 	@GetMapping("/studentExcel")
