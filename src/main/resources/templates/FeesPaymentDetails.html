@@ -171,7 +171,12 @@
                                     </tbody>
                                 </table>
                                                   <div>
-                           			 <a th:href="@{/studentPayment(rollNo=${rollNo})}"><button class="btn btn-success">Payment</button></a>
+                           			 <a th:if="!${allPaid}"
+											th:href="@{/studentPayment(rollNo=${rollNo})}">
+											<button class="btn btn-success">Payment</button>
+										</a>
+
+										<button class="btn btn-success" th:if="${allPaid}" disabled>Payment</button>
                            			 	
 					<a href="/feesList"><button type="button" class="btn btn-warning">Back</button></a>
 			

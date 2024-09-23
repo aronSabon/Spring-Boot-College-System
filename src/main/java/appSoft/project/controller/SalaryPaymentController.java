@@ -47,10 +47,12 @@ public class SalaryPaymentController {
 
 	@GetMapping("/salaryPaymentDetails")
 	private String salaryDetails(@RequestParam int id,Model model) {
+		//for disabling salary pay
 		List<Salary> salaryList = salaryService.getAllSalaryByTeacherId(id);
 		boolean allPaid = salaryList.stream().allMatch(s -> s.getStatus().equals(SalaryStatus.PAID));
 		System.out.println(allPaid);
 		model.addAttribute("allPaid", allPaid);
+		//till here
 		model.addAttribute("teacherModel",teacherService.getTeacherById(id));
 		model.addAttribute("salaryList",salaryService.getAllSalaryByTeacherId(id));
 		model.addAttribute("paymentHistory",salaryPaymentService.getAllByTeacherId(id));

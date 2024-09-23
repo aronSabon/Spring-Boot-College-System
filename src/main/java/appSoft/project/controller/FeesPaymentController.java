@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import appSoft.project.constant.FeesStatus;
+import appSoft.project.constant.SalaryStatus;
 import appSoft.project.model.Fees;
 import appSoft.project.model.FeesPayment;
+import appSoft.project.model.Salary;
 import appSoft.project.model.Student;
 import appSoft.project.service.FeesService;
 import appSoft.project.service.FeesTypeService;
@@ -41,6 +43,11 @@ public class FeesPaymentController {
 
 	@GetMapping("/paymentDetails")
 	private String paymentDetails(@RequestParam int rollNo,Model model) {
+		//for disabling payment button
+		List<Fees> feesList = feesService.getAllFeesByRollNo(rollNo);
+		boolean allPaid = feesList.stream().allMatch(s -> s.getStatus().equals(FeesStatus.PAID));
+		model.addAttribute("allPaid", allPaid);
+		//upto here
 		model.addAttribute("feesList",feesService.getAllFeesByRollNo(rollNo));
 		
 		
