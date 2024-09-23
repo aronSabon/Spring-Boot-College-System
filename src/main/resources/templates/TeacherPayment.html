@@ -50,9 +50,11 @@
 											<label class="form-label">Month</label>
 											<div th:each="s:${salaryList}">
 												<input type="checkbox" name="month"
-													th:value="${s.month}" th:id="${s.month}" >
+													th:value="${s.month}" th:id="${s.month}"  class="month-checkbox">
 												<label th:for="${s.month}">[[${s.month}]] : Rs. [[${s.amount-s.amountPaid}]]</label>
 											</div>
+											        <input type="hidden" name="monthCheck" value="required">
+											
 										</div>
 									</div>
 
@@ -97,7 +99,7 @@
 
 									<div class="col-lg-12 col-md-12 col-sm-12">
 										<br>
-										<button type="submit" class="btn btn-primary">Submit</button>
+										<button type="submit" class="btn btn-primary" id="submitBtn" disabled>Submit</button>
 									</div>
 
 								</div>
@@ -115,5 +117,26 @@
 			<th:block th:insert="Footer.html"></th:block>
 		</div>
 	</div>
+	<script>
+    // Function to enable/disable submit button based on checkbox selection
+    document.addEventListener('DOMContentLoaded', function() {
+        const checkboxes = document.querySelectorAll('.month-checkbox');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // Function to check if at least one checkbox is selected
+        function toggleSubmitButton() {
+            const atLeastOneChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+            submitBtn.disabled = !atLeastOneChecked; // Enable or disable the submit button
+        }
+
+        // Add event listeners to checkboxes to toggle submit button on change
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', toggleSubmitButton);
+        });
+
+        // Run the function initially in case the form is loaded with pre-selected checkboxes
+        toggleSubmitButton();
+    });
+</script>
 </body>
 </html>
