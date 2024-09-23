@@ -115,7 +115,7 @@ public class StudentController {
 	}
 	@PostMapping("/updateStudent")
 	private String updateStudent(@ModelAttribute Student student,@RequestParam MultipartFile image) {
-		
+		//if u need to update roll no also then add student id to fees and feesPayment or use one to many on fees and feesPayment
 		student.setImageName(student.getEmail()+".jpg");
 		ss.updateStudent(student);
 		
