@@ -7,11 +7,14 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js">
 	
 </script>
+<script type="text/javascript">
+
+</script>
 
 <style>
 /* Style for the popup dialog */
 #popup {
-	display: block; /* Hidden by default */
+	display: none; /* Hidden by default */
 	position: fixed;
 	left: 50%;
 	top: 50%;
@@ -80,6 +83,7 @@
 														<span>Basic Details</span>
 													</h5>
 												</div>
+											
 
 
 												<div class="col-12 col-sm-4">
@@ -305,12 +309,10 @@
 
 									<!-- The Popup Dialog -->
 									<div id="popup">
-										<h2>Success!</h2>
-										<p>Teacher added successfully!</p>
-										<button  class="close-btn" onclick="closePopup()">tset</button>
+										<h2 th:text="${status == 'success' ? 'Success!' : 'Error!'}">Success!</h2>
+										<p id="popup-message" th:text="${message}">Teacher added
+											successfully!</p>
 										<button class="close-btn" onclick="closePopup()">Close</button>
-																				<button class="close-btn" onclick="closePopup()">Close</button>
-										
 									</div>
 								</div>
 							</div>
@@ -351,21 +353,26 @@
 
 		}
 		
-	      // Function to simulate adding a teacher
-        function addTeacher() {
-            // Simulate a successful operation
-          
-                // Show the popup dialog
-                document.getElementById('popup').style.display = 'block';
-                document.getElementById('popup-overlay').style.display = 'block';
-             // Simulate delay for adding teacher (500ms)
-        }
+		
+		window.onload = function() {
+		   var message ="[[${message}]]"; 
+        var status = "[[${status}]]";
+		    if (message !== 'null' && message !== '') {
+		        document.getElementById("popup-overlay").style.display = "block";
+		        document.getElementById("popup").style.display = "block";
 
-        // Function to close the popup dialog
-        function closePopup() {
-            document.getElementById('popup').style.display = 'none';
-            document.getElementById('popup-overlay').style.display = 'none';
-        }
+		        if (status === "success") {
+		            document.getElementById("popup-message").innerText = message;
+		        } else if (status === "error") {
+		            document.getElementById("popup-message").innerText = "Error: " + message;
+		        }
+		    }
+		};
+
+		function closePopup() {
+			document.getElementById("popup-overlay").style.display = "none";
+			document.getElementById("popup").style.display = "none";
+		}
 	</script>
 
 </body>

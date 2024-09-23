@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import appSoft.project.constant.SalaryStatus;
 import appSoft.project.model.Fees;
@@ -47,7 +48,7 @@ public class TeacherController {
 	@Autowired
 	SalaryPaymentService salaryPaymentService;
 
-	
+
 	@GetMapping("/addTeacher")
 	private String teacherForm(Model model) {
 		model.addAttribute("fList", fs.getAllFaculty());
@@ -55,31 +56,38 @@ public class TeacherController {
 		return "AddTeacher";
 	}
 	@PostMapping("/addTeacher")
-	private String addTeacher(@ModelAttribute Teacher teacher,@RequestParam MultipartFile image) {
-		teacher.setImageName(image.getOriginalFilename());
-		ts.addTeacher(teacher);
+	private String addTeacher(@ModelAttribute Teacher teacher,@RequestParam MultipartFile image,RedirectAttributes redirectAttributes) {
+		  try {
+			  teacher.setImageName(image.getOriginalFilename());
+				ts.addTeacher(teacher);
+
+				Salary salary = new Salary();
+				salary.setAmount(teacher.getSalary()*teacher.getPeriod());
+				salary.setFaculty(teacher.getFaculty());
+				salary.setFullName(teacher.getFullName());
+				salary.setGender(teacher.getGender());
+				salary.setGrade(teacher.getGrade());
+				salary.setTeacherId(teacher.getId());
+				salary.setSubject(teacher.getSubject());
+				salary.setSection(teacher.getSection());
+				salary.setPeriod(teacher.getPeriod());
+				salary.setPayDate(LocalDate.now().withDayOfMonth(28));
+				salary.setStatus(SalaryStatus.UNPAID);
+				salary.setMonth(LocalDate.now().getMonth().toString());
+				salaryService.addSalary(salary);
+				
+
+		        // Add flash attributes
+		        redirectAttributes.addFlashAttribute("message", "Teacher added successfully!");
+		        redirectAttributes.addFlashAttribute("status", "success");
+		    } catch (Exception e) {
+		        // Catch any exception that occurs during the save operation
+		        redirectAttributes.addFlashAttribute("message", "Teacher add failed!");
+		        redirectAttributes.addFlashAttribute("status", "error");
+		    }
+		
 		
 
-//		SalarySetting salarySetting=salarySettingService.getSalarySettingByGradeAndFacultyAndSubject(teacher.getGrade(), teacher.getFaculty(), teacher.getSubject());
-	
-
-		
-			Salary salary = new Salary();
-			salary.setAmount(teacher.getSalary()*teacher.getPeriod());
-			salary.setFaculty(teacher.getFaculty());
-			salary.setFullName(teacher.getFullName());
-			salary.setGender(teacher.getGender());
-			salary.setGrade(teacher.getGrade());
-			salary.setTeacherId(teacher.getId());
-			salary.setSubject(teacher.getSubject());
-			salary.setSection(teacher.getSection());
-			salary.setPeriod(teacher.getPeriod());
-			salary.setPayDate(LocalDate.now().withDayOfMonth(28));
-			salary.setStatus(SalaryStatus.UNPAID);
-			salary.setMonth(LocalDate.now().getMonth().toString());
-			salaryService.addSalary(salary);
-		
-		
 		return "redirect:/addTeacher";
 	}
 	@GetMapping("/teacherList")
@@ -92,7 +100,7 @@ public class TeacherController {
 		salaryService.deleteAllByTeacherId(id);
 		salaryPaymentService.deleteAllByTeacherId(id);
 		ts.deleteTeacherById(id);
-		
+
 		return "redirect:/teacherList";
 	}
 	@GetMapping("/editTeacher")
@@ -117,6 +125,6 @@ public class TeacherController {
 		mv.setView(new TeacherExcel());
 		return mv;
 	}
-	
+
 
 }
