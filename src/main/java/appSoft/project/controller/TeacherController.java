@@ -118,10 +118,5 @@ public class TeacherController {
 		return mv;
 	}
 	
-	@GetMapping("/subject/{grade}")
-	@ResponseBody
-	public List<Subject> getSubjectByGrade(@PathVariable String grade,Model model) {
-		System.out.println( ss.getAllSubjecByGrade(grade).size());
-		return ss.getAllSubjecByGrade(grade);
-	}
+
 }

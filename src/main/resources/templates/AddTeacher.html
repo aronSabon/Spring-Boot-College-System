@@ -3,8 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js">
+	
 </script>
+
+<style>
+/* Style for the popup dialog */
+#popup {
+	display: block; /* Hidden by default */
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	border: 1px solid #888;
+	padding: 20px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	z-index: 1000;
+}
+
+/* Background overlay */
+#popup-overlay {
+	display: none; /* Hidden by default */
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.4);
+	z-index: 999;
+}
+
+/* Style for close button */
+.close-btn {
+	background-color: black;
+	color: black;
+	border: none;
+	padding: 10px;
+	cursor: pointer;
+}
+</style>
 </head>
 <body class="sb-nav-fixed">
 	<th:block th:insert="TopNavBar.html"></th:block>
@@ -33,114 +72,138 @@
 							<div class="col-sm-12">
 								<div class="card">
 									<div class="card-body">
-										<form  action="/addTeacher" method="post" enctype="multipart/form-data">
+										<form action="/addTeacher" method="post"
+											enctype="multipart/form-data">
 											<div class="row">
 												<div class="col-12">
 													<h5 class="form-title">
 														<span>Basic Details</span>
 													</h5>
 												</div>
-												
-											
+
+
 												<div class="col-12 col-sm-4">
 													<div class="form-group local-forms">
-														<label class="editLabel">Full Name <span class="login-danger">*</span></label> <input
-															type="text" class="form-control" placeholder="Enter Name" name="fullName">
+														<label class="editLabel">Full Name <span
+															class="login-danger">*</span></label> <input type="text"
+															class="form-control" placeholder="Enter Name"
+															name="fullName">
 													</div>
 												</div>
 												<div class="col-12 col-sm-4">
 													<div class="form-group local-forms">
-														 <div>Gender<span class="login-danger">*</span></div>
-														<input type="radio" name="gender" id="male" value="Male" checked> <label  for="male" > Male</label>
-														<input type="radio" name="gender" id="female" value="Female"> <label  for="female"> Female</label>
-														<input type="radio" name="gender" id="others" value="Others"> <label  for="others"> Others</label>
+														<div>
+															Gender<span class="login-danger">*</span>
+														</div>
+														<input type="radio" name="gender" id="male" value="Male"
+															checked> <label for="male"> Male</label> <input
+															type="radio" name="gender" id="female" value="Female">
+														<label for="female"> Female</label> <input type="radio"
+															name="gender" id="others" value="Others"> <label
+															for="others"> Others</label>
 													</div>
 												</div>
 												<div class="col-12 col-sm-4">
 													<div class="form-group local-forms ">
-														<label class="editLabel">Date Of Birth <span class="login-danger">*</span></label>
-														<input class="form-control " type="date"
+														<label class="editLabel">Date Of Birth <span
+															class="login-danger">*</span></label> <input
+															class="form-control " type="date"
 															placeholder="DD-MM-YYYY" name="dob">
 													</div>
 												</div>
 												<div class="col-12 col-sm-4">
 													<div class="form-group local-forms">
-														<label class="editLabel">Mobile <span class="login-danger">*</span></label>
-														<input type="text" class="form-control"
-															placeholder="Enter Phone" name="mobileNumber">
+														<label class="editLabel">Mobile <span
+															class="login-danger">*</span></label> <input type="text"
+															class="form-control" placeholder="Enter Phone"
+															name="mobileNumber">
 													</div>
 												</div>
 												<div class="col-12 col-sm-4">
 													<div class="form-group local-forms ">
-														<label class="editLabel">Joining Date <span class="login-danger">*</span></label>
-														<input class="form-control datetimepicker" type="date"
+														<label class="editLabel">Joining Date <span
+															class="login-danger">*</span></label> <input
+															class="form-control datetimepicker" type="date"
 															placeholder="DD-MM-YYYY" name="joinDate">
 													</div>
 												</div>
 												<div class="col-12 col-sm-4 local-forms">
 													<div class="form-group">
-														<label class="editLabel">Qualification <span class="login-danger">*</span></label>
-														<input class="form-control" type="text"
-															placeholder="Enter Qualification" name="qualification">
+														<label class="editLabel">Qualification <span
+															class="login-danger">*</span></label> <input class="form-control"
+															type="text" placeholder="Enter Qualification"
+															name="qualification">
 													</div>
 												</div>
 												<div class="col-12 col-sm-4">
 													<div class="form-group local-forms">
-														<label class="editLabel">Experience <span class="login-danger">*</span></label>
-														<input class="form-control" type="text"
-															placeholder="Enter Experience" name="experience">
+														<label class="editLabel">Experience <span
+															class="login-danger">*</span></label> <input class="form-control"
+															type="text" placeholder="Enter Experience"
+															name="experience">
 													</div>
 												</div>
 												<div class="col-12 col-sm-4">
 													<div class="form-group local-forms">
-														<label class="editLabel">Faculty <span class="login-danger">*</span></label>
-														<select class="form-control" name="faculty">
+														<label class="editLabel">Faculty <span
+															class="login-danger">*</span></label> <select
+															class="form-control" name="faculty"
+															onchange="updateGradeSelect()" id="facultySelect">
+															<option value="">--Select Faculty--</option>
 															<option th:each="f:${fList}" th:value="${f.id}">[[${f.name}]]</option>
-														</select>												
+														</select>
 													</div>
 												</div>
 												<div class="col-12 col-sm-4">
 													<div class="form-group local-forms">
-														<label class="editLabel">Grade <span class="login-danger">*</span></label>
-														<select class="form-control" name="grade" onchange="updateSubjectSelect()"  id="gradeSelect">
-															<option value="" >Select Grade</option>
-															<option value="11">11</option>
-															<option value="12">12</option>
-														</select>												
+														<label class="editLabel">Grade <span
+															class="login-danger">*</span></label> <select
+															class="form-control" name="grade"
+															onchange="updateSubjectSelect()" id="gradeSelect">
+															<option value="">--Select Grade--</option>
+															<!-- <option value="11">11</option>
+															<option value="12">12</option> -->
+														</select>
 													</div>
 												</div>
-										
+
 												<div class="col-12 col-sm-4">
 													<div class="form-group local-forms">
-														<div>Section <span class="login-danger">*</span></div>
-														<input type="checkbox" name="section" id ="a" value="A"><label for="a">A</label>&nbsp;&nbsp;
-														<input type="checkbox" name="section" id ="b" value="B"><label for="b">B</label>&nbsp;&nbsp;
-														<input type="checkbox" name="section" id ="c" value="C"><label for="c">C</label>
+														<div>
+															Section <span class="login-danger">*</span>
+														</div>
+														<input type="checkbox" name="section" id="a" value="A"><label
+															for="a">A</label>&nbsp;&nbsp; <input type="checkbox"
+															name="section" id="b" value="B"><label for="b">B</label>&nbsp;&nbsp;
+														<input type="checkbox" name="section" id="c" value="C"><label
+															for="c">C</label>
 
 													</div>
 												</div>
-												
-												
+
+
 												<div class="col-12 col-sm-4">
 													<div class="form-group local-forms">
-														<label class="editLabel">Subject <span class="login-danger">*</span></label>
-														<select class="form-control" name="subject"  id="subjectSelect">
-<option value="" >--Select Subject--</option>															
-														</select>												
+														<label class="editLabel">Subject <span
+															class="login-danger">*</span></label> <select
+															class="form-control" name="subject" id="subjectSelect">
+															<option value="">--Select Subject--</option>
+														</select>
 													</div>
 												</div>
-												
+
 												<div class="col-12 col-sm-4">
 													<div class="form-group local-forms">
-														<label class="editLabel">Basic Salary <span class="login-danger">*</span></label>
-														<input class="form-control" type="number"
-															placeholder="Enter Salary" name="salary">
+														<label class="editLabel">Basic Salary <span
+															class="login-danger">*</span></label> <input class="form-control"
+															type="number" placeholder="Enter Salary" name="salary">
 													</div>
 												</div>
-													<div class="col-12 col-sm-4">
+												<div class="col-12 col-sm-4">
 													<div class="form-group local-forms">
-														<label class="editLabel">Period <span class="login-danger">*</span></label>
-														<select class="form-control" name="period" >
+														<label class="editLabel">Period <span
+															class="login-danger">*</span></label> <select
+															class="form-control" name="period">
 															<option value="1">1</option>
 															<option value="2">2</option>
 															<option value="3">3</option>
@@ -151,22 +214,22 @@
 															<option value="8">8</option>
 															<option value="9">9</option>
 															<option value="10">10</option>
-														
-														</select>												
+
+														</select>
 													</div>
 												</div>
-												
-												
-											
-												
+
+
+
+
 												<div class="col-12 col-sm-4">
 													<div class="form-group local-forms">
-														<label class="editLabel">Photo <span class="login-danger">*</span></label>
-														<input class="form-control" type="file"
-															placeholder="Select Photo" name="image">
+														<label class="editLabel">Photo <span
+															class="login-danger">*</span></label> <input class="form-control"
+															type="file" placeholder="Select Photo" name="image">
 													</div>
 												</div>
-											
+
 												<div class="col-12">
 													<h5 class="form-title">
 														<span>Login Details</span>
@@ -174,61 +237,80 @@
 												</div>
 												<div class="col-12 col-sm-4">
 													<div class="form-group local-forms">
-														<label class="editLabel">Username <span class="login-danger">*</span></label>
-														<input type="text" class="form-control"
-															placeholder="Enter Username" name="username">
+														<label class="editLabel">Username <span
+															class="login-danger">*</span></label> <input type="text"
+															class="form-control" placeholder="Enter Username"
+															name="username">
 													</div>
 												</div>
 												<div class="col-12 col-sm-4">
 													<div class="form-group local-forms">
-														<label class="editLabel">Email ID <span class="login-danger">*</span></label>
-														<input type="email" class="form-control"
-															placeholder="Enter E-mail" name="email">
+														<label class="editLabel">Email ID <span
+															class="login-danger">*</span></label> <input type="email"
+															class="form-control" placeholder="Enter E-mail"
+															name="email">
 													</div>
 												</div>
 												<div class="col-12 col-sm-4">
 													<div class="form-group local-forms">
-														<label class="editLabel">Password <span class="login-danger">*</span></label>
-														<input type="text" class="form-control"
-															placeholder="Enter Password" name="password">
+														<label class="editLabel">Password <span
+															class="login-danger">*</span></label> <input type="text"
+															class="form-control" placeholder="Enter Password"
+															name="password">
 													</div>
 												</div>
-											
+
 												<div class="col-12">
 													<h5 class="form-title">
 														<span>Address</span>
 													</h5>
 												</div>
-												
+
 												<div class="col-12 col-sm-4">
 													<div class="form-group local-forms">
-														<label class="editLabel">City <span class="login-danger">*</span></label> <input
-															type="text" class="form-control" placeholder="Enter City" name="address.city">
+														<label class="editLabel">City <span
+															class="login-danger">*</span></label> <input type="text"
+															class="form-control" placeholder="Enter City"
+															name="address.city">
 													</div>
 												</div>
 												<div class="col-12 col-sm-4">
 													<div class="form-group local-forms">
-														<label class="editLabel">State <span class="login-danger">*</span></label>
-														<select name="address.state"  class="form-control" >
-														<option value="">Select</option>
-														<option value="Koshi">Koshi</option>
-														<option value="Madhesh">Madhesh</option>
-														<option value="Bagmati">Bagmati</option>
-														<option value="Gandaki">Gandaki</option>
-														<option value="Lumbini">Lumbini</option>
-														<option value="Karnali">Karnali</option>
-														<option value="Sudurpaschim">Sudurpaschim</option>
+														<label class="editLabel">State <span
+															class="login-danger">*</span></label> <select
+															name="address.state" class="form-control">
+															<option value="">Select</option>
+															<option value="Koshi">Koshi</option>
+															<option value="Madhesh">Madhesh</option>
+															<option value="Bagmati">Bagmati</option>
+															<option value="Gandaki">Gandaki</option>
+															<option value="Lumbini">Lumbini</option>
+															<option value="Karnali">Karnali</option>
+															<option value="Sudurpaschim">Sudurpaschim</option>
 														</select>
 													</div>
 												</div>
-											
+
 												<div class="col-12">
 													<div class="student-submit">
-														<button type="submit" class="btn btn-primary">Submit</button>
+														<button type="submit" class="btn btn-primary"
+															onclick="addTeacher()">Submit</button>
 													</div>
 												</div>
 											</div>
 										</form>
+									</div>
+									<!-- The Popup Overlay -->
+									<div id="popup-overlay"></div>
+
+									<!-- The Popup Dialog -->
+									<div id="popup">
+										<h2>Success!</h2>
+										<p>Teacher added successfully!</p>
+										<button  class="close-btn" onclick="closePopup()">tset</button>
+										<button class="close-btn" onclick="closePopup()">Close</button>
+																				<button class="close-btn" onclick="closePopup()">Close</button>
+										
 									</div>
 								</div>
 							</div>
@@ -236,24 +318,55 @@
 					</div>
 				</div>
 
-		</main>
-		<th:block th:insert="Footer.html"></th:block>
-	</div>
+			</main>
+			<th:block th:insert="Footer.html"></th:block>
+		</div>
 	</div>
 	<script>
-    function updateSubjectSelect() {
-    	let gradeSelect = document.getElementById("gradeSelect").value;
-    	$.get("http://localhost:9090/subject/" + gradeSelect, function(data){
-    	    $('#subjectSelect').empty(); // Clear previous options
-    	    for(var i = 0; i < data.length; i++){
-    	        $('#subjectSelect').append('<option value=' + data[i].id + '>' + data[i].name + '</option>');
-    	    }
-    	}).fail(function() {
-    	    alert("Error retrieving subjects");
-    	});
-     
-    }
-</script>
+		function updateGradeSelect() {
+			let gradeSelect = document.getElementById("facultySelect").value;
+			$('#gradeSelect').empty(); // Clear previous options
+			$('#gradeSelect').append(
+					'<option value=' + '' + '>' + 'Select Grade' + '</option>');
+			$('#gradeSelect').append(
+					'<option value=' + 11 + '>' + 11 + '</option>');
+			$('#gradeSelect').append(
+					'<option value=' + 12 + '>' + 12 + '</option>');
+		}
+
+		function updateSubjectSelect() {
+			let gradeSelect = document.getElementById("gradeSelect").value;
+			$.get(
+					"http://localhost:9090/subject/" + gradeSelect,
+					function(data) {
+						$('#subjectSelect').empty(); // Clear previous options
+						for (var i = 0; i < data.length; i++) {
+							$('#subjectSelect').append(
+									'<option value=' + data[i].id + '>'
+											+ data[i].name + '</option>');
+						}
+					}).fail(function() {
+				alert("Error retrieving subjects");
+			});
+
+		}
+		
+	      // Function to simulate adding a teacher
+        function addTeacher() {
+            // Simulate a successful operation
+          
+                // Show the popup dialog
+                document.getElementById('popup').style.display = 'block';
+                document.getElementById('popup-overlay').style.display = 'block';
+             // Simulate delay for adding teacher (500ms)
+        }
+
+        // Function to close the popup dialog
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('popup-overlay').style.display = 'none';
+        }
+	</script>
 
 </body>
 

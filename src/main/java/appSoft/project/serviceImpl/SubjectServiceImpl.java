@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import appSoft.project.model.Faculty;
 import appSoft.project.model.Subject;
 import appSoft.project.repository.SubjectRepository;
 import appSoft.project.service.SubjectService;
@@ -48,6 +49,12 @@ public class SubjectServiceImpl implements SubjectService {
 		public List<Subject> getAllSubjecByGrade(String grade) {
 			// TODO Auto-generated method stub
 			return sr.findByGrade(grade);
+		}
+
+		@Override
+		public List<Subject> getAllSubjectByFacultyAndGrade(Faculty faculty, String Grade) {
+			// TODO Auto-generated method stub
+			return sr.findByFacultyAndGrade(faculty, Grade);
 		}
 
 }

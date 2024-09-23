@@ -1,13 +1,18 @@
 package appSoft.project.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import appSoft.project.model.Faculty;
 import appSoft.project.model.Subject;
 import appSoft.project.service.FacultyService;
 import appSoft.project.service.SubjectService;
@@ -55,5 +60,18 @@ public class SubjectController {
 	private String updateSubject(@ModelAttribute Subject subject) {
 		ss.updateSubject(subject);
 		return "redirect:/subjectList";
+	}
+	
+	@GetMapping("/subject/{grade}")
+	@ResponseBody
+	public List<Subject> getSubjectByGrade(@PathVariable String grade,Model model) {
+		System.out.println( ss.getAllSubjecByGrade(grade).size());
+		return ss.getAllSubjecByGrade(grade);
+	}
+	@GetMapping("/subject/{faculty}/{grade}")
+	@ResponseBody
+	public List<Subject> getSubjectByFacultyAndGrade(@PathVariable String grade,Model model, @PathVariable Faculty faculty) {
+		System.out.println( ss.getAllSubjecByGrade(grade).size());
+		return ss.getAllSubjectByFacultyAndGrade(faculty,grade);
 	}
 }
