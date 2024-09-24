@@ -20,6 +20,7 @@ import appSoft.project.service.ExpenseService;
 import appSoft.project.service.FeesPaymentService;
 import appSoft.project.service.SalaryPaymentService;
 import appSoft.project.utils.ExpenseExcel;
+import appSoft.project.utils.FinanceExcel;
 
 
 @Controller
@@ -65,12 +66,21 @@ public class ExpenseController {
 		return "redirect:/expenseList";
 	}
 	@GetMapping("/expenseExcel")
-	public  ModelAndView excel() {
+	public  ModelAndView excel(@RequestParam LocalDate expenseFrom, 
+		    @RequestParam LocalDate expenseTo, 
+		    @RequestParam String grade) {
 		ModelAndView mv =new ModelAndView();
-		mv.addObject("expenseList", expenseService.getAllExpense());
-		System.out.println(expenseService.getAllExpense());
-		mv.setView(new ExpenseExcel());
-		return mv;
+	    List<Expense> expenseList;
+
+	    if (!grade.isEmpty()) {
+	        expenseList = expenseService.getAllByPurchaseDateBetweenAndGrade(expenseFrom, expenseTo, grade);
+	        System.out.println(expenseList);
+	    } else {
+	        expenseList = expenseService.getAllByPurchaseDateBetween(expenseFrom, expenseTo);
+	    }
+	    mv.addObject("expenseList", expenseList);
+	    mv.setView(new ExpenseExcel());
+	    return mv;
 	}
 	@GetMapping("/expenseReport")
 	private String expenseReport(Model model) {
