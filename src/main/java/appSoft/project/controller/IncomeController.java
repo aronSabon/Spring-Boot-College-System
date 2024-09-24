@@ -9,8 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import appSoft.project.model.Expense;
 import appSoft.project.model.ExpenseReport;
 import appSoft.project.model.FeesPayment;
 import appSoft.project.service.FeesPaymentService;
@@ -23,16 +25,27 @@ public class IncomeController {
 	FeesPaymentService feesPaymentService;
 	
 	@GetMapping("/incomeExcel")
-	public  ModelAndView excel() {
+	public  ModelAndView excel(@RequestParam LocalDate expenseFrom, 
+		    @RequestParam LocalDate expenseTo, 
+		    @RequestParam String grade) {
+		System.out.println(expenseFrom  );
+		System.out.println(  expenseTo);
 		ModelAndView mv =new ModelAndView();
-		mv.addObject("incomeList", feesPaymentService.getAllPayment());
+	    List<FeesPayment> feesPaymentList;
+
+	    if (!grade.isEmpty()) {
+	        feesPaymentList = feesPaymentService.getAllByDateBetweenAndGrade(expenseFrom, expenseTo, grade);
+	    } else {
+	        feesPaymentList = feesPaymentService.getAllByDateBetween(expenseFrom, expenseTo);
+	    }
+		mv.addObject("feesPaymentList", feesPaymentList);
 		mv.setView(new IncomeExcel());
 		return mv;
 	}
 	@GetMapping("/incomeReport")
 	private String incomeReport(Model model) {
-		model.addAttribute("from", LocalDate.now().minusMonths(1));
-		model.addAttribute("to",LocalDate.now());
+		model.addAttribute("expenseFrom", LocalDate.now().minusMonths(1));
+		model.addAttribute("expenseTo",LocalDate.now());
 		List<FeesPayment> feesPaymentList=feesPaymentService.getAllByDateBetween(LocalDate.now().minusMonths(1), LocalDate.now());
 		model.addAttribute("feesPaymentList",feesPaymentList);
 //		double totalExpense= expenseList.stream().filter(x-> x.getAmount()> 0).mapToDouble(exp -> exp.getAmount()).sum();

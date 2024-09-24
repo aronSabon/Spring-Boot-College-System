@@ -27,7 +27,7 @@
 									<div class="col-sm-6">
 										<div class="form-group">
 											<label class="form-label" for="expenseFrom"> From</label> <input
-												type="date" name="expenseFrom" th:value="${from}"
+												type="date" name="expenseFrom" th:value="${expenseFrom}"
 												class=" form-control" id="expenseForm"
 												placeholder="From" required>
 										</div>
@@ -36,7 +36,7 @@
 										<div class="form-group">
 											<label class="form-label" for="expenseTo"> To</label> <input
 												type="date" name="expenseTo" class=" form-control"
-												th:value="${to}" id="expenseTo" placeholder="Enter Pay Date"
+												th:value="${expenseTo}" id="expenseTo" placeholder="Enter Pay Date"
 												required>
 										</div>
 									</div>
@@ -63,7 +63,7 @@
 
 							</form>
 						</div>
-						<br> <a href="/incomeExcel"><button
+						<br>  <a th:href="@{/incomeExcel(expenseFrom=${expenseFrom},expenseTo=${expenseTo},grade=${grade})}"><button
 								class="btn btn-success">Excel</button></a> <br>
 						<br>
 
