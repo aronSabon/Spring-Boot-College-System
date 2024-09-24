@@ -23,6 +23,7 @@ import appSoft.project.model.Fees;
 import appSoft.project.model.FeesPayment;
 import appSoft.project.model.FeesType;
 import appSoft.project.model.Student;
+import appSoft.project.repository.StudentRepository;
 import appSoft.project.service.FacultyService;
 import appSoft.project.service.FeesPaymentService;
 import appSoft.project.service.FeesService;
@@ -43,15 +44,25 @@ public class StudentController {
 	FeesTypeService feesTypeService;
 	@Autowired
 	FeesPaymentService feesPaymentService;
+	@Autowired 
+	StudentRepository sr;
 
 	
 	@GetMapping("/addStudent")
 	private String studentForm(Model model) {
+		  int maxRollNo = sr.findMaxRollNo();
+		    
+		    // Increment it to show the next available roll number
+		    int rollNo = maxRollNo + 1;
+
+		    // Add it to the model
+		    model.addAttribute("rollNo", rollNo);
 		model.addAttribute("fList", fs.getAllFaculty());
 		return "AddStudent";
 	}
 	@PostMapping("/addStudent")
 	private String addStudent(@ModelAttribute Student student,@RequestParam MultipartFile image,Model model) {
+		
 		if(!image.isEmpty()) {
 			try {
 				model.addAttribute("message","image upload success");

@@ -14,4 +14,5 @@ public interface StudentService {
 		
 		Student getStudentByRollNo(int rollNo);
 		List<Student> getStudentByGradeAndFaculty(String grade, Faculty faculty);
+//		int getMaxRollNo;
 }
