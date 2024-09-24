@@ -65,19 +65,4 @@ public class AdminController {
 	}
 	
 	
-	@GetMapping("/financeExcel")
-	public  ModelAndView excel() {
-		ModelAndView mv =new ModelAndView();
-		mv.addObject("expenseList", expenseService.getAllExpense());
-		mv.addObject("salaryPaymentList", salaryPaymentService.getAllPayment());
-		System.out.println(salaryPaymentService.getAllPayment());
-		System.out.println(salaryPaymentService.getAllPayment());
-		System.out.println(salaryPaymentService.getAllPayment());
-
-		mv.addObject("feesPaymentList", feesPaymentService.getAllPayment());
-
-
-		mv.setView(new FinanceExcel());
-		return mv;
-	}
 }

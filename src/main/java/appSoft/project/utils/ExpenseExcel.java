@@ -48,9 +48,10 @@ public class ExpenseExcel extends AbstractXlsxView {
 		row.createCell(2).setCellValue("Particulars");
 		row.createCell(3).setCellValue("Amount");
 		row.createCell(4).setCellValue("Purchase Date");
-		row.createCell(5).setCellValue("Purchase By");
+		row.createCell(5).setCellValue("Expense By");
 		row.createCell(6).setCellValue("Grade");
 		row.createCell(7).setCellValue("Remarks");
+		
 	}
 	
 	private void setBody(Sheet sheet, List<Expense> list) {
@@ -63,7 +64,7 @@ public class ExpenseExcel extends AbstractXlsxView {
 			row.createCell(2).setCellValue(spec.getParticulars());
 			row.createCell(3).setCellValue(spec.getAmount());
 			row.createCell(4).setCellValue(spec.getPurchaseDate().toString());
-			row.createCell(5).setCellValue(spec.getPurchaseBy().toString());
+			row.createCell(5).setCellValue(spec.getPurchaseBy());
 			row.createCell(6).setCellValue(spec.getGrade());
 			row.createCell(7).setCellValue(spec.getRemarks());
 

@@ -114,6 +114,7 @@ public class SalaryPaymentController {
 							expense.setParticulars(salaryFilter.get(0).getFullName());
 							expense.setPurchaseDate(salaryp.getDate());
 							expense.setRemarks("salary paid");
+							expense.setPurchaseBy("Admin");
 							expenseService.addExpense(expense);
 						}
 						else if(totalPayment==(i.getAmount()-i.getAmountPaid())) {
@@ -139,6 +140,8 @@ public class SalaryPaymentController {
 						expense.setParticulars(salaryFilter.get(0).getFullName());
 						expense.setPurchaseDate(salaryp.getDate());
 						expense.setRemarks("salary paid");
+						expense.setPurchaseBy("Admin");
+
 						expenseService.addExpense(expense);
 
 						}
@@ -164,6 +167,8 @@ public class SalaryPaymentController {
 							expense.setParticulars(salaryFilter.get(0).getFullName());
 							expense.setPurchaseDate(salaryp.getDate());
 							expense.setRemarks("salary paid");
+							expense.setPurchaseBy("Admin");
+
 							expenseService.addExpense(expense);
 
 						}

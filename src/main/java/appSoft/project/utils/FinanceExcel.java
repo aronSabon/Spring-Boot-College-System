@@ -33,8 +33,7 @@ public class FinanceExcel extends AbstractXlsxView {
 		//2. read data given by Controller
 		@SuppressWarnings("unchecked")
 		List<Expense> eList = (List<Expense>) model.get("expenseList");
-		List<SalaryPayment> sList = (List<SalaryPayment>) model.get("salaryPaymentList");
-
+//		List<SalaryPayment> sList = (List<SalaryPayment>) model.get("salaryPaymentList");
 		List<FeesPayment> fList = (List<FeesPayment>) model.get("feesPaymentList");
 
 		
@@ -50,7 +49,7 @@ public class FinanceExcel extends AbstractXlsxView {
 		//5. create row#1 onwards from List<T> 
 		setBody(sheet,eList );
 		setBody1(sheet1,fList);
-		setBody2(sheet,sList);
+//		setBody2(sheet,sList);
 	}
 
 	private void setHead(Sheet sheet) {
@@ -79,19 +78,19 @@ public class FinanceExcel extends AbstractXlsxView {
 
 		}
 	}
-	private void setBody2(Sheet sheet, List<SalaryPayment> list) {
-//		int rowNum = 1;
-		for(SalaryPayment spec : list) {
-			Row row = sheet.createRow(rowNum++);
-			row.createCell(0).setCellValue(spec.getId());
-
-			row.createCell(1).setCellValue("Salary");
-			row.createCell(2).setCellValue(spec.getFullName());
-			row.createCell(3).setCellValue(spec.getAmount());
-			row.createCell(4).setCellValue(spec.getDate().toString());
-
-		}
-	}
+//	private void setBody2(Sheet sheet, List<SalaryPayment> list) {
+////		int rowNum = 1;
+//		for(SalaryPayment spec : list) {
+//			Row row = sheet.createRow(rowNum++);
+//			row.createCell(0).setCellValue(spec.getId());
+//
+//			row.createCell(1).setCellValue("Salary");
+//			row.createCell(2).setCellValue(spec.getFullName());
+//			row.createCell(3).setCellValue(spec.getAmount());
+//			row.createCell(4).setCellValue(spec.getDate().toString());
+//
+//		}
+//	}
 	
 	private void setHead1(Sheet sheet1) {
 		Row row = sheet1.createRow(0);

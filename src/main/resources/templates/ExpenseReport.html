@@ -13,36 +13,38 @@
 
 
 				<div class="container-fluid px-4">
-					<h1 class="mt-4">Finance Report</h1>
+					<h1 class="mt-4">Expense Report</h1>
 					<ol class="breadcrumb mb-4">
 						<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-						<li class="breadcrumb-item active">Finance Report</li>
+						<li class="breadcrumb-item active">Expense Report</li>
 					</ol>
 
 					<div class="card mb-4">
 						<div class="card-body">
 
-							<form action="/financeReportDetail" method="post"
-								th:object="${expenseReportModel}">
+							<form action="/financeReportDetail" method="post">
 								<div class="row">
 									<div class="col-sm-6">
 										<div class="form-group">
 											<label class="form-label" for="expenseFrom"> From</label> <input
-												type="date" th:field="*{expenseFrom}" class=" form-control"
-												id="expenseFrom" placeholder="Enter Pay Date" required>
+												type="date" name="expenseFrom" th:value="${from}"
+												class=" form-control" id="expenseFrom"
+												placeholder="Enter Pay Date" required>
 										</div>
 									</div>
 									<div class="col-sm-6">
 										<div class="form-group">
 											<label class="form-label" for="expenseTo"> To</label> <input
-												type="date" th:field="*{expenseTo}" class=" form-control"
-												id="expenseTo" placeholder="Enter Pay Date" required>
+												type="date" name="expenseTo" class=" form-control"
+												th:value="${to}" id="expenseTo" placeholder="Enter Pay Date"
+												required>
 										</div>
 									</div>
+
 									<div class="col-sm-6">
 										<div class="form-group">
 											<label class="form-label" for="grade">Grade</label> <select
-												th:field="*{grade}" id="grade" class="form-control">
+												name="grade" id="grade" class="form-control">
 												<option value="">Select Grade</option>
 												<option value="11">11</option>
 												<option value="12">12</option>
@@ -61,55 +63,26 @@
 
 							</form>
 						</div>
-						<br> <a th:href="@{'/financeExcel'(expenseFrom=${expenseFrom}, expenseTo=${expenseTo}, grade=${grade})}"><button
-								class="btn btn-success">Excel</button></a>
-
+						<br> <a href="/expenseExcel"><button
+								class="btn btn-success">Excel</button></a> <br>
+						<br>
 
 						<div class="expenseDetailRange">
-							<h4>Report From [[${expenseFrom}]] To [[${expenseTo}]]</h4>
+							<h4>Report From [[${from}]] To [[${to}]]</h4>
 						</div>
 						<br>
 
 
 						<div class="row">
-
-							<div class="col-sm-6">
-								<div class="incomeListTitle">
-									<h5>Income Details</h5>
-								</div>
-							</div>
-							<div class="col-sm-6">
+						
 								<div class="expenseListTitle">
 									<h5>Expense Details</h5>
 								</div>
-							</div>
+
 						</div>
 
 						<div class="row">
-
-							<div class="col-sm-6">
-								<table id="datatablesSimple1">
-									<thead>
-										<tr>
-											<th>Fees Type</th>
-											<th>Amount</th>
-											<th>Income Date</th>
-
-
-										</tr>
-									</thead>
-									<tbody>
-										<tr th:each=f:${feesPaymentList}>
-											<td>[[${f.feesType}]]</td>
-											<td>[[${f.amount}]]</td>
-											<td>[[${f.date}]]</td>
-										</tr>
-
-									</tbody>
-								</table>
-
-							</div>
-							<div class="col-sm-6">
+							
 								<table id="datatablesSimple">
 									<thead>
 										<tr>
@@ -127,10 +100,8 @@
 											<td>[[${e.particulars}]]</td>
 											<td>[[${e.amount}]]</td>
 											<td>[[${e.purchaseDate}]]</td>
-
-
 										</tr>
-										<!--/* 	<tr th:each="s:${salaryPaymentList}">
+										<!--/* 		<tr th:each="s:${salaryPaymentList}">
 											<td>Salary</td>
 											<td>[[${s.fullName}]]</td>
 											<td>[[${s.amount}]]</td>
@@ -140,29 +111,15 @@
 									</tbody>
 								</table>
 
-							</div>
 						</div>
 						<div class="row">
-							
-							<div class="col-sm-6">
-								<div class="totalInccome">
-									<h5>Total Income : [[${totalIncome}]]</h5>
-								</div>
-							</div>
-							<div class="col-sm-6">
+						
 								<div class="totalExpense">
 									<h5>Total Expense : [[${totalExpense}]]</h5>
 								</div>
-							</div>
+							
 						</div>
-						<hr>
-						<div class="row">
-
-							<div class="totalBalance">
-								<h5>Balance : [[${totalIncome-totalExpense}]]</h5>
-
-							</div>
-						</div>
+					
 
 					</div>
 				</div>
