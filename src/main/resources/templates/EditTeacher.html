@@ -107,11 +107,15 @@
 												</div>
 															<div class="col-12 col-sm-4">
 													<div class="form-group local-forms">
-														<div>Section <span class="login-danger">*</span></div>
-														<input type="checkbox" th:field="*{section}" id ="a" value="A"><label for="a">A</label>&nbsp;&nbsp;
-														<input type="checkbox" th:field="*{section}" id ="b" value="B"><label for="b">B</label>&nbsp;&nbsp;
-														<input type="checkbox" th:field="*{section}" id ="c" value="C"><label for="c">C</label>
-
+														<label class="editLabel">Section <span
+															class="login-danger">*</span>
+															</label>
+															 <select name="section"
+															id="section" required class="form-control">
+															<option value="A">A</option>
+															<option value="B">B</option>
+															<option value="C">C</option>
+														</select>
 													</div>
 												</div>
 												
