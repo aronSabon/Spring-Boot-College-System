@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import appSoft.project.model.Expense;
+import appSoft.project.model.ExpenseReport;
 import appSoft.project.model.FeesPayment;
 import appSoft.project.repository.ExpenseRepository;
 import appSoft.project.service.ExpenseService;
@@ -88,7 +89,34 @@ public class ExpenseController {
 //		model.addAttribute("totalIncome",totalIncome);
 		return "ExpenseReport";
 	}
-	
+	@PostMapping("/expenseReportDetail")
+	private String post(@ModelAttribute ExpenseReport expenseReport,Model model) {
+
+		if(!expenseReport.getGrade().isEmpty()) {
+			model.addAttribute("expenseReportModel",expenseReport);
+			model.addAttribute("expenseFrom",expenseReport.getExpenseFrom());
+			model.addAttribute("grade",expenseReport.getGrade());
+
+			model.addAttribute("expenseTo",expenseReport.getExpenseTo());
+			List<Expense> expenseList=expenseService.getAllByPurchaseDateBetweenAndGrade(expenseReport.getExpenseFrom(), expenseReport.getExpenseTo(), expenseReport.getGrade());
+			model.addAttribute("expenseList",expenseList);
+			double totalExpense= expenseList.stream().filter(x-> x.getAmount()> 0).mapToDouble(exp -> exp.getAmount()).sum();
+			
+			model.addAttribute("totalExpense",totalExpense);
+			return "ExpenseReportDetail";
+
+		}
+		model.addAttribute("expenseReportModel",expenseReport);
+		model.addAttribute("expenseFrom",expenseReport.getExpenseFrom());
+		model.addAttribute("expenseTo",expenseReport.getExpenseTo());
+		List<Expense> expenseList=expenseService.getAllByPurchaseDateBetween(expenseReport.getExpenseFrom(), expenseReport.getExpenseTo());
+		model.addAttribute("expenseList",expenseList);
+		double totalExpense= expenseList.stream().filter(x-> x.getAmount()> 0).mapToDouble(exp -> exp.getAmount()).sum();
+		
+		model.addAttribute("totalExpense",totalExpense);
+
+		return "ExpenseReportDetail";
+	}
 	
 
 }
