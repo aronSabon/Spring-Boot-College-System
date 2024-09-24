@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
 
@@ -20,10 +21,10 @@ public class Exam {
 	private int id;
 	private String name;
 	
-	@OneToOne
+	@ManyToOne
 	private Faculty faculty;
 	private String grade;
-	@OneToOne
+	@ManyToOne
 	private Subject subject;
 	
 	private Date date;
