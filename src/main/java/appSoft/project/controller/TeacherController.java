@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import appSoft.project.constant.SalaryStatus;
+import appSoft.project.model.Faculty;
 import appSoft.project.model.Fees;
 import appSoft.project.model.FeesPayment;
 import appSoft.project.model.FeesType;
@@ -127,9 +128,14 @@ public class TeacherController {
 	}
 	@GetMapping("/editTeacher")
 	private String editTeacher(@RequestParam int id,Model model) {
+		Teacher teacher =ts.getTeacherById(id);
+		String grade = teacher.getGrade();
+		Faculty faculty = teacher.getFaculty();
+		List<Subject> subjectList = ss.getAllSubjectByFacultyAndGrade(faculty, grade);		
+		
 		model.addAttribute("tModel",ts.getTeacherById(id));
 		model.addAttribute("fList", fs.getAllFaculty());
-		model.addAttribute("sList", ss.getAllSubject());
+		model.addAttribute("sList", subjectList);
 
 		return "EditTeacher";
 	}
