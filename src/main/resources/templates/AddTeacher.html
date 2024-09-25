@@ -7,9 +7,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js">
 	
 </script>
-<script type="text/javascript">
 
-</script>
 
 <style>
 /* Style for the popup dialog */
@@ -83,7 +81,7 @@
 														<span>Basic Details</span>
 													</h5>
 												</div>
-											
+
 
 
 												<div class="col-12 col-sm-4">
@@ -173,14 +171,24 @@
 
 												<div class="col-12 col-sm-4">
 													<div class="form-group local-forms">
-														<div>
+
+														<label class="editLabel">Section <span
+															class="login-danger">*</span>
+															</label>
+															 <select name="section"
+															id="section" required class="form-control">
+															<option value="A">A</option>
+															<option value="B">B</option>
+															<option value="C">C</option>
+														</select>
+														<!-- <div>
 															Section <span class="login-danger">*</span>
-														</div>
-														<input type="checkbox" name="section" id="a" value="A"><label
+														</div> -->
+														<!-- <input type="checkbox" name="section" id="a" value="A"><label
 															for="a">A</label>&nbsp;&nbsp; <input type="checkbox"
 															name="section" id="b" value="B"><label for="b">B</label>&nbsp;&nbsp;
 														<input type="checkbox" name="section" id="c" value="C"><label
-															for="c">C</label>
+															for="c">C</label> -->
 
 													</div>
 												</div>
@@ -338,9 +346,11 @@
 
 		function updateSubjectSelect() {
 			let gradeSelect = document.getElementById("gradeSelect").value;
+			let facultySelect = document.getElementById("facultySelect").value;
 			$.get(
-					"http://localhost:9090/subject/" + gradeSelect,
+					"http://localhost:9090/subject/"+facultySelect+"/" + gradeSelect,
 					function(data) {
+						console.log(data);
 						$('#subjectSelect').empty(); // Clear previous options
 						for (var i = 0; i < data.length; i++) {
 							$('#subjectSelect').append(

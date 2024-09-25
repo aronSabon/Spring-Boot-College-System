@@ -68,9 +68,12 @@ public class SubjectController {
 		System.out.println( ss.getAllSubjecByGrade(grade).size());
 		return ss.getAllSubjecByGrade(grade);
 	}
-	@GetMapping("/subject/{faculty}/{grade}")
+	@GetMapping("/subject/{facultyId}/{grade}")
 	@ResponseBody
-	public List<Subject> getSubjectByFacultyAndGrade(@PathVariable String grade,Model model, @PathVariable Faculty faculty) {
+	public List<Subject> getSubjectByFacultyAndGrade(@PathVariable String grade,Model model, @PathVariable int facultyId) {
+		System.out.println("id =" + facultyId);
+		Faculty faculty = facultyService.getFacultyById(facultyId);
+		System.out.println("faculty =" + faculty);
 		System.out.println( ss.getAllSubjecByGrade(grade).size());
 		return ss.getAllSubjectByFacultyAndGrade(faculty,grade);
 	}
