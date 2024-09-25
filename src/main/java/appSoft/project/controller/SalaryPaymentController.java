@@ -96,6 +96,7 @@ public class SalaryPaymentController {
 				totalPayable += i.getAmount()-i.getAmountPaid();
 			}
 		}
+	
 
 		if(totalPayment>totalPayable) {
 			redirectAttribute.addFlashAttribute("message", "Total Payment exceeding total payable amount!!!");

@@ -3,6 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+/* Style for the popup dialog */
+#popup {
+	display: none; /* Hidden by default */
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	border: 1px solid #888;
+	padding: 20px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	z-index: 1000;
+}
+
+/* Background overlay */
+#popup-overlay {
+	display: none; /* Hidden by default */
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.4);
+	z-index: 999;
+}
+
+/* Style for close button */
+.close-btn {
+	background-color: black;
+	color: black;
+	border: none;
+	padding: 10px;
+	cursor: pointer;
+}
+</style>
 </head>
 <body class="sb-nav-fixed">
 	<th:block th:insert="TopNavBar.html"></th:block>
@@ -22,6 +58,15 @@
 					</ol>
 
 					<div class="card mb-4">
+					<!-- The Popup Overlay -->
+									<div id="popup-overlay"></div>
+
+									<!-- The Popup Dialog -->
+									<div id="popup">
+										<h2 th:text="${status == 'success' ? 'Success!' : 'Error!'}">Success or error here from controller</h2>
+										<p id="popup-message" th:text="${message}"> message from controller here</p>
+										<button class="close-btn" onclick="closePopup()">Close</button>
+									</div>
 
 						<div class="card-body">
 							<form action="/payment" method="post" th:object="${student}">
@@ -143,6 +188,28 @@
         // Run the function initially in case the form is loaded with pre-selected checkboxes
         toggleSubmitButton();
     });
+
+        
+        
+        window.onload = function() {
+ 		   var message ="[[${message}]]"; 
+      var status = "[[${status}]]";
+ 		    if (message !== 'null' && message !== '') {
+ 		        document.getElementById("popup-overlay").style.display = "block";
+ 		        document.getElementById("popup").style.display = "block";
+
+ 		        if (status === "success") {
+ 		            document.getElementById("popup-message").innerText = message;
+ 		        } else if (status === "error") {
+ 		            document.getElementById("popup-message").innerText = "Error: " + message;
+ 		        }
+ 		    }
+ 		};
+
+ 		function closePopup() {
+ 			document.getElementById("popup-overlay").style.display = "none";
+ 			document.getElementById("popup").style.display = "none";
+ 		}
 </script>
 </body>
 </html>

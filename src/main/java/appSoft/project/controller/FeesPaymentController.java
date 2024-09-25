@@ -49,19 +49,19 @@ public class FeesPaymentController {
 		model.addAttribute("allPaid", allPaid);
 		//upto here
 		model.addAttribute("feesList",feesService.getAllFeesByRollNo(rollNo));
-		
-		
+
+
 		List<Fees>feesDue=feesService.getAllFeesByRollNoAndStatus(rollNo, FeesStatus.DUE);
 		List<Fees>feesUnpaid=feesService.getAllFeesByRollNoAndStatus(rollNo, FeesStatus.UNPAID);
 		List<Fees>feesFilter = new ArrayList<>();
 		feesFilter.addAll(feesDue);
 		feesFilter.addAll(feesUnpaid);
-		
+
 		model.addAttribute("duesFilteredList", feesFilter);
-System.out.println(feesFilter);
-System.out.println(feesFilter);
-System.out.println(feesFilter);
-System.out.println(feesFilter);
+		System.out.println(feesFilter);
+		System.out.println(feesFilter);
+		System.out.println(feesFilter);
+		System.out.println(feesFilter);
 
 		double subTotal=0;
 		double discount=0;
@@ -69,7 +69,7 @@ System.out.println(feesFilter);
 			subTotal+=f.getAmount();
 		}
 		double total=subTotal-discount;
-		
+
 		Student student = studentService.getStudentByRollNo(rollNo);
 
 		model.addAttribute("sModel",student);
@@ -78,7 +78,7 @@ System.out.println(feesFilter);
 		model.addAttribute("rollNo",student.getRollNo());
 		model.addAttribute("paymentList",feesPaymentService.getAllByRollNo(rollNo));
 
-		
+
 		return "FeesPaymentDetails";
 	}
 
@@ -94,8 +94,8 @@ System.out.println(feesFilter);
 		List<Fees>feesFilter = new ArrayList<>();
 		feesFilter.addAll(feesDue);
 		feesFilter.addAll(feesUnpaid);
-		
-		
+
+
 		model.addAttribute("fList",feesFilter);
 
 		return "StudentPayment";
@@ -105,82 +105,100 @@ System.out.println(feesFilter);
 	private String feesPayment(@ModelAttribute FeesPayment feesPayment, RedirectAttributes redirectAttribute) {
 
 
-//		String[] split =(payment.getFeesType().split(","));
-//		for(int i =0; i<split.length ; i++) {
-//		System.out.println(split[i]);
-//		
-//	}
+		//		String[] split =(payment.getFeesType().split(","));
+		//		for(int i =0; i<split.length ; i++) {
+		//		System.out.println(split[i]);
+		//		
+		//	}
 		List<Fees>feesDue=feesService.getAllFeesByRollNoAndStatus(feesPayment.getRollNo(), FeesStatus.DUE);
 		List<Fees>feesUnpaid=feesService.getAllFeesByRollNoAndStatus(feesPayment.getRollNo(), FeesStatus.UNPAID);
 		List<Fees>feesFilter = new ArrayList<>();
 		feesFilter.addAll(feesDue);
 		feesFilter.addAll(feesUnpaid);
+		String[] feesType =(feesPayment.getFeesType().split(","));
+
 
 		// for multiple feesType input
 		double totalPayment=feesPayment.getAmount();
-		String[] feesType =(feesPayment.getFeesType().split(","));
-		
+		double totalPayable = 0;
+
 		for(Fees i : feesFilter) {
-			for(int a = 0; a<feesType.length ; a++) {
-				if(i.getFeesType().equals(feesType[a])) {
-					if(totalPayment>0) {
-						if(totalPayment>(i.getAmount()-i.getAmountPaid())) {
-							FeesPayment feesp = new FeesPayment();
-							feesp.setAmount(i.getAmount()-i.getAmountPaid());
-							feesp.setDate(feesPayment.getDate());
-							feesp.setFullName(feesPayment.getFullName());
-							feesp.setFeesType(feesType[a]);
-							feesp.setPaidWith(feesPayment.getPaidWith());
-							feesp.setRollNo(feesPayment.getRollNo());
-							feesp.setTime(feesPayment.getTime());
-							feesp.setGrade(feesFilter.get(0).getGrade());
-							
-							
-						    feesPaymentService.addPayment(feesp);
-							totalPayment=totalPayment-(i.getAmount()-i.getAmountPaid());
-							i.setStatus(FeesStatus.PAID);
-							i.setAmountPaid(i.getAmountPaid()+(i.getAmount()-i.getAmountPaid()));
-							feesService.updateFees(i);
-						}
-						else if(totalPayment==(i.getAmount()-i.getAmountPaid()))  {
-							FeesPayment feesp = new FeesPayment();
-							feesp.setAmount(i.getAmount()-i.getAmountPaid());
-							feesp.setDate(feesPayment.getDate());
-							feesp.setFullName(feesPayment.getFullName());
-							feesp.setFeesType(feesType[a]);
-							feesp.setPaidWith(feesPayment.getPaidWith());
-							feesp.setRollNo(feesPayment.getRollNo());
-							feesp.setTime(feesPayment.getTime());
-							feesp.setGrade(feesFilter.get(0).getGrade());
+			for(int j=0; j<feesType.length; j++) {
+				totalPayable += i.getAmount()-i.getAmountPaid();
+			}
+		}
 
-							
-							feesPaymentService.addPayment(feesp);
-							totalPayment=totalPayment-(i.getAmount()-i.getAmountPaid());
-							i.setStatus(FeesStatus.PAID);
-							i.setAmountPaid(i.getAmountPaid()+(i.getAmount()-i.getAmountPaid()));
+		if(totalPayment>totalPayable) {
+			redirectAttribute.addFlashAttribute("message", "Total Payment exceeding total payable amount!!!");
+			redirectAttribute.addFlashAttribute("status", "error");
+			redirectAttribute.addAttribute("rollNo",feesPayment.getRollNo());
+			return	 "redirect:/studentPayment";
+		}
+		else {
+			for(Fees i : feesFilter) {
+				for(int a = 0; a<feesType.length ; a++) {
+					if(i.getFeesType().equals(feesType[a])) {
+						if(totalPayment>0) {
+							if(totalPayment>(i.getAmount()-i.getAmountPaid())) {
+								FeesPayment feesp = new FeesPayment();
+								feesp.setAmount(i.getAmount()-i.getAmountPaid());
+								feesp.setDate(feesPayment.getDate());
+								feesp.setFullName(feesPayment.getFullName());
+								feesp.setFeesType(feesType[a]);
+								feesp.setPaidWith(feesPayment.getPaidWith());
+								feesp.setRollNo(feesPayment.getRollNo());
+								feesp.setTime(feesPayment.getTime());
+								feesp.setGrade(feesFilter.get(0).getGrade());
 
-							feesService.updateFees(i);
-						}
-						else if(totalPayment<(i.getAmount()-i.getAmountPaid()))  {  
-							FeesPayment feesp = new FeesPayment();
-							feesp.setAmount(totalPayment);
-							feesp.setDate(feesPayment.getDate());
-							feesp.setFullName(feesPayment.getFullName());
-							feesp.setFeesType(feesType[a]);
-							feesp.setPaidWith(feesPayment.getPaidWith());
-							feesp.setRollNo(feesPayment.getRollNo());
-							feesp.setTime(feesPayment.getTime());
-							feesp.setGrade(feesFilter.get(0).getGrade());
 
-							
-							feesPaymentService.addPayment(feesp);
-							i.setAmountPaid(i.getAmountPaid()+totalPayment);
-							feesService.updateFees(i);
-							totalPayment=totalPayment-totalPayment;
+								feesPaymentService.addPayment(feesp);
+								totalPayment=totalPayment-(i.getAmount()-i.getAmountPaid());
+								i.setStatus(FeesStatus.PAID);
+								i.setAmountPaid(i.getAmountPaid()+(i.getAmount()-i.getAmountPaid()));
+								feesService.updateFees(i);
+							}
+							else if(totalPayment==(i.getAmount()-i.getAmountPaid()))  {
+								FeesPayment feesp = new FeesPayment();
+								feesp.setAmount(i.getAmount()-i.getAmountPaid());
+								feesp.setDate(feesPayment.getDate());
+								feesp.setFullName(feesPayment.getFullName());
+								feesp.setFeesType(feesType[a]);
+								feesp.setPaidWith(feesPayment.getPaidWith());
+								feesp.setRollNo(feesPayment.getRollNo());
+								feesp.setTime(feesPayment.getTime());
+								feesp.setGrade(feesFilter.get(0).getGrade());
 
+
+								feesPaymentService.addPayment(feesp);
+								totalPayment=totalPayment-(i.getAmount()-i.getAmountPaid());
+								i.setStatus(FeesStatus.PAID);
+								i.setAmountPaid(i.getAmountPaid()+(i.getAmount()-i.getAmountPaid()));
+
+								feesService.updateFees(i);
+							}
+							else if(totalPayment<(i.getAmount()-i.getAmountPaid()))  {  
+								FeesPayment feesp = new FeesPayment();
+								feesp.setAmount(totalPayment);
+								feesp.setDate(feesPayment.getDate());
+								feesp.setFullName(feesPayment.getFullName());
+								feesp.setFeesType(feesType[a]);
+								feesp.setPaidWith(feesPayment.getPaidWith());
+								feesp.setRollNo(feesPayment.getRollNo());
+								feesp.setTime(feesPayment.getTime());
+								feesp.setGrade(feesFilter.get(0).getGrade());
+
+
+								feesPaymentService.addPayment(feesp);
+								i.setAmountPaid(i.getAmountPaid()+totalPayment);
+								feesService.updateFees(i);
+								totalPayment=totalPayment-totalPayment;
+
+							}
 						}
 					}
 				}
+				redirectAttribute.addFlashAttribute("message", "Payment Success!!!");
+				redirectAttribute.addFlashAttribute("status", "success");
 			}
 		}
 		redirectAttribute.addAttribute("rollNo",feesPayment.getRollNo());
