@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,8 +85,16 @@ public class TeacherController {
 			  teacher.setImageName(teacher.getEmail()+".jpg");
 				ts.addTeacher(teacher);
 
+				//dynamic salary when joining
 				Salary salary = new Salary();
-				salary.setAmount(teacher.getSalary()*teacher.getPeriod());
+				 LocalDate endOfMonth = teacher.getJoinDate().withDayOfMonth(teacher.getJoinDate().lengthOfMonth());
+			        int totalDaysInMonth = teacher.getJoinDate().lengthOfMonth();
+			        int remainingDays = Period.between(teacher.getJoinDate(), endOfMonth).getDays() + 1;
+			        double startingMonthSalary = (teacher.getSalary()/totalDaysInMonth)* remainingDays * teacher.getPeriod();
+				
+				salary.setAmount(startingMonthSalary);
+				//default salary
+//				salary.setAmount(teacher.getSalary()*teacher.getPeriod());
 				salary.setFaculty(teacher.getFaculty());
 				salary.setFullName(teacher.getFullName());
 				salary.setGender(teacher.getGender());
