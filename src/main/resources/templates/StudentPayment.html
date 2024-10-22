@@ -1,61 +1,106 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Admin Panel - Student Payment</title>
 <style>
 /* Style for the popup dialog */
 #popup {
-	display: none; /* Hidden by default */
+	display: none;
 	position: fixed;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
 	background-color: white;
-	border: 1px solid #888;
-	padding: 20px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	border-radius: 12px;
+	padding: 30px;
+	max-width: 400px;
+	width: 90%;
+	text-align: center;
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 	z-index: 1000;
 }
 
 /* Background overlay */
 #popup-overlay {
-	display: none; /* Hidden by default */
+	display: none;
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.4);
+	background-color: rgba(0, 0, 0, 0.6);
 	z-index: 999;
 }
 
 /* Style for close button */
 .close-btn {
-	background-color: black;
-	color: black;
+	background-color: #ff4d4d;
+	color: white;
 	border: none;
-	padding: 10px;
+	padding: 10px 20px;
+	border-radius: 5px;
+	font-size: 14px;
 	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.close-btn:hover {
+	background-color: #ff1a1a;
+}
+
+/* Style for success and error messages */
+#popup h2 {
+	font-size: 24px;
+	margin-bottom: 15px;
+	color: #333;
+}
+
+#popup p {
+	font-size: 16px;
+	color: #555;
+}
+
+#popup h2.success {
+	color: #28a745;
+}
+
+#popup h2.error {
+	color: #dc3545;
 }
 </style>
+<!-- Link to your custom styles -->
+<div th:replace="~{_css.html}"></div>
 </head>
-<body class="sb-nav-fixed">
-	<th:block th:insert="TopNavBar.html"></th:block>
-	<div id="layoutSidenav">
-		<th:block th:insert="SideNavBar.html"></th:block>
-		<div id="layoutSidenav_content">
-			<main>
 
+<body>
+	<div class="container-scroller">
+		<!-- Topbar with navigation -->
+		<div th:replace="~{_topbar.html}"></div>
 
-				<div class="container-fluid px-4">
-					<h1 class="mt-4">Student Payment</h1>
-					<ol class="breadcrumb mb-4">
-						<li class="breadcrumb-item"><a
-							th:href="@{/paymentDetails(rollNo=${student.rollNo})}">Payment
-								Details</a></li>
-						<li class="breadcrumb-item active">Student Payment</li>
-					</ol>
+		<div class="container-fluid page-body-wrapper">
+			<!-- Sidebar for admin links -->
+			<div th:replace="~{_settings-panel.html}"></div>
+			<div th:replace="~{_sidebar.html}"></div>
+
+			<!-- Main content area -->
+			<div class="main-panel">
+				<div class="content-wrapper">
+					<!-- Page header -->
+					<div class="d-flex justify-content-between align-items-center mb-4">
+						<h1 class="h3 text-dark">Student Payment</h1>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+							<li class="breadcrumb-item"><a href="/feesList">Fee List</a></li>
+							<li class="breadcrumb-item"><a href="/paymentDetails">Personal Details</a></li>
+							<li class="breadcrumb-item active">Student Payment</li>
+						</ol>
+					</div>
+
 
 					<div class="card mb-4">
 					<!-- The Popup Overlay -->
@@ -63,13 +108,16 @@
 
 									<!-- The Popup Dialog -->
 									<div id="popup">
-										<h2 th:text="${status == 'success' ? 'Success!' : 'Error!'}">Success or error here from controller</h2>
+										<h2 id="popup-title" th:text="${status == 'success' ? 'Success!' : 'Error!'}">Success or error here from controller</h2>
 										<p id="popup-message" th:text="${message}"> message from controller here</p>
 										<button class="close-btn" onclick="closePopup()">Close</button>
 									</div>
 
+					<!-- Faculty form card -->
+					<div class="card shadow-sm">
 						<div class="card-body">
-							<form action="/payment" method="post" th:object="${student}">
+							
+					<form action="/payment" method="post" th:object="${student}">
 								<div class="row">
 									<div class="col-sm-6">
 										<div class="form-group">
@@ -91,16 +139,22 @@
 								
 
 									<div class="col-sm-6">
-										<div class="form-group">
-											<label class="form-label">Fees Type</label>
-											<div th:each="f:${fList}">
-												<input type="checkbox" name="feesType"
-													th:value="${f.feesType}" th:id="${f.feesType}" class="fees-checkbox">
-												<label th:for="${f.feesType}">[[${f.feesType}]] : Rs. [[${f.amount-f.amountPaid}]]</label>
-											</div>
-											        <input type="hidden" name="feesTypeCheck" value="required">
-											
-										</div>
+									
+									 <div class="form-group local-forms">
+                                            <div>Fees Type <span class="text-red">*</span></div>
+                                            <div class="form-check-group">
+                                             <div th:each="f:${fList}" >
+                                                <div class="form-check">
+                                               
+                                                    <label class="form-check-label" th:for="${f.feesType}">
+                                                        <input type="checkbox" class="form-check-input fees-checkbox" name="feesType" th:value="${f.feesType}" th:id="${f.feesType}">[[${f.feesType}]] : Rs. [[${f.amount-f.amountPaid}]]
+                                                    </label>
+                                                    <input type="hidden" name="feesTypeCheck" value="required">
+                                                    </div>
+                                                </div>
+                                     
+                                            </div>
+                                        </div>
 									</div>
 
 
@@ -155,19 +209,29 @@
 									</div> -->
 								</div>
 							</form>
-	
+			
+							
+							
+							
+							
+							</div>
+							
 						</div>
 					</div>
+
 				</div>
+				<!-- End of content-wrapper -->
 
-
-
-
-
-			</main>
-			<th:block th:insert="Footer.html"></th:block>
+				<!-- Footer -->
+				<div th:replace="~{_footer.html}"></div>
+			</div>
+			<!-- End of main-panel -->
 		</div>
+		<!-- End of page-body-wrapper -->
 	</div>
+	<!-- JavaScript and Bootstrap links -->
+	<div th:replace="~{_Javascript.html}"></div>
+	
 <script>
     // Function to enable/disable submit button based on checkbox selection
     document.addEventListener('DOMContentLoaded', function() {
@@ -212,4 +276,5 @@
  		}
 </script>
 </body>
+
 </html>

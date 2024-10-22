@@ -28,9 +28,9 @@ public class Student {
 	private String grade;
 	private String section;
 	private String gender;
-	private int mobileNumber;
+	private String mobileNumber;
 	private String parentName;
-	private int parentMobileNumber;
+	private String parentMobileNumber;
 	@DateTimeFormat(iso =  ISO.DATE)
 	private LocalDate dob;
 	@DateTimeFormat(iso =  ISO.DATE)

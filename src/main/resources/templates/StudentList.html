@@ -1,74 +1,105 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Admin Panel - Student List</title>
+  <!-- Link to your custom styles -->
+  <div th:replace="~{_css.html}"></div>
 </head>
-<body class="sb-nav-fixed">
-	<th:block th:insert="TopNavBar.html"></th:block>
-	<div id="layoutSidenav">
-		<th:block th:insert="SideNavBar.html"></th:block>
-		<div id="layoutSidenav_content">
-			<main>
 
+<body>
+  <div class="container-scroller">
+    <!-- Topbar with navigation -->
+    <div th:replace="~{_topbar.html}"></div>
 
-		 <div class="container-fluid px-4">
-                        <h1 class="mt-4">Student List</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Student List</li>
-                        </ol>
-                       
-                        <div class="card mb-4">
-                            
-                            <div class="card-body">
-                            <a href="/studentExcel"><button class="btn btn-success">Excel</button></a>
-                            <br><br>
-                                <table id="datatablesSimple">
-                               
-                                
-                                    <thead>
-                                        <tr>
+    <div class="container-fluid page-body-wrapper">
+      <!-- Sidebar for admin links -->
+      <div th:replace="~{_settings-panel.html}"></div>
+      <div th:replace="~{_sidebar.html}"></div>
+
+      <!-- Main content area -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <!-- Page header -->
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h3 text-dark">Student List</h1>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+              <li class="breadcrumb-item active">Students List</li>
+            </ol>
+          </div>
+
+          <!-- Faculty form card -->
+          <div class="card shadow-sm">
+            <div class="card-body">
+            <a href="/studentExcel"> <button type="button" class="btn btn-danger btn-icon-text">
+    Export to Excel
+    <i class="fas fa-file-excel btn-icon-append"></i>                                                                              
+</button></a>  
+               <div class="grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Students Details</h4>
+                  <div class="table-responsive">
+                    <table class="table display expandable-table table-striped table-hover" id="datatablesSimple">
+                      <thead>
+                       <tr>
                                         
+                                         <th>Photo</th>
                                          <th>Roll No</th>
                                             <th>Full Name</th>
                                             <th>Faculty</th>
                                             <th>Grade</th>
                                             <th>Mobile No</th>
-                                            <th>Email</th>
                                             <th>Admission Date</th>
                                             <th>Actions</th>
                                         </tr>
-                                    </thead>
-                                    <tbody>
+                      </thead>
+                      <tbody>
                                         <tr th:each=s:${sList}>
+                                            <td><img th:src="@{/studentImages/{img}(img=${s.imageName})}"></td>
                                             <td>[[${s.rollNo}]]</td>
                                             <td>[[${s.fullName}]]</td>
                                             <td>[[${s.faculty.name}]]</td>
                                             <td>[[${s.grade}]][[${s.section}]]</td>
                                             <td>[[${s.mobileNumber}]]</td>
-                                            <td>[[${s.email}]]</td>
                                             <td>[[${s.admissionDate}]]</td>
                                             <td>
                                             	<a  th:href="@{/editStudent(id=${s.id})}"><button class="btn btn-primary  btn-sm">Edit</button></a>
                                             	<a th:href="@{/deleteStudent(id=${s.id},rollNo=${s.rollNo})}"><button class="btn btn-danger btn-sm ">Delete</button></a>
+                                            	<a  th:href="@{/studentview(id=${s.id})}"><button class="btn btn-success  btn-sm">view</button></a>
                                             </td>
                                         </tr>
                                        
                                     </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                	
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
 
+        </div>
+        <!-- End of content-wrapper -->
 
-
-
-			</main>
-			<th:block th:insert="Footer.html"></th:block>
-		</div>
-	</div>
-	
+        <!-- Footer -->
+        <div th:replace="~{_footer.html}"></div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        <script src="js/datatables-simple-demo.js"></script>
+      <!-- End of main-panel -->
+    </div>
+    <!-- End of page-body-wrapper -->
+  </div>
+  <!-- JavaScript and Bootstrap links -->
+  <div th:replace="~{_Javascript.html}"></div>
+  <script type="text/javascript">
+  
+  </script>
 </body>
+
 </html>

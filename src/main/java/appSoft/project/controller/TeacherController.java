@@ -151,6 +151,7 @@ public class TeacherController {
 	@PostMapping("/updateTeacher")
 	private String updateTeacher(@ModelAttribute Teacher teacher,@RequestParam MultipartFile image) {
 		teacher.setImageName(teacher.getEmail()+".jpg");
+		
 		List<Salary> salaryList = salaryService.getAllSalaryByTeacherId(teacher.getId());
 		for(Salary i : salaryList) {
 			i.setFaculty(teacher.getFaculty());
@@ -177,6 +178,16 @@ public class TeacherController {
 		mv.setView(new TeacherExcel());
 		return mv;
 	}
+	
+	@GetMapping("/teacherView")
+	private String TeacherView(@RequestParam int id,Model model) {
+		model.addAttribute("tModel",ts.getTeacherById(id));
+		model.addAttribute("fList", fs.getAllFaculty());
+		model.addAttribute("sList", ss.getAllSubject());
+
+		return "TeacherView";
+	}
+	
 
 
 }

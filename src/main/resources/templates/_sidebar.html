@@ -1,0 +1,193 @@
+<nav class="sidebar sidebar-offcanvas" id="sidebar" >
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard">
+              <i class="icon-grid menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+   <strong style="padding-top: 10px">Administration</strong>
+          
+          
+<li class="nav-item">
+  <a class="nav-link" data-toggle="collapse" href="#students" aria-expanded="false" aria-controls="students">
+    <i class="fas fa-user-graduate menu-icon"></i>
+    <span class="menu-title">Students</span>
+    <i class="menu-arrow"></i>
+  </a>
+  <div class="collapse" id="students">
+    <ul class="nav flex-column sub-menu">
+      <li class="nav-item"> <a class="nav-link" href="/studentList"> Student List </a></li>
+      <li class="nav-item"> <a class="nav-link" href="/addStudent"> Add Students </a></li>
+    </ul>
+  </div>
+</li>
+
+<li class="nav-item">
+  <a class="nav-link" data-toggle="collapse" href="#teachers" aria-expanded="false" aria-controls="teachers">
+    <i class="fas fa-chalkboard-teacher menu-icon"></i>
+    <span class="menu-title">Teachers</span>
+    <i class="menu-arrow"></i>
+  </a>
+  <div class="collapse" id="teachers">
+    <ul class="nav flex-column sub-menu">
+      <li class="nav-item"> <a class="nav-link" href="/teacherList"> Teacher List </a></li>
+      <li class="nav-item"> <a class="nav-link" href="/addTeacher"> Add Teacher </a></li>
+    </ul>
+  </div>
+</li>
+
+<li class="nav-item">
+  <a class="nav-link" data-toggle="collapse" href="#faculties" aria-expanded="false" aria-controls="faculties">
+    <i class="fas fa-university menu-icon"></i>
+    <span class="menu-title">Faculties</span>
+    <i class="menu-arrow"></i>
+  </a>
+  <div class="collapse" id="faculties">
+    <ul class="nav flex-column sub-menu">
+      <li class="nav-item"> <a class="nav-link" href="/facultyList"> Faculty List </a></li>
+      <li class="nav-item"> <a class="nav-link" href="/addFaculty"> Add Faculty </a></li>
+    </ul>
+  </div>
+</li>
+
+<li class="nav-item">
+  <a class="nav-link" data-toggle="collapse" href="#subjects" aria-expanded="false" aria-controls="subjects">
+    <i class="fas fa-book menu-icon"></i>
+    <span class="menu-title">Subjects</span>
+    <i class="menu-arrow"></i>
+  </a>
+  <div class="collapse" id="subjects">
+    <ul class="nav flex-column sub-menu">
+      <li class="nav-item"> <a class="nav-link" href="/subjectList"> Subjects List </a></li>
+      <li class="nav-item"> <a class="nav-link" href="/addSubject"> Add Subject </a></li>
+    </ul>
+  </div>
+</li>
+
+<li class="nav-item">
+  <a class="nav-link" data-toggle="collapse" href="#exam" aria-expanded="false" aria-controls="exam">
+    <i class="fas fa-pencil-alt menu-icon"></i>  <!-- Changed to exam-related icon -->
+    <span class="menu-title">Exam</span>
+    <i class="menu-arrow"></i>
+  </a>
+  <div class="collapse" id="exam">
+    <ul class="nav flex-column sub-menu">
+      <li class="nav-item"> <a class="nav-link" href="/examList"> Exam List </a></li>
+      <li class="nav-item"> <a class="nav-link" href="/addExam"> Add Exam </a></li> <!-- Corrected closing tag and text -->
+    </ul>
+  </div>
+</li>
+
+<strong style="padding-top: 10px">Financial Management</strong>
+
+<li class="nav-item">
+  <a class="nav-link" data-toggle="collapse" href="#fees" aria-expanded="false" aria-controls="fees">
+    <i class="fas fa-dollar-sign menu-icon"></i>
+        <span class="menu-title">Fee</span>
+    <i class="menu-arrow"></i>
+  </a>
+  <div class="collapse" id="fees">
+    <ul class="nav flex-column sub-menu">
+      <li class="nav-item"> <a class="nav-link" href="/feesList"> Fee List </a></li>
+      <li class="nav-item"> <a class="nav-link" href="/addFees"> Add Fee </a></li>
+    </ul>
+  </div>
+</li>
+
+<li class="nav-item">
+  <a class="nav-link" data-toggle="collapse" href="#feeTypes" aria-expanded="false" aria-controls="feeTypes">
+    <i class="fas fa-tags menu-icon"></i>
+    <span class="menu-title">Fee Types</span>
+    <i class="menu-arrow"></i>
+  </a>
+  <div class="collapse" id="feeTypes">
+    <ul class="nav flex-column sub-menu">
+      <li class="nav-item"> <a class="nav-link" href="/feesTypeList"> Fee Types List </a></li>
+      <li class="nav-item"> <a class="nav-link" href="/addFeesType"> Add Fee Type </a></li>
+    </ul>
+  </div>
+</li>
+
+<li class="nav-item">
+  <a class="nav-link" data-toggle="collapse" href="#salary" aria-expanded="false" aria-controls="salary">
+   <i class="fas fa-coins menu-icon"></i>
+    <span class="menu-title">Salary</span>
+    <i class="menu-arrow"></i>
+  </a>
+  <div class="collapse" id="salary">
+    <ul class="nav flex-column sub-menu">
+      <li class="nav-item"> <a class="nav-link" href="/salaryList"> Salary List </a></li>
+      <li class="nav-item"> <a class="nav-link" href="/addSalary"> Add Salary </a></li>
+    </ul>
+  </div>
+</li>
+
+<li class="nav-item">
+  <a class="nav-link" data-toggle="collapse" href="#salarySettings" aria-expanded="false" aria-controls="salarySettings">
+    <i class="fas fa-cogs menu-icon"></i>
+    <span class="menu-title">Salary Setting</span>
+    <i class="menu-arrow"></i>
+  </a>
+  <div class="collapse" id="salarySettings">
+    <ul class="nav flex-column sub-menu">
+      <li class="nav-item"> <a class="nav-link" href="/salarySettingList">Salary Setting List</a></li>
+      <li class="nav-item"> <a class="nav-link" href="/addSalarySetting"> Add Salary Setting </a></li>
+    </ul>
+  </div>
+</li>
+
+<li class="nav-item">
+  <a class="nav-link" data-toggle="collapse" href="#expense" aria-expanded="false" aria-controls="expense">
+    <i class="fas fa-credit-card menu-icon"></i>
+    <span class="menu-title">Expense</span>
+    <i class="menu-arrow"></i>
+  </a>
+  <div class="collapse" id="expense">
+    <ul class="nav flex-column sub-menu">
+      <li class="nav-item"> <a class="nav-link" href="/expenseList">Expense List</a></li>
+      <li class="nav-item"> <a class="nav-link" href="/addExpense">Add Expense</a></li>
+      <li class="nav-item"> <a class="nav-link" href="/expenseReport">Expense Report</a></li>
+    </ul>
+  </div>
+</li>
+
+
+<li class="nav-item">
+  <a class="nav-link" href="/financeReport" aria-expanded="false" aria-controls="report">
+  <i class="fas fa-dollar-sign menu-icon"></i>
+    <span class="menu-title">Finance Report</span>
+  </a>
+</li>
+
+<li class="nav-item">
+  <a class="nav-link" href="/incomeReport" aria-expanded="false" aria-controls="report">
+    <i class="fas fa-chart-line menu-icon"></i>
+    <span class="menu-title">Income Report</span>
+  </a>
+</li>
+
+
+<strong style="padding-top: 10px">Other</strong>
+<li class="nav-item">
+  <a class="nav-link" data-toggle="collapse" href="#transport" aria-expanded="false" aria-controls="transport">
+    <i class="fas fa-bus menu-icon"></i>
+    <span class="menu-title">Transport</span>
+    <i class="menu-arrow"></i>
+  </a>
+  <div class="collapse" id="transport">
+    <ul class="nav flex-column sub-menu">
+      <li class="nav-item"> <a class="nav-link" href="/transportList"> Transport List </a></li>
+      <li class="nav-item"> <a class="nav-link" href="/addTransport"> Add Transport </a></li>
+    </ul>
+  </div>
+</li>
+
+<li class="nav-item">
+  <a class="nav-link" href="/logout" aria-expanded="false" aria-controls="report">
+   <i class="fas fa-sign-out-alt menu-icon"></i>
+    <span class="menu-title">Logout</span>
+  </a>
+</li>
+        </ul>
+      </nav>

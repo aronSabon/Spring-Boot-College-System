@@ -1,391 +1,399 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js">
-	
-</script>
-
-
-<style>
-/* Style for the popup dialog */
-#popup {
-	display: none; /* Hidden by default */
-	position: fixed;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	background-color: white;
-	border: 1px solid #888;
-	padding: 20px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-	z-index: 1000;
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Admin Panel - Add Teacher</title>
+    <!-- Link to your custom styles -->
+    <div th:replace="~{_css.html}"></div>
+    <style>
+    /* Background overlay */
+#popup-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Darker overlay for better focus */
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
 }
 
-/* Background overlay */
-#popup-overlay {
-	display: none; /* Hidden by default */
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.4);
-	z-index: 999;
+/* Style for the popup dialog */
+#popup {
+    display: none; /* Hidden by default */
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #888;
+    padding: 30px; /* Increased padding for better spacing */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2); /* Slightly darker shadow */
+    z-index: 1000;
+    max-width: 500px; /* Increased max-width for larger content */
+    width: 90%;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    text-align: center;
+}
+
+/* Popup heading */
+#popup h2 {
+    margin-bottom: 15px; /* Increased margin for better spacing */
+    font-size: 1.8em; /* Larger font size for emphasis */
+    color: #333;
+}
+
+/* Popup message */
+#popup p {
+    margin-bottom: 25px; /* Increased margin for better spacing */
+    color: #555;
+    line-height: 1.5; /* Better line height for readability */
 }
 
 /* Style for close button */
 .close-btn {
-	background-color: black;
-	color: black;
-	border: none;
-	padding: 10px;
-	cursor: pointer;
+    background-color: black; /* Changed to black for visibility */
+    color: white; /* White text for contrast */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    padding: 12px 20px; /* Adjusted padding for a larger clickable area */
+    cursor: pointer;
+    font-size: 1.1em; /* Slightly larger font for readability */
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
-</style>
+
+.close-btn:hover {
+    background-color: #333; /* Darker on hover */
+    transform: scale(1.05); /* Slight scaling effect for feedback */
+}
+
+/* Show Popup */
+#popup-overlay.show {
+    display: flex; /* Show the overlay */
+    opacity: 1;
+}
+
+#popup.show {
+text-align: center;
+    display: block; /* Show the popup */
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(0);
+}
+    
+    </style>
 </head>
-<body class="sb-nav-fixed">
-	<th:block th:insert="TopNavBar.html"></th:block>
-	<div id="layoutSidenav">
-		<th:block th:insert="SideNavBar.html"></th:block>
-		<div id="layoutSidenav_content">
-			<main>
 
+<body>
+    <div class="container-scroller">
+        <!-- Topbar with navigation -->
+        <div th:replace="~{_topbar.html}"></div>
 
-				<div class="page-wrapper">
-					<div class="content container-fluid">
+        <div class="container-fluid page-body-wrapper">
+            <!-- Sidebar for admin links -->
+            <div th:replace="~{_settings-panel.html}"></div>
+            <div th:replace="~{_sidebar.html}"></div>
 
-						<div class="page-header">
-							<div class="row align-items-center">
-								<div class="col">
-									<h3 class="page-title">Add Teachers</h3>
-									<ul class="breadcrumb">
-										<li class="breadcrumb-item"><a href="teachers.html">Teachers</a></li>
-										<li class="breadcrumb-item active">Add Teachers</li>
-									</ul>
-								</div>
-							</div>
-						</div>
+            <!-- Main content area -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <!-- Page header -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h1 class="h3 text-dark">Add New Teacher</h1>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Add Teacher</li>
+                        </ol>
+                    </div>
 
-						<div class="row">
-							<div class="col-sm-12">
-								<div class="card">
-								
-								<!-- The Popup Overlay -->
-									<div id="popup-overlay"></div>
+                    <!-- The Popup Overlay -->
+                    <div id="popup-overlay"></div>
 
-									<!-- The Popup Dialog -->
-									<div id="popup">
-										<h2 th:text="${status == 'success' ? 'Success!' : 'Error!'}">Success!</h2>
-										<p id="popup-message" th:text="${message}">Teacher added
-											successfully!</p>
-										<button class="close-btn" onclick="closePopup()">Close</button>
-									</div>
-									
-									<div class="card-body">
-										<form action="/addTeacher" method="post"
-											enctype="multipart/form-data">
-											<div class="row">
-												<div class="col-12">
-													<h5 class="form-title">
-														<span>Basic Details</span>
-													</h5>
-												</div>
+                    <!-- The Popup Dialog -->
+                    <div id="popup">
+                        <h2 th:text="${status == 'success' ? 'Success!' : 'Error!'}">Success!</h2>
+                        <p id="popup-message" th:text="${message}">Teacher added successfully!</p>
+                        <button class="close-btn" onclick="closePopup()">Close</button>
+                    </div>
 
+                    <!-- Faculty form card -->
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <form action="/addTeacher" method="post" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h5 class="form-title" style="margin-bottom: 20px;">
+                                            <span>Basic Details</span>
+                                        </h5>
+                                    </div>
 
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label class="editLabel">Full Name <span class="login-danger">*</span></label>
+                                            <input type="text" class="form-control" placeholder="Enter Name" name="fullName" required>
+                                        </div>
+                                    </div>
 
-												<div class="col-12 col-sm-4">
-													<div class="form-group local-forms">
-														<label class="editLabel">Full Name <span
-															class="login-danger">*</span></label> <input type="text"
-															class="form-control" placeholder="Enter Name"
-															name="fullName">
-													</div>
-												</div>
-												<div class="col-12 col-sm-4">
-													<div class="form-group local-forms">
-														<div>
-															Gender<span class="login-danger">*</span>
-														</div>
-														<input type="radio" name="gender" id="male" value="Male"
-															checked> <label for="male"> Male</label> <input
-															type="radio" name="gender" id="female" value="Female">
-														<label for="female"> Female</label> <input type="radio"
-															name="gender" id="others" value="Others"> <label
-															for="others"> Others</label>
-													</div>
-												</div>
-												<div class="col-12 col-sm-4">
-													<div class="form-group local-forms ">
-														<label class="editLabel">Date Of Birth <span
-															class="login-danger">*</span></label> <input
-															class="form-control " type="date"
-															placeholder="DD-MM-YYYY" name="dob">
-													</div>
-												</div>
-												<div class="col-12 col-sm-4">
-													<div class="form-group local-forms">
-														<label class="editLabel">Mobile <span
-															class="login-danger">*</span></label> <input type="text"
-															class="form-control" placeholder="Enter Phone"
-															name="mobileNumber">
-													</div>
-												</div>
-												<div class="col-12 col-sm-4">
-													<div class="form-group local-forms ">
-														<label class="editLabel">Joining Date <span
-															class="login-danger">*</span></label> <input
-															class="form-control datetimepicker" type="date"
-															placeholder="DD-MM-YYYY" name="joinDate">
-													</div>
-												</div>
-												<div class="col-12 col-sm-4 local-forms">
-													<div class="form-group">
-														<label class="editLabel">Qualification <span
-															class="login-danger">*</span></label> <input class="form-control"
-															type="text" placeholder="Enter Qualification"
-															name="qualification">
-													</div>
-												</div>
-												<div class="col-12 col-sm-4">
-													<div class="form-group local-forms">
-														<label class="editLabel">Experience <span
-															class="login-danger">*</span></label> <input class="form-control"
-															type="text" placeholder="Enter Experience"
-															name="experience">
-													</div>
-												</div>
-												<div class="col-12 col-sm-4">
-													<div class="form-group local-forms">
-														<label class="editLabel">Faculty <span
-															class="login-danger">*</span></label> <select
-															class="form-control" name="faculty"
-															onchange="updateGradeSelect()" id="facultySelect">
-															<option value="">--Select Faculty--</option>
-															<option th:each="f:${fList}" th:value="${f.id}">[[${f.name}]]</option>
-														</select>
-													</div>
-												</div>
-												<div class="col-12 col-sm-4">
-													<div class="form-group local-forms">
-														<label class="editLabel">Grade <span
-															class="login-danger">*</span></label> <select
-															class="form-control" name="grade"
-															onchange="updateSubjectSelect()" id="gradeSelect">
-															<option value="">--Select Grade--</option>
-															<!-- <option value="11">11</option>
-															<option value="12">12</option> -->
-														</select>
-													</div>
-												</div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group">
+                                            <div class="form-label">Gender</div>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="radio" class="form-check-input" name="gender" id="membershipRadios1" value="Male" checked> Male
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="radio" class="form-check-input" name="gender" id="membershipRadios2" value="Female"> Female
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            <input type="radio" class="form-check-input" name="gender" id="membershipRadios3" value="Other"> Other
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-												<div class="col-12 col-sm-4">
-													<div class="form-group local-forms">
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms ">
+                                            <label class="editLabel">Date Of Birth <span class="login-danger">*</span></label>
+                                            <input class="form-control" type="date" placeholder="DD-MM-YYYY" name="dob" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label class="editLabel">Mobile <span class="login-danger">*</span></label>
+                                            <input type="text" class="form-control" placeholder="Enter Phone" name="mobileNumber" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms ">
+                                            <label class="editLabel">Joining Date <span class="login-danger">*</span></label>
+                                            <input class="form-control" type="date" placeholder="DD-MM-YYYY" name="joinDate" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4 local-forms">
+                                        <div class="form-group">
+                                            <label class="editLabel">Qualification <span class="login-danger">*</span></label>
+                                            <input class="form-control" type="text" placeholder="Enter Qualification" name="qualification" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label class="editLabel">Experience <span class="login-danger">*</span></label>
+                                            <input class="form-control" type="text" placeholder="Enter Experience" name="experience" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label class="editLabel">Faculty <span class="login-danger">*</span></label>
+                                            <select class="form-control" name="faculty" onchange="updateGradeSelect()" id="facultySelect" required>
+                                                <option value="">--Select Faculty--</option>
+                                                <option th:each="f:${fList}" th:value="${f.id}">[[${f.name}]]</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label class="editLabel">Grade <span class="login-danger">*</span></label>
+                                            <select class="form-control" name="grade" onchange="updateSubjectSelect()" id="gradeSelect" required>
+                                                <option value="">--Select Grade--</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <div>Section <span class="login-danger">*</span></div>
+                                            <div class="form-check-group" style="display: flex; flex-direction: row; gap: 10px;">
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="form-check-input" name="section" value="A"> A
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="form-check-input" name="section" value="B"> B
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        <input type="checkbox" class="form-check-input" name="section" value="C"> C
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-														<label class="editLabel">Section <span
-															class="login-danger">*</span>
-														</label> <select name="section" id="section" required
-															class="form-control">
-															<option value="A">A</option>
-															<option value="B">B</option>
-															<option value="C">C</option>
-														</select>
-														<!-- <div>
-															Section <span class="login-danger">*</span>
-														</div> -->
-														<!-- <input type="checkbox" name="section" id="a" value="A"><label
-															for="a">A</label>&nbsp;&nbsp; <input type="checkbox"
-															name="section" id="b" value="B"><label for="b">B</label>&nbsp;&nbsp;
-														<input type="checkbox" name="section" id="c" value="C"><label
-															for="c">C</label> -->
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label class="editLabel">Subject <span class="login-danger">*</span></label>
+                                            <select class="form-control" name="subject" id="subjectSelect" required>
+                                                <option value="">--Select Subject--</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
-													</div>
-												</div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label class="editLabel">Basic Salary <span class="login-danger">*</span></label>
+                                            <input class="form-control" type="number" placeholder="Enter Salary" name="salary" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label class="editLabel">Period <span class="login-danger">*</span></label>
+                                            <select class="form-control" name="period" required>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label class="editLabel">Photo <span class="login-danger">*</span></label>
+                                            <input class="form-control" type="file" name="image" required>
+                                        </div>
+                                    </div>
 
-												<div class="col-12 col-sm-4">
-													<div class="form-group local-forms">
-														<label class="editLabel">Subject <span
-															class="login-danger">*</span></label> <select
-															class="form-control" name="subject" id="subjectSelect">
-															<option value="">--Select Subject--</option>
-														</select>
-													</div>
-												</div>
+                                    <div class="col-12">
+                                        <h5 class="form-title" style="margin-bottom: 20px;">
+                                            <span>Login Details</span>
+                                        </h5>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label class="editLabel">Username <span class="login-danger">*</span></label>
+                                            <input type="text" class="form-control" placeholder="Enter Username" name="username" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label class="editLabel">Email ID <span class="login-danger">*</span></label>
+                                            <input type="email" class="form-control" placeholder="Enter E-mail" name="email" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label class="editLabel">Password <span class="login-danger">*</span></label>
+                                            <input type="password" class="form-control" placeholder="Enter Password" name="password" required>
+                                        </div>
+                                    </div>
 
-												<div class="col-12 col-sm-4">
-													<div class="form-group local-forms">
-														<label class="editLabel">Basic Salary <span
-															class="login-danger">*</span></label> <input class="form-control"
-															type="number" placeholder="Enter Salary" name="salary">
-													</div>
-												</div>
-												<div class="col-12 col-sm-4">
-													<div class="form-group local-forms">
-														<label class="editLabel">Period <span
-															class="login-danger">*</span></label> <select
-															class="form-control" name="period">
-															<option value="1">1</option>
-															<option value="2">2</option>
-															<option value="3">3</option>
-															<option value="4">4</option>
-															<option value="5">5</option>
-															<option value="6">6</option>
-															<option value="7">7</option>
-															<option value="8">8</option>
-															<option value="9">9</option>
-															<option value="10">10</option>
+                                    <div class="col-12">
+                                        <h5 class="form-title">
+                                            <span>Address</span>
+                                        </h5>
+                                    </div>
 
-														</select>
-													</div>
-												</div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label class="editLabel">City <span class="login-danger">*</span></label>
+                                            <input type="text" class="form-control" placeholder="Enter City" name="address.city" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                        <div class="form-group local-forms">
+                                            <label class="editLabel">State <span class="login-danger">*</span></label>
+                                            <select name="address.state" class="form-control" required>
+                                                <option value="">Select</option>
+                                                <option value="Koshi">Koshi</option>
+                                                <option value="Madhesh">Madhesh</option>
+                                                <option value="Bagmati">Bagmati</option>
+                                                <option value="Gandaki">Gandaki</option>
+                                                <option value="Lumbini">Lumbini</option>
+                                                <option value="Karnali">Karnali</option>
+                                                <option value="Sudurpaschim">Sudurpaschim</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
+                                    <div class="col-12">
+                                        <div class="student-submit">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
 
+                </div>
+                <!-- End of content-wrapper -->
 
+                <!-- Footer -->
+                <div th:replace="~{_footer.html}"></div>
+            </div>
+            <!-- End of main-panel -->
+        </div>
+        <!-- End of page-body-wrapper -->
+    </div>
+    <!-- JavaScript and Bootstrap links -->
+    <div th:replace="~{_Javascript.html}"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-												<div class="col-12 col-sm-4">
-													<div class="form-group local-forms">
-														<label class="editLabel">Photo <span
-															class="login-danger">*</span></label> <input class="form-control"
-															type="file" placeholder="Select Photo" name="image">
-													</div>
-												</div>
+    <script>
+        function updateGradeSelect() {
+            let facultySelect = document.getElementById("facultySelect").value;
+            $('#gradeSelect').empty(); // Clear previous options
+            $('#gradeSelect').append('<option value="">Select Grade</option>');
+            // Add example grades dynamically if needed
+            $('#gradeSelect').append('<option value="11">11</option>');
+            $('#gradeSelect').append('<option value="12">12</option>');
+        }
 
-												<div class="col-12">
-													<h5 class="form-title">
-														<span>Login Details</span>
-													</h5>
-												</div>
-												<div class="col-12 col-sm-4">
-													<div class="form-group local-forms">
-														<label class="editLabel">Username <span
-															class="login-danger">*</span></label> <input type="text"
-															class="form-control" placeholder="Enter Username"
-															name="username">
-													</div>
-												</div>
-												<div class="col-12 col-sm-4">
-													<div class="form-group local-forms">
-														<label class="editLabel">Email ID <span
-															class="login-danger">*</span></label> <input type="email"
-															class="form-control" placeholder="Enter E-mail"
-															name="email">
-													</div>
-												</div>
-												<div class="col-12 col-sm-4">
-													<div class="form-group local-forms">
-														<label class="editLabel">Password <span
-															class="login-danger">*</span></label> <input type="text"
-															class="form-control" placeholder="Enter Password"
-															name="password">
-													</div>
-												</div>
+        function updateSubjectSelect() {
+            let gradeSelect = document.getElementById("gradeSelect").value;
+            let facultySelect = document.getElementById("facultySelect").value;
+            $.get(`http://localhost:8080/subject/${facultySelect}/${gradeSelect}`, function(data) {
+                $('#subjectSelect').empty(); // Clear previous options
+                for (var i = 0; i < data.length; i++) {
+                    $('#subjectSelect').append(`<option value="${data[i].id}">${data[i].name}</option>`);
+                }
+            }).fail(function() {
+                alert("Error retrieving subjects");
+            });
+        }
 
-												<div class="col-12">
-													<h5 class="form-title">
-														<span>Address</span>
-													</h5>
-												</div>
+        window.onload = function() {
+            var message = "[[${message}]]"; 
+            var status = "[[${status}]]";
+            if (message && message !== 'null') {
+                document.getElementById("popup-overlay").classList.add("show");
+                document.getElementById("popup").classList.add("show");
 
-												<div class="col-12 col-sm-4">
-													<div class="form-group local-forms">
-														<label class="editLabel">City <span
-															class="login-danger">*</span></label> <input type="text"
-															class="form-control" placeholder="Enter City"
-															name="address.city">
-													</div>
-												</div>
-												<div class="col-12 col-sm-4">
-													<div class="form-group local-forms">
-														<label class="editLabel">State <span
-															class="login-danger">*</span></label> <select
-															name="address.state" class="form-control">
-															<option value="">Select</option>
-															<option value="Koshi">Koshi</option>
-															<option value="Madhesh">Madhesh</option>
-															<option value="Bagmati">Bagmati</option>
-															<option value="Gandaki">Gandaki</option>
-															<option value="Lumbini">Lumbini</option>
-															<option value="Karnali">Karnali</option>
-															<option value="Sudurpaschim">Sudurpaschim</option>
-														</select>
-													</div>
-												</div>
+                document.getElementById("popup-message").innerText = status === "success" ? message : "Error: " + message;
+            }
+        };
 
-												<div class="col-12">
-													<div class="student-submit">
-														<button type="submit" class="btn btn-primary"
-															onclick="addTeacher()">Submit</button>
-													</div>
-												</div>
-											</div>
-										</form>
-									</div>
-									
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</main>
-			<th:block th:insert="Footer.html"></th:block>
-		</div>
-	</div>
-	<script>
-		function updateGradeSelect() {
-			let gradeSelect = document.getElementById("facultySelect").value;
-			$('#gradeSelect').empty(); // Clear previous options
-			$('#gradeSelect').append(
-					'<option value=' + '' + '>' + 'Select Grade' + '</option>');
-			$('#gradeSelect').append(
-					'<option value=' + 11 + '>' + 11 + '</option>');
-			$('#gradeSelect').append(
-					'<option value=' + 12 + '>' + 12 + '</option>');
-		}
-
-		function updateSubjectSelect() {
-			let gradeSelect = document.getElementById("gradeSelect").value;
-			let facultySelect = document.getElementById("facultySelect").value;
-			$.get(
-					"http://localhost:9090/subject/"+facultySelect+"/" + gradeSelect,
-					function(data) {
-						console.log(data);
-						$('#subjectSelect').empty(); // Clear previous options
-						for (var i = 0; i < data.length; i++) {
-							$('#subjectSelect').append(
-									'<option value=' + data[i].id + '>'
-											+ data[i].name + '</option>');
-						}
-					}).fail(function() {
-				alert("Error retrieving subjects");
-			});
-
-		}
-		
-		
-		window.onload = function() {
-		   var message ="[[${message}]]"; 
-        var status = "[[${status}]]";
-		    if (message !== 'null' && message !== '') {
-		        document.getElementById("popup-overlay").style.display = "block";
-		        document.getElementById("popup").style.display = "block";
-
-		        if (status === "success") {
-		            document.getElementById("popup-message").innerText = message;
-		        } else if (status === "error") {
-		            document.getElementById("popup-message").innerText = "Error: " + message;
-		        }
-		    }
-		};
-
-		function closePopup() {
-			document.getElementById("popup-overlay").style.display = "none";
-			document.getElementById("popup").style.display = "none";
-		}
-	</script>
+        function closePopup() {
+            document.getElementById("popup-overlay").classList.remove("show");
+            document.getElementById("popup").classList.remove("show");
+        }
+    </script>
 
 </body>
 

@@ -154,4 +154,11 @@ public class StudentController {
 		mv.setView(new StudentExcel());
 		return mv;
 	}
+	
+	@GetMapping("/studentview")
+	private String stuentView(@RequestParam int id,Model model) {
+		model.addAttribute("sModel",ss.getStudentById(id));
+		model.addAttribute("fList", fs.getAllFaculty());
+		return "StudentsView";
+	}
 }

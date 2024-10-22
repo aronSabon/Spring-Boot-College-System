@@ -28,7 +28,7 @@ public class Teacher {
 	private String gender;
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate dob;
-	private int mobileNumber;
+	private String mobileNumber;
 	@DateTimeFormat(iso = ISO.DATE)
 	private LocalDate  joinDate;
 	private String qualification;

@@ -1,9 +1,0 @@
-                                           <div class="col-sm-6">
-												<div class="form-group">
-													<label class="form-label">Fees Type</label>
-													<div th:each="ft:${ftList}">
-														<input type="checkbox" name="feesType" th:value="${ft.particulars}" th:id="${ft.particulars}"  >
-														<label th:for="${ft.particulars}">[[${ft.particulars}]]</label>
-													</div>
-												</div>
-											</div> 

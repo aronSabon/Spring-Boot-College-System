@@ -24,8 +24,9 @@ public class FacultyController {
 		return "AddFaculty";
 	}
 	@PostMapping("/addFaculty")
-	private String addFaculty(@ModelAttribute Faculty faculty) {
+	private String addFaculty(@ModelAttribute Faculty faculty, Model model) {
 		fs.addFaculty(faculty);
+		model.addAttribute("message", "Faculty added Success ! ");
 		return "redirect:/addFaculty";
 	}
 	

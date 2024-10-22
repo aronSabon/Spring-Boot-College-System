@@ -1,170 +1,233 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Admin Panel - Teacher Payment</title>
 <style>
 /* Style for the popup dialog */
 #popup {
-	display: none; /* Hidden by default */
+	display: none;
 	position: fixed;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
 	background-color: white;
-	border: 1px solid #888;
-	padding: 20px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	border-radius: 12px;
+	padding: 30px;
+	max-width: 400px;
+	width: 90%;
+	text-align: center;
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 	z-index: 1000;
 }
 
 /* Background overlay */
 #popup-overlay {
-	display: none; /* Hidden by default */
+	display: none;
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.4);
+	background-color: rgba(0, 0, 0, 0.6);
 	z-index: 999;
 }
 
 /* Style for close button */
 .close-btn {
-	background-color: black;
-	color: black;
+	background-color: #ff4d4d;
+	color: white;
 	border: none;
-	padding: 10px;
+	padding: 10px 20px;
+	border-radius: 5px;
+	font-size: 14px;
 	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.close-btn:hover {
+	background-color: #ff1a1a;
+}
+
+/* Style for success and error messages */
+#popup h2 {
+	font-size: 24px;
+	margin-bottom: 15px;
+	color: #333;
+}
+
+#popup p {
+	font-size: 16px;
+	color: #555;
+}
+
+#popup h2.success {
+	color: #28a745;
+}
+
+#popup h2.error {
+	color: #dc3545;
 }
 </style>
+<!-- Link to your custom styles -->
+<div th:replace="~{_css.html}"></div>
 </head>
-<body class="sb-nav-fixed">
-	<th:block th:insert="TopNavBar.html"></th:block>
-	<div id="layoutSidenav">
-		<th:block th:insert="SideNavBar.html"></th:block>
-		<div id="layoutSidenav_content">
-			<main>
 
+<body>
+	<div class="container-scroller">
+		<!-- Topbar with navigation -->
+		<div th:replace="~{_topbar.html}"></div>
 
-				<div class="container-fluid px-4">
-					<h1 class="mt-4">Teacher Payment</h1>
-					<ol class="breadcrumb mb-4">
-						<li class="breadcrumb-item"><a
-							th:href="@{/salaryPaymentDetails(id=${teacher.id})}">Salary
-								Details</a></li>
-						<li class="breadcrumb-item active">Teacher Payment</li>
-					</ol>
+		<div class="container-fluid page-body-wrapper">
+			<!-- Sidebar for admin links -->
+			<div th:replace="~{_settings-panel.html}"></div>
+			<div th:replace="~{_sidebar.html}"></div>
+
+			<!-- Main content area -->
+			<div class="main-panel">
+				<div class="content-wrapper">
+					<!-- Page header -->
+					<div class="d-flex justify-content-between align-items-center mb-4">
+						<h1 class="h3 text-dark">Teacher Payment</h1>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+							<li class="breadcrumb-item"><a href="/salaryList">Salary
+									List</a></li>
+							<li class="breadcrumb-item active">Salary Payment</li>
+						</ol>
+					</div>
+
 
 					<div class="card mb-4">
-					<!-- The Popup Overlay -->
-									<div id="popup-overlay"></div>
+						<!-- Popup Overlay -->
+						<div id="popup-overlay"></div>
 
-									<!-- The Popup Dialog -->
-									<div id="popup">
-										<h2 th:text="${status == 'success' ? 'Success!' : 'Error!'}">Success or error here from controller</h2>
-										<p id="popup-message" th:text="${message}"> message from controller here</p>
-										<button class="close-btn" onclick="closePopup()">Close</button>
-									</div>
+						<!-- Popup Dialog -->
+						<div id="popup">
+							<h2 id="popup-title" th:text="${status == 'success' ? 'Success!' : 'Error!'}">Success or error here from controller</h2>
+							<p id="popup-message">Message from the controller here</p>
+							<button class="close-btn" onclick="closePopup()">Close</button>
+						</div>
 
-						<div class="card-body">
-							<form action="/teacherPayment" method="post" th:object="${teacher}">
-								<div class="row">
-									<div class="col-sm-6">
-										<div class="form-group">
-											<label class="form-label" for="id">Teacher Id</label> <input
-												id="id" name="teacherId" th:value="${teacher.id}"
-												placeholder="Enter Roll No" type="number" class="form-control"
-												readonly>
-										</div>
-									</div>
-									<div class="col-sm-6">
-										<div class="form-group">
-											<label class="form-label" for="grade">Teacher Name</label> <input
-												id="grade" th:field="*{fullName}"
-												placeholder="Enter Student Name" type="text"
-												class="form-control" readonly>
-										</div>
-									</div>
-							
-								
+						<!-- Faculty form card -->
+						<div class="card shadow-sm">
+							<div class="card-body">
 
-									<div class="col-sm-6">
-										<div class="form-group">
-											<label class="form-label">Month</label>
-											<div th:each="s:${salaryList}">
-												<input type="checkbox" name="month"
-													th:value="${s.month}" th:id="${s.month}"  class="month-checkbox">
-												<label th:for="${s.month}">[[${s.month}]] : Rs. [[${s.amount-s.amountPaid}]]</label>
+								<form action="/teacherPayment" method="post"
+									th:object="${teacher}">
+									<div class="row">
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label class="form-label" for="id">Teacher Id</label> <input
+													id="id" name="teacherId" th:value="${teacher.id}"
+													placeholder="Enter Roll No" type="number"
+													class="form-control" readonly>
 											</div>
-											        <input type="hidden" name="monthCheck" value="required">
-											
 										</div>
-									</div>
-
-
-
-
-
-									<div class="col-sm-6">
-										<div class="form-group">
-											<label class="form-label" for="endtime">Amount</label> <input
-												type="number" name="amount" class=" form-control"
-												id="endtime" placeholder="Enter Amount" required>
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label class="form-label" for="grade">Teacher Name</label> <input
+													id="grade" th:field="*{fullName}"
+													placeholder="Enter Student Name" type="text"
+													class="form-control" readonly>
+											</div>
 										</div>
-									</div>
 
-									<div class="col-sm-6">
-										<div class="form-group">
-											<label class="form-label" for="date">Date</label> <input
-												type="date" th:value="${date}" name="date"
-												class=" form-control" id="date" required>
+
+
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label class="form-label">Month</label>
+												<div th:each="s:${salaryList}">
+													<input type="checkbox" name="month" th:value="${s.month}"
+														th:id="${s.month}" class="month-checkbox"> <label
+														th:for="${s.month}">[[${s.month}]] : Rs.
+														[[${s.amount-s.amountPaid}]]</label>
+												</div>
+												<input type="hidden" name="monthCheck" value="required">
+
+											</div>
 										</div>
-									</div>
-									<div class="col-sm-6">
-										<div class="form-group">
-											<label class="form-label" for="time">Time</label> <input
-												type="text" th:value="${time}" name="time"
-												class=" form-control" id="time" required>
+
+
+
+
+
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label class="form-label" for="endtime">Amount</label> <input
+													type="number" name="amount" class=" form-control"
+													id="endtime" placeholder="Enter Amount" required>
+											</div>
 										</div>
-									</div>
-									<div class="col-sm-6">
-										<div class="form-group">
-											<label class="form-label" for="paidWith">Paid With</label> <select
-												name="paidWith" id="paidWith" required class="form-control">
 
-
-												<option value="Cash">Cash</option>
-												<option value="Cheque">Cheque</option>
-											</select>
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label class="form-label" for="date">Date</label> <input
+													type="date" th:value="${date}" name="date"
+													class=" form-control" id="date" required>
+											</div>
 										</div>
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label class="form-label" for="time">Time</label> <input
+													type="text" th:value="${time}" name="time"
+													class=" form-control" id="time" required>
+											</div>
+										</div>
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label class="form-label" for="paidWith">Paid With</label> <select
+													name="paidWith" id="paidWith" required class="form-control">
+
+
+													<option value="Cash">Cash</option>
+													<option value="Cheque">Cheque</option>
+												</select>
+											</div>
+										</div>
+
+
+										<div class="col-lg-12 col-md-12 col-sm-12">
+											<br>
+											<button type="submit" class="btn btn-primary" id="submitBtn"
+												disabled>Submit</button>
+											<a th:href="@{/salaryPaymentDetails(id=${teacher.id})}"><button
+													type="button" class="btn btn-warning">Cancel</button></a>
+
+										</div>
+
 									</div>
+								</form>
 
 
-									<div class="col-lg-12 col-md-12 col-sm-12">
-										<br>
-										<button type="submit" class="btn btn-primary" id="submitBtn" disabled>Submit</button>
-												<a th:href="@{/salaryPaymentDetails(id=${teacher.id})}"><button type="button" class="btn btn-warning">Cancel</button></a>
-										
-									</div>
 
-								</div>
-							</form>
-							
+
+
+							</div>
+
 						</div>
 					</div>
+
 				</div>
+				<!-- End of content-wrapper -->
 
-
-
-
-
-			</main>
-			<th:block th:insert="Footer.html"></th:block>
+				<!-- Footer -->
+				<div th:replace="~{_footer.html}"></div>
+			</div>
+			<!-- End of main-panel -->
 		</div>
+		<!-- End of page-body-wrapper -->
 	</div>
-	<script>
+	<!-- JavaScript and Bootstrap links -->
+	<div th:replace="~{_Javascript.html}"></div>
+
+	
+<script>
     // Function to enable/disable submit button based on checkbox selection
     document.addEventListener('DOMContentLoaded', function() {
         const checkboxes = document.querySelectorAll('.month-checkbox');
@@ -184,27 +247,29 @@
         // Run the function initially in case the form is loaded with pre-selected checkboxes
         toggleSubmitButton();
     });
-    
-    
+
     window.onload = function() {
-		   var message ="[[${message}]]"; 
-     var status = "[[${status}]]";
-		    if (message !== 'null' && message !== '') {
-		        document.getElementById("popup-overlay").style.display = "block";
-		        document.getElementById("popup").style.display = "block";
+        var message = "[[${message}]]";
+        var status = "[[${status}]]";
+        if (message !== 'null' && message !== '') {
+            document.getElementById("popup-overlay").style.display = "block";
+            document.getElementById("popup").style.display = "block";
 
-		        if (status === "success") {
-		            document.getElementById("popup-message").innerText = message;
-		        } else if (status === "error") {
-		            document.getElementById("popup-message").innerText = "Error: " + message;
-		        }
-		    }
-		};
+            if (status === "success") {
+                document.getElementById("popup").classList.add("success");
+                document.getElementById("popup-message").innerText = message;
+            } else if (status === "error") {
+                document.getElementById("popup").classList.add("error");
+                document.getElementById("popup-message").innerText = "Error: " + message;
+            }
+        }
+    };
 
-		function closePopup() {
-			document.getElementById("popup-overlay").style.display = "none";
-			document.getElementById("popup").style.display = "none";
-		}
+    function closePopup() {
+        document.getElementById("popup-overlay").style.display = "none";
+        document.getElementById("popup").style.display = "none";
+    }
 </script>
 </body>
+
 </html>

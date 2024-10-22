@@ -1,281 +1,287 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Admin Panel - Salary Payment Details</title>
+<!-- Link to your custom styles -->
+<div th:replace="~{_css.html}"></div>
 </head>
-<body class="sb-nav-fixed">
-	<th:block th:insert="TopNavBar.html"></th:block>
-	<div id="layoutSidenav">
-		<th:block th:insert="SideNavBar.html"></th:block>
-		<div id="layoutSidenav_content">
-			<main>
+
+<body>
+	<div class="container-scroller">
+		<!-- Topbar with navigation -->
+		<div th:replace="~{_topbar.html}"></div>
+
+		<div class="container-fluid page-body-wrapper">
+			<!-- Sidebar for admin links -->
+			<div th:replace="~{_settings-panel.html}"></div>
+			<div th:replace="~{_sidebar.html}"></div>
+
+			<!-- Main content area -->
+			<div class="main-panel">
+				<div class="content-wrapper">
 
 
-				<div class="row">
-					<div class="col-lg-3">
-						<div class="student-personals-grp">
-							<div class="card">
-								<div class="card-body">
-									<div class="heading-detail">
-										<h4>Personal Details :</h4>
-									</div>
-									<div class="personal-activity">
-										<div class="personal-icons">
-											<img
-												th:src="@{'teacherImages/'+${teacherModel.email}+'.jpg'}"
-												width="90px" style="border-radius: 50%;">
-										</div>
-									</div>
-									<div class="personal-activity">
-										<div class="personal-icons">
-											<i class="feather-user"></i>
-										</div>
+					<!-- Faculty form card -->
+					<!-- Main content area -->
+					<div>
+						<div class="row">
+							<!-- Left column for student details -->
+							<div class="col-lg-3">
+								<div class="student-personals-grp">
+									<div class="card shadow-sm border-0">
+										<div class="card-body p-4">
+											<div class="heading-detail mb-4">
+												<h4 class="card-title text-primary">Personal Details</h4>
+											</div>
 
-										<div class="views-personal">
-											<h4>Name</h4>
-											<h5>[[${teacherModel.fullName}]]</h5>
-										</div>
-									</div>
-									<div class="personal-activity">
+											<!-- Student Image -->
+											<div class="text-center mb-4">
+												<img
+													th:src="@{'teacherImages/'+${teacherModel.email}+'.jpg'}"
+													class="rounded-circle img-thumbnail" alt="Student Image"
+													style="height: 100px; width: 100px;">
+											</div>
 
-										<div class="views-personal">
-											<h4>Faculty</h4>
-											<h5>[[${teacherModel.faculty.name}]]</h5>
-										</div>
-									</div>
-									<div class="personal-activity">
-										<div class="personal-icons">
-											<i class="feather-phone-call"></i>
-										</div>
-										<div class="views-personal">
-											<h4>Grade</h4>
-											<h5>[[${teacherModel.grade}]]</h5>
-										</div>
-									</div>
-									<div class="personal-activity">
-										<div class="personal-icons">
-											<i class="feather-phone-call"></i>
-										</div>
-										<div class="views-personal">
-											<h4>Section</h4>
-											<h5>[[${teacherModel.section}]]</h5>
-										</div>
-									</div>
-									<div class="personal-activity">
-										<div class="personal-icons">
-											<i class="feather-phone-call"></i>
-										</div>
-										<div class="views-personal">
-											<h4>Subject</h4>
-											<h5>[[${teacherModel.subject.name}]]</h5>
-										</div>
-									</div>
-									<div class="personal-activity">
-										<div class="personal-icons">
-											<i class="feather-phone-call"></i>
-										</div>
-										<div class="views-personal">
-											<h4>E-mail</h4>
-											<h5>[[${teacherModel.email}]]</h5>
-										</div>
-									</div>
-									<div class="personal-activity">
-										<div class="personal-icons">
-											<i class="feather-phone-call"></i>
-										</div>
-										<div class="views-personal">
-											<h4>Experience</h4>
-											<h5>[[${teacherModel.experience}]]</h5>
-										</div>
-									</div>
-									<div class="personal-activity">
-										<div class="personal-icons">
-											<i class="feather-phone-call"></i>
-										</div>
-										<div class="views-personal">
-											<h4>Qualification</h4>
-											<h5>[[${teacherModel.qualification}]]</h5>
-										</div>
-									</div>
+											<!-- Details List -->
+											<ul class="list-unstyled">
+												<li class="d-flex align-items-center mb-3"><i
+													data-feather="user" class="me-3 text-secondary"></i>
+													<div>
+														<h5 class="mb-1">Name</h5>
+														<p class="text-muted mb-0">[[${teacherModel.fullName}]]</p>
+													</div></li>
 
-									<div class="personal-activity">
-										<div class="personal-icons">
-											<i class="feather-user"></i>
-										</div>
-										<div class="views-personal">
-											<h4>Gender</h4>
-											<h5>[[${teacherModel.gender}]]</h5>
-										</div>
-									</div>
-									<div class="personal-activity">
-										<div class="personal-icons">
-											<i class="feather-phone-call"></i>
-										</div>
-										<div class="views-personal">
-											<h4>Mobile Number</h4>
-											<h5>[[${teacherModel.mobileNumber}]]</h5>
-										</div>
-									</div>
+												<li class="d-flex align-items-center mb-3"><i
+													data-feather="book" class="me-3 text-secondary"></i>
+													<div>
+														<h5 class="mb-1">Faculty</h5>
+														<p class="text-muted mb-0">[[${teacherModel.faculty.name}]]</p>
+													</div></li>
 
-									<div class="personal-activity">
-										<div class="personal-icons">
-											<i class="feather-user"></i>
-										</div>
-										<div class="views-personal">
-											<h4>Date of Birth</h4>
-											<h5>[[${teacherModel.dob}]]</h5>
-										</div>
-									</div>
-									<div class="personal-activity">
-										<div class="personal-icons">
-											<i class="feather-user"></i>
-										</div>
-										<div class="views-personal">
-											<h4>Join Date</h4>
-											<h5>[[${teacherModel.joinDate}]]</h5>
-										</div>
-									</div>
-									<div class="personal-activity">
-										<div class="personal-icons">
-											<i class="feather-user"></i>
-										</div>
-										<div class="views-personal">
-											<h4>City</h4>
-											<h5>[[${teacherModel.address.city}]]</h5>
-										</div>
-									</div>
-									<div class="personal-activity">
-										<div class="personal-icons">
-											<i class="feather-user"></i>
-										</div>
-										<div class="views-personal">
-											<h4>State</h4>
-											<h5>[[${teacherModel.address.state}]]</h5>
-										</div>
-									</div>
-									<div class="personal-activity">
-										<div class="personal-icons">
-											<i class="feather-phone-call"></i>
-										</div>
-										<div class="views-personal">
-											<h4>UserName</h4>
-											<h5>[[${teacherModel.username}]]</h5>
-										</div>
-									</div>
-									<div class="personal-activity">
-										<div class="personal-icons">
-											<i class="feather-phone-call"></i>
-										</div>
-										<div class="views-personal">
-											<h4>Password</h4>
-											<h5>[[${teacherModel.password}]]</h5>
-										</div>
-									</div>
+												<li class="d-flex align-items-center mb-3"><i
+													data-feather="phone-call" class="me-3 text-secondary"></i>
+													<div>
+														<h5 class="mb-1">Grade</h5>
+														<p class="text-muted mb-0">[[${teacherModel.grade}]]</p>
+													</div></li>
 
+												<li class="d-flex align-items-center mb-3"><i
+													data-feather="mail" class="me-3 text-secondary"></i>
+													<div>
+														<h5 class="mb-1">Section</h5>
+														<p class="text-muted mb-0">[[${teacherModel.section}]]</p>
+													</div></li>
+
+												<li class="d-flex align-items-center mb-3"><i
+													data-feather="user-check" class="me-3 text-secondary"></i>
+													<div>
+														<h5 class="mb-1">Subject</h5>
+														<p class="text-muted mb-0">[[${teacherModel.subject.name}]]</p>
+													</div></li>
+
+												<li class="d-flex align-items-center mb-3"><i
+													data-feather="users" class="me-3 text-secondary"></i>
+													<div>
+														<h5 class="mb-1">E-mail</h5>
+														<p class="text-muted mb-0">[[${teacherModel.email}]]</p>
+													</div></li>
+
+												<li class="d-flex align-items-center mb-3"><i
+													data-feather="phone" class="me-3 text-secondary"></i>
+													<div>
+														<h5 class="mb-1">Experience</h5>
+														<p class="text-muted mb-0">[[${teacherModel.experience}]]</p>
+													</div></li>
+
+												<li class="d-flex align-items-center mb-3"><i
+													data-feather="calendar" class="me-3 text-secondary"></i>
+													<div>
+														<h5 class="mb-1">Qualification</h5>
+														<p class="text-muted mb-0">[[${teacherModel.qualification}]]</p>
+													</div></li>
+
+												<li class="d-flex align-items-center mb-3"><i
+													data-feather="calendar" class="me-3 text-secondary"></i>
+													<div>
+														<h5 class="mb-1">Gender</h5>
+														<p class="text-muted mb-0">[[${teacherModel.gender}]]</p>
+													</div></li>
+
+												<li class="d-flex align-items-center mb-3"><i
+													data-feather="map-pin" class="me-3 text-secondary"></i>
+													<div>
+														<h5 class="mb-1">Mobile Number</h5>
+														<p class="text-muted mb-0">[[${teacherModel.mobileNumber}]]</p>
+													</div></li>
+
+												<li class="d-flex align-items-center"><i
+													data-feather="map" class="me-3 text-secondary"></i>
+													<div>
+														<h5 class="mb-1">Date of Birth</h5>
+														<p class="text-muted mb-0">[[${teacherModel.dob}]]</p>
+													</div></li>
+
+												<li class="d-flex align-items-center mb-3"><i
+													data-feather="map-pin" class="me-3 text-secondary"></i>
+													<div>
+														<h5 class="mb-1">Join Date</h5>
+														<p class="text-muted mb-0">[[${teacherModel.joinDate}]]</p>
+													</div></li>
+
+												<li class="d-flex align-items-center mb-3"><i
+													data-feather="map-pin" class="me-3 text-secondary"></i>
+													<div>
+														<h5 class="mb-1">City</h5>
+														<p class="text-muted mb-0">[[${teacherModel.address.city}]]</p>
+													</div></li>
+
+												<li class="d-flex align-items-center mb-3"><i
+													data-feather="map-pin" class="me-3 text-secondary"></i>
+													<div>
+														<h5 class="mb-1">State</h5>
+														<p class="text-muted mb-0">[[${teacherModel.address.state}]]</p>
+													</div></li>
+
+												<li class="d-flex align-items-center mb-3"><i
+													data-feather="map-pin" class="me-3 text-secondary"></i>
+													<div>
+														<h5 class="mb-1">UserName</h5>
+														<p class="text-muted mb-0">[[${teacherModel.username}]]</p>
+													</div></li>
+
+												<li class="d-flex align-items-center mb-3"><i
+													data-feather="map-pin" class="me-3 text-secondary"></i>
+													<div>
+														<h5 class="mb-1">Password</h5>
+														<p class="text-muted mb-0">[[${teacherModel.password}]]</p>
+													</div></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<!-- Right column for fee details and payment history -->
+							<div class="col-lg-9">
+								<div class="student-personals-grp">
+									<div class="card mb-0">
+										<div class="card-body">
+											<h3 class="mt-4">Salary List</h3>
+
+											<!-- Responsive Table for Invoices -->
+											<div class="table-responsive">
+												<table id="datatablesSimple"
+													class="table display expandable-table table-striped table-hover">
+													<thead>
+														<tr>
+															<th>Month</th>
+															<th>Period</th>
+															<th>AMOUNT</th>
+															<th>Amount Paid</th>
+															<th>Amount Remaining</th>
+															<th>Pay Date</th>
+															<th>Status</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr th:each=s:${salaryList}>
+
+															<td>[[${s.month}]]</td>
+
+															<td>[[${s.period}]]</td>
+															<td>[[${s.amount}]]</td>
+															<td>[[${s.amountPaid}]]</td>
+															<td>[[${s.amount-s.amountPaid}]]</td>
+															<td>[[${s.payDate}]]</td>
+															<td>[[${s.status}]]</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+
+											<!-- Payment Button -->
+											<div>
+												<a th:if="!${allPaid}"
+													th:href="@{/teacherPayment(id=${teacherModel.id})}">
+													<button class="btn btn-success">Pay</button>
+												</a>
+
+												<button class="btn btn-success" th:if="${allPaid}" disabled>Pay</button>
+												<a href="/salaryList"><button type="button"
+														class="btn btn-warning">Back</button></a>
+
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<br>
+
+								<!-- Payment History Section -->
+								<div class="student-personals-grp">
+									<div class="card mb-0">
+										<div class="card-body">
+											<h3 class="mt-4">Salary History</h3>
+
+											<!-- Responsive Table for Payment History -->
+											<div class="table-responsive">
+												<table id="datatablesSimple1"
+													class="table display expandable-table table-striped table-hover">
+													<thead>
+														<tr>
+															<th>Month</th>
+															<th>Amount</th>
+															<th>Date and Time</th>
+															<th>Paid with</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr th:each="p:${paymentHistory}">
+															<td>[[${p.month}]]</td>
+															<td>[[${p.amount}]]</td>
+															<td>[[${p.date}]], [[${p.time}]]</td>
+
+															<td>[[${p.paidWith}]]</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+
+											<!-- Back Button -->
+											<a href="/salaryList">
+												<button type="button" class="btn btn-warning">Back</button>
+											</a>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
-
-					</div>
-					<div class="col-lg-9">
-						<div class="student-personals-grp">
-							<div class="card mb-0">
-								<div class="card-body">
-									<h3 class="mt-4">Salary List</h3>
-									<table id="datatablesSimple">
-										<thead>
-											<tr>
-
-												<th>Month</th>
-
-												<th>Period</th>
-												<th>AMOUNT</th>
-												<th>Amount Paid</th>
-												<th>Amount Remaining</th>
-												<th>Pay Date</th>
-												<th>Status</th>
-
-											</tr>
-										</thead>
-										<tbody>
-
-											<tr th:each=s:${salaryList}>
-
-												<td>[[${s.month}]]</td>
-
-												<td>[[${s.period}]]</td>
-												<td>[[${s.amount}]]</td>
-												<td>[[${s.amountPaid}]]</td>
-												<td>[[${s.amount-s.amountPaid}]]</td>
-												<td>[[${s.payDate}]]</td>
-												<td>[[${s.status}]]</td>
-											</tr>
-
-										</tbody>
-									</table>
-									<div>
-										<a th:if="!${allPaid}"
-											th:href="@{/teacherPayment(id=${teacherModel.id})}">
-											<button class="btn btn-success">Pay</button>
-										</a>
-
-										<button class="btn btn-success" th:if="${allPaid}" disabled>Pay</button>
-										<a href="/salaryList"><button type="button"
-												class="btn btn-warning">Back</button></a>
-
-									</div>
-
-
-
-								</div>
-							</div>
-						</div>
-
-
-						<br>
-
-
-
-						<div class="student-personals-grpp">
-							<div class="card mb-0">
-								<div class="card-body">
-									<h3 class="mt-4">Salary History</h3>
-									<table id="datatablesSimple1">
-										<thead>
-											<tr>
-												<th>Month</th>
-												<th>Amount</th>
-												<th>Date And Time</th>
-
-												<th>Paid With</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr th:each="p:${paymentHistory}">
-												<td>[[${p.month}]]</td>
-												<td>[[${p.amount}]]</td>
-												<td>[[${p.date}]], [[${p.time}]]</td>
-
-												<td>[[${p.paidWith}]]</td>
-											</tr>
-
-
-										</tbody>
-									</table>
-
-								</div>
-							</div>
-						</div>
-
-
-
-
 					</div>
 				</div>
-			</main>
-			<th:block th:insert="Footer.html"></th:block>
+				<!-- End of content-wrapper -->
+
+				<!-- Footer -->
+				<div th:replace="~{_footer.html}"></div>
+			</div>
+			<script
+				src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+				crossorigin="anonymous"></script>
+			<script src="js/datatables-simple-demo.js"></script>
+			<!-- End of main-panel -->
 		</div>
+		<!-- End of page-body-wrapper -->
 	</div>
+	<!-- JavaScript and Bootstrap links -->
+	<div th:replace="~{_Javascript.html}"></div>
+	<script type="text/javascript">
+		
+	</script>
 </body>
+
 </html>

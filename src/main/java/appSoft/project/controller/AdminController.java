@@ -45,7 +45,7 @@ public class AdminController {
 			return"Login";
 			
 		}
-		else return"AdminDashboard";
+		else return"AdminDashboard1";
 	}
 	
 	@GetMapping("/register")

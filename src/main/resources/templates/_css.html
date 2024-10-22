@@ -1,0 +1,179 @@
+
+<!-- plugins:css -->
+<link rel="stylesheet" href="vendors/feather/feather.css">
+<link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css">
+<link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+<!-- endinject -->
+<!-- Plugin css for this page -->
+<link rel="stylesheet"
+	href="vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+<link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css">
+<link rel="stylesheet" type="text/css"
+	href="js/select.dataTables.min.css">
+<!-- End plugin css for this page -->
+<!-- inject:css -->
+<link rel="stylesheet" href="css/vertical-layout-light/style.css">
+<!-- endinject -->
+<link rel="shortcut icon" href="images/favicon.png" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+body {
+	background-color: #e9ecef;
+}
+
+.student-card {
+	background-color: #fff;
+	padding: 30px;
+	border-radius: 20px;
+	max-width: 900px;
+	margin: 40px auto;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-pic {
+	width: 120px;
+	height: 120px;
+	border-radius: 10px;
+	object-fit: cover;
+}
+
+.info-section {
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	padding: 20px;
+	margin-bottom: 15px;
+	margin-top: 30px;
+}
+
+.info-label {
+	font-weight: bold;
+	color: #6c757d;
+}
+
+.student-info {
+	font-size: 16px;
+	color: #343a40;
+}
+
+.header {
+	font-size: 18px;
+	font-weight: bold;
+	color: #495057;
+	margin-bottom: 20px;
+}
+
+.download-btn {
+	display: block;
+	margin: 20px auto;
+}
+
+
+/* Base styles for the pagination */
+.datatable-pagination {
+    display: flex;
+    justify-content: center;
+    padding: 15px 0;
+    border-radius: 5px;
+}
+
+/* Pagination list */
+.datatable-pagination-list {
+    list-style: none;
+    display: flex;
+    gap: 10px; /* Space between items */
+    padding: 0;
+    margin: 0;
+        background-color: #4B49AC; /* Dark background */
+        border-radius: 10px;
+}
+
+/* Pagination items */
+.datatable-pagination-list-item {
+    margin: 0;
+}
+
+/* Links styling */
+.datatable-pagination-list-item-link {
+    display: inline-block;
+    padding: 10px 15px;
+    color: #ecf0f1; /* Light text color */
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover and active states */
+.datatable-pagination-list-item-link:hover {
+    background-color: #34495e; /* Darker on hover */
+    color: #ffffff; /* White text on hover */
+}
+
+.datatable-active .datatable-pagination-list-item-link {
+    background-color: #e74c3c; /* Active page highlight */
+    color: #ffffff; /* White text for active page */
+}
+
+/* Disabled state */
+.datatable-hidden.datatable-disabled .datatable-pagination-list-item-link {
+    pointer-events: none; /* Disable clicks */
+    color: #bdc3c7; /* Gray color for disabled links */
+}
+
+/* Container for search and selector */
+.datatable-search {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between input and select */
+    margin-bottom: 20px; /* Space below the search bar */
+}
+
+/* Search input styles */
+.datatable-input {
+    padding: 10px 15px;
+    border: 1px solid #bdc3c7; /* Light border */
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+    width: 200px; /* Set a fixed width */
+}
+
+/* Search input focus state */
+.datatable-input:focus {
+    border-color: #e74c3c; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Selector styles */
+.datatable-selector {
+    padding: 10px 15px;
+    border: 1px solid #bdc3c7; /* Light border */
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #ffffff; /* White background */
+    transition: border-color 0.3s ease;
+}
+
+/* Selector focus state */
+.datatable-selector:focus {
+    border-color: #e74c3c; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Option styles */
+.datatable-selector option {
+    padding: 10px; /* Add padding to options */
+}
+.datatable-top{
+display: flex;
+  justify-content: space-between;
+}
+
+.datatable-sorter{
+color: #fff;
+}
+.badge{
+border: none;
+}
+
+</style>

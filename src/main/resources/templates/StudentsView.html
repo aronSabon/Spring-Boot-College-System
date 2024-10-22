@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Admin Panel -Student View</title>
+<!-- Link to your custom styles -->
+<div th:replace="~{_css.html}"></div>
+</head>
+
+<body>
+	<div class="container-scroller">
+		<!-- Topbar with navigation -->
+		<div th:replace="~{_topbar.html}"></div>
+
+		<div class="container-fluid page-body-wrapper">
+			<!-- Sidebar for admin links -->
+			<div th:replace="~{_settings-panel.html}"></div>
+			<div th:replace="~{_sidebar.html}"></div>
+
+			<!-- Main content area -->
+			<div class="main-panel"  th:object="${sModel}">
+				<div class="content-wrapper">
+					<!-- Page header -->
+					<div class="d-flex justify-content-between align-items-center mb-4">
+						<h1 class="h3 text-dark">View Students</h1>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+							<li class="breadcrumb-item"><a href="/studentList">Student List </a></li>
+							<li class="breadcrumb-item active">[[${sModel.fullName}]]</li>
+						</ol>
+					</div>
+
+					
+							<form action="/updateStudent" method="post">
+								<div class="student-card" id="studentCard">
+        <!-- Header Section -->
+        <div class="row">
+            <div class="col-md-3 text-center">
+                <img th:src="@{/studentImages/{img}(img=${sModel.imageName})}" alt="Profile Picture" class="profile-pic">
+            </div>
+            <div class="col-md-9">
+                <div class="header">Student Information</div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="info-label">Name:</p>
+                        <p class="student-info" th:text="*{fullName}">Harishankar Sah</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="info-label">Roll No:</p>
+                        <p class="student-info" th:text="*{rollNo}">2001</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Personal Details Section -->
+        <div class="info-section">
+            <div class="row">
+                <div class="col-md-4">
+                    <p class="info-label">Id:</p>
+                    <p class="student-info" th:text="*{id}">001</p>
+                </div>
+                <div class="col-md-4">
+                    <p class="info-label">DOB:</p>
+                    <p class="student-info" th:text="*{dob}">2024-03-20</p>
+                </div>
+                <div class="col-md-4">
+                    <p class="info-label">Gender:</p>
+                    <p class="student-info"th:text="*{gender}">Male</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Academic Details Section -->
+        <div class="info-section">
+            <div class="row">
+                <div class="col-md-4">
+                    <p class="info-label">Grade:</p>
+                    <p class="student-info" th:text="*{grade}">13</p>
+                </div>
+                <div class="col-md-4">
+                    <p class="info-label">Section:</p>
+                    <p class="student-info" th:text="*{section}">C</p>
+                </div>
+                <div class="col-md-4">
+                    <p class="info-label">Faculty:</p>
+                    <p class="student-info">[[${sModel.faculty.name}]]</p>
+                </div>
+            </div>
+        </div>
+        
+          <!-- Address Information Section -->
+        <div class="info-section">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="info-label">Cite:</p>
+                    <p class="student-info" th:text="*{address.city}"></p>
+                </div>
+                <div class="col-md-6">
+                    <p class="info-label">State:</p>
+                    <p class="student-info" th:text="*{address.state}"></p>
+                </div>
+                 <div class="col-md-6">
+                    <p class="info-label">Mobile:</p>
+                    <p class="student-info" th:text="*{mobileNumber}">9800000000</p>
+                </div>
+                <div class="col-md-6">
+                    <p class="info-label">Email:</p>
+                    <p class="student-info" th:text="*{email}">sahhari123@gmail.com</p>
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- Contact Information Section -->
+        <div class="info-section">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="info-label">Parent Name:</p>
+                    <p class="student-info" th:text="*{parentName}">father Name</p>
+                </div>
+                <div class="col-md-6">
+                    <p class="info-label">Parent Mobile:</p>
+                    <p class="student-info" th:text="*{parentMobileNumber}">9811111111</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admission Information Section -->
+        <div class="info-section">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="info-label">Admission Date:</p>
+                    <p class="student-info" th:text="*{admissionDate}">23 Sep 2024</p>
+                </div>
+            </div>
+        </div>
+    </div>
+							</form>
+
+
+
+				</div>
+				<!-- End of content-wrapper -->
+				
+    <!-- Download PDF Button -->
+    <button class="btn btn-primary download-btn" onclick="downloadPDF()">Download PDF</button>
+
+				<!-- Footer -->
+				<div th:replace="~{_footer.html}"></div>
+			</div>
+			<!-- End of main-panel -->
+		</div>
+		<!-- End of page-body-wrapper -->
+	</div>
+	<!-- JavaScript and Bootstrap links -->
+	<div th:replace="~{_Javascript.html}"></div>
+	<script>
+		$(function() {
+			$("#datepicker").datepicker({
+				dateFormat : "dd-mm-yy", // Set the format to dd-mm-yyyy
+				changeMonth : true,
+				changeYear : true
+			});
+		});
+	</script>
+
+</body>
+
+</html>

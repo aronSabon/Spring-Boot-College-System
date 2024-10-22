@@ -54,6 +54,7 @@ public class SubjectController {
 	@GetMapping("/editSubject")
 	private String editSubject(@RequestParam int id,Model model) {
 		model.addAttribute("sModel",ss.getSubjectById(id));
+		model.addAttribute("facultyList",facultyService.getAllFaculty());
 		return "EditSubject";
 	}
 	@PostMapping("/updateSubject")
